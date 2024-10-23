@@ -7,6 +7,6 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://estudio-juridico-cabrera.vercel.app',
   integrations: [vue (),tailwind(), mdx(), sitemap()],
 });

@@ -6,20 +6,23 @@ import SocialLinks from "../../components/SocialLinks.astro";
 
 <Layout title="CONTÁCTENOS | ESTUDIO JURÍDICO CABRERA" description="este es una descripcion de contactenos" >
     <section class="section__contact-us ">
-        <div class="container mx-auto  p-4 flex flex-wrap gap-5 text-white justify-center xl:justify-start">
+        <div class="container mx-auto p-4 flex flex-wrap gap-5 text-white justify-center xl:justify-start">
             <div class="w-[250px] object-cover">
                 <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1729079228/contactanos_m3r8fa.png"
-                     alt="contact-us"></div>
-            <div class=""><h2 class="text-2xl ">Información de contacto</h2>
-                <ul class="font-['Assistant'] pl-3 gap-2 mt-2 text-xl">
-                    <li>Número telefónico: +51 965 860 535</li>
-                    <li>Whatsapp: <a href="wa.link/5iwy3c" target="_blank" class="underline">Link de
+                     alt="contact-us">
+            </div>
+            <div class="w-full sm:w-auto">
+                <h2 class="text-2xl">Información de contacto</h2>
+                <ul class="font-['Assistant'] pl-3 mt-2 text-xl break-words">
+                    <li class="my-2"><a href="tel:+51965860535">Número telefónico: +51 965 860 535</a></li>
+                    <li class="my-2"><a href="https://wa.link/5iwy3c" target="_blank" class="underline break-all">Whatsapp: Link de
                         whatsapp </a>
                     </li>
-                    <li>Correo: <a href="mailto:contacto@estudiojuridicocabrera.com">contacto@estudiojuridicocabrera.com</a></li>
+                    <li class="my-2">Correo: <a href="mailto:contacto@estudiojuridicocabrera.com" class="break-all">contacto@estudiojuridicocabrera.com</a></li>
                 </ul>
             </div>
         </div>
+
         <SocialLinks/>
     </section>
     <section class="text-gray-600 body-font relative">

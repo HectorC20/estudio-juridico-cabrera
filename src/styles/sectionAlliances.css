@@ -1,7 +1,7 @@
 .section__cont__info {
-    @apply relative bg-secondaryLocal py-[4rem] lg:pt-[4rem] xl:pt-[5rem] lg:pb-0 xl:pb-0 !important;
-    background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
-    animation: slideDown 1s ease-in-out; /* Aplica la animación aquí */
+    @apply relative  py-[4rem] lg:pt-[4rem] xl:pt-[5rem] lg:pb-0 xl:pb-0 !important;
+    /*background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");*/
+    /*animation: slideDown 1s ease-in-out; !* Aplica la animación aquí *!*/
 }
 
 .animation-bottom {
@@ -28,7 +28,8 @@
 }
 
 .section__heading {
-    @apply text-3xl font-bold text-center text-primaryLocal mb-8;
+
+    @apply text-3xl font-bold text-center text-secondaryLocal mb-8;
 }
 
 .section__grid {
@@ -36,7 +37,7 @@
 }
 
 .section__card {
-    @apply w-[100%] h-auto bg-white shadow-md rounded-lg overflow-hidden;
+    @apply  w-[100%] h-auto bg-white shadow-lg shadow-secondaryLocal/30 rounded-t-lg overflow-hidden;
 }
 
 .section__card__img {
@@ -44,11 +45,12 @@
 }
 
 .section__card__content {
-    @apply p-6;
+    background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+    @apply shadow-lg shadow-secondaryLocal/30 p-6 bg-secondaryLocal mb-4 rounded-b-lg !important;
 }
 
 .section__card__title {
-    @apply text-lg font-semibold text-gray-800 uppercase;
+    @apply text-lg font-semibold text-primaryLocal uppercase;
 }
 
 .section__card__desc {
@@ -76,7 +78,10 @@
     cursor: pointer;
     margin-top:-8em ;
 }
+.swiper-button-next,.swiper-button-prev{
 
+    @apply text-secondaryLocal !important;
+}
 #swiper-pagination-client {
     bottom: 10px;
     text-align: center;
@@ -127,4 +132,10 @@
     @apply bg-primaryLocal;
 
     opacity: 1;
+}
+.section__part__alliances {
+    background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+    @apply relative bg-secondaryLocal mx-auto -mt-6 lg:-mt-4 xl:-mt-5 mb-10 text-primaryLocal font-semibold py-8;
+    animation: slideDown 1s ease-in-out;
+    z-index: 1; /* Ajustamos el z-index para evitar que los elementos se queden atrás */
 }

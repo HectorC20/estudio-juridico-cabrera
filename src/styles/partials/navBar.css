@@ -1,0 +1,59 @@
+@tailwind utilities;
+
+@layer utilities {
+    .ease-bezier {
+        transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+}
+
+/* Barra inferior fija */
+.bottom-nav {
+    @apply fixed px-[3vh] pt-[3vh] bottom-0 left-1/2 transform -translate-x-1/2 transition-all duration-500 ease-bezier pb-[10vh] lg:pb-0 lg:hover:pb-[10vh];
+    z-index: 30;
+}
+
+/* Contenedor general de la navegación */
+.fnt-nav {
+    @apply rounded-full  w-[70vw] sm:w-[50vw] md:w-[40vw] lg:w-[30vw] flex justify-around -mb-[7vh]  shadow-xl border xl:border-2 border-fifthLocal;
+}
+/* Contenido de la navegación */
+.nav-content {
+    background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+
+    @apply w-full flex justify-around items-center bg-secondaryLocal rounded-full ;
+}
+
+/* Estilos para cada elemento de la barra de navegación */
+.bottom-nav .nav-item {
+    @apply text-white no-underline text-center flex-1 flex flex-col items-center justify-center;
+}
+
+/* Asegura que los íconos y el texto estén alineados verticalmente */
+.nav-item {
+    @apply  hover:bg-tertiaryLocal;
+}
+
+/* Estilos para el primer y último ítem de la barra */
+.nav-item:first-child {
+    @apply rounded-l-full;
+}
+
+.nav-item:last-child {
+    @apply rounded-r-full border-l border-fifthLocal;
+}
+
+/* Estilo para los iconos dentro de los elementos */
+.bottom-nav .nav-item i {
+    @apply text-lg mb-1;
+}
+
+/* Estilo para el texto debajo de los iconos */
+.bottom-nav .nav-item span {
+    @apply block text-xs;
+}
+
+/* Iconos */
+.fas {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}

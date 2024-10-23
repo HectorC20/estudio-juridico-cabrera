@@ -1,0 +1,104 @@
+.section-header {
+    @apply absolute text-primaryLocal w-full mt-4  z-20 bg-none ;
+}
+
+.section-header-other {
+    background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+    @apply absolute text-primaryLocal w-full pt-4 pb-2 lg:pb-1 xl:pb-0.5 z-20 bg-secondaryLocal shadow-lg shadow-secondaryLocal/30;
+}
+
+.header-container {
+    @apply xl:container mx-auto hidden flex-wrap lg:px-4 xl:px-5 py-2 flex-col md:flex-row items-center justify-between relative lg:flex ;
+}
+
+.section-nav {
+    @apply flex-1 flex items-center justify-end  lg:pr-0;
+}
+
+.section-nav a {
+    font-family: "Archivo Black", sans-serif;
+    @apply inline-flex xl:text-xl mr-4 hover:text-primaryLocal;
+}
+
+
+.section-nav a img {
+    @apply opacity-0 transform scale-75 translate-y-5 transition-all duration-500 ease-in-out;
+}
+
+.section-nav a:hover img {
+    @apply opacity-100 transform scale-100 translate-y-0;
+}
+
+.logo {
+    @apply relative z-30;
+}
+
+/*Estilo para los teléfonos*/
+.header-mobile-menu {
+
+    @apply w-full lg:hidden px-6  flex justify-between items-center;
+}
+
+.image-logo-mobile {
+    @apply h-10  w-auto;
+}
+
+#header-drawer, #drawer-content {
+    @apply w-8 !important
+}
+
+.header-logo-menu-drawer {
+    @apply flex justify-center h-14;
+}
+
+.drawer-action {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.header-logo, .drawer {
+    @apply h-8 w-8 !important;
+}
+
+.drawer-side {
+    z-index: 2;
+}
+
+.drawer-header {
+    @apply btn btn-primary drawer-button;
+}
+
+.list-menu-mobile li {
+
+    @apply border-b text-sm font-semibold;
+}
+
+.list-menu-mobile {
+    background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+
+}
+
+.menu-drawer {
+    @apply menu bg-secondaryLocal text-primaryLocal min-h-full w-[70%] p-4;
+}
+
+.icon-menu-mobile {
+    @apply h-4;
+}
+
+.edit-logo {
+    background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+    @apply h-[12vh] pb-1.5 px-1.5 rounded-xl absolute bg-secondaryLocal shadow-lg shadow-secondaryLocal/30;
+}
+
+#especialidades-menu {
+    background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+    @apply  shadow-xl shadow-secondaryLocal/30 bg-secondaryLocal w-[100%] absolute z-10 left-[50%] transform translate-x-[-50%]  !important;
+    top: calc(100%  ); /* Ajusta para que aparezca justo debajo del nav */
+}
+
+.font-asa {
+    font-family: "Asap Condensed", sans-serif;
+    @apply text-sm xl:text-lg font-light  !important;
+}

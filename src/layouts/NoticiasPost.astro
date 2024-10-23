@@ -1,0 +1,48 @@
+---
+import type {CollectionEntry} from 'astro:content';
+import '../styles/noticias.css';
+import FormattedDate from '../components/FormattedDate.astro';
+import Layout from "./Layout.astro";
+type Props = CollectionEntry<'noticias'>['data'];
+const {title, description, pubDate, updatedDate, heroImage} = Astro.props;
+---
+
+<html lang="en">
+<Layout title={title} description={description}>
+    <main class="py-[2rem] xl:py-[4rem]">
+        <article>
+            <div class="hero-image">
+                {heroImage && <img src={heroImage}  alt=""/>}
+                <h1 class="notice__title">{title}</h1>
+
+                <div class="cont__publ">
+                    <FormattedDate date={pubDate}/>
+                    <div class="icons__publ">
+                        <img alt="facebook" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/facebook_jsyy4v.svg">
+                        <img alt="twitter" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946785/twitter_j5muqs.svg">
+                        <img alt="whatsapp" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946785/whatsapp_ssklfl.svg">
+                        <img alt="linkedin" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/linkedin_zzh7cn.svg">
+                        <img alt="pinterest" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/pinterest_vl2gtg.svg">
+                    </div>
+                </div>
+
+            </div>
+            <div class="prose">
+                <div class="title">
+                    <div class="date">
+                        {updatedDate && (
+                                <div class="last-updated-on">
+                                    Last updated on
+                                    <FormattedDate date={updatedDate}/>
+                                </div>
+                        )}
+                    </div>
+                    <hr/>
+                </div>
+                <slot/>
+            </div>
+        </article>
+    </main>
+</Layout>
+</html>
+

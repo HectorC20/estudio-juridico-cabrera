@@ -1,0 +1,69 @@
+---
+import CardClient from "./CardClient.astro";
+import '../styles/sectionAlliances.css';
+import {getCollection} from "astro:content";
+import "../../node_modules/swiper/swiper-bundle.min.css";
+
+const postsClient = (await getCollection('alianzas')).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const postsAssociate = (await getCollection('asociados')).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<section class="section__cont__info">
+    <div class="section__container">
+        <h2 class="section__heading">CLIENTES</h2>
+
+        <!-- Swiper para clientes -->
+        <div id="swiper-client" class="swiper-container" >
+            <div class="swiper-wrapper">
+                {postsClient.map((post) => (
+                        <div class="swiper-slide">
+                            <CardClient
+                                    src={post.data.src || 'https://res.cloudinary.com/dixzojb4s/image/upload/v1729437484/cliente3_sjbzeo.jpg'}
+                                    alt={post.data.alt || 'imagen del cliente'}
+                                    nombre={post.data.nombre}
+                                    pubDate={post.data.pubDate}
+                            />
+                        </div>
+                ))}
+            </div>
+            <div id="swiper-button-next-client" class="swiper-button-next"></div>
+            <div id="swiper-button-prev-client" class="swiper-button-prev"></div>
+            <div id="swiper-pagination-client" class="swiper-pagination"></div>
+        </div>
+
+        <h1 class="section__heading pt-8">ASOCIADOS GLOBALES</h1>
+
+        <!-- Swiper para asociados -->
+        <div id="swiper-associate" class="swiper-container">
+            <div class="swiper-wrapper">
+                {postsAssociate.map((post) => (
+                        <div class="swiper-slide">
+                            <CardClient
+                                    src={post.data.src || 'https://res.cloudinary.com/dixzojb4s/image/upload/v1729437484/cliente3_sjbzeo.jpg'}
+                                    alt={post.data.alt || 'imagen del asociado'}
+                                    nombre={post.data.nombre}
+                                    pubDate={post.data.pubDate}
+                            />
+                        </div>
+                ))}
+            </div>
+            <div id="swiper-button-next-associate" class="swiper-button-next"></div>
+            <div id="swiper-button-prev-associate" class="swiper-button-prev"></div>
+            <div id="swiper-pagination-associate" class="swiper-pagination"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            import('../../src/scripts/swiper-carousel-alliances').then((module) => {
+                module.initializeSwiperClient('#swiper-client');
+                module.initializeSwiperAssociate('#swiper-associate');
+            });
+        });
+    </script>
+</section>
+

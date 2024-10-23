@@ -1,0 +1,83 @@
+
+
+.hero-image {
+    position: relative;
+    width: 100%;
+    height: 26rem;
+    overflow: visible; /* Cambiado de hidden a visible */
+}
+
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover !important;
+    @apply  bg-fixed bg-cover bg-center;
+}
+
+.hero-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(150deg, hsla(196, 20%, 19%, 0.6) 0%, hsla(197, 55%, 54%, 0.3) 100%);
+    pointer-events: none;
+    z-index: 1; /* Asegúrate de que este fondo tenga un z-index más bajo */
+}
+
+.notice__title {
+    position: absolute;
+    text-shadow: 2px 2px 4px rgba(15, 24, 37, 0.4);
+    font-family: "Archivo Black", sans-serif;
+    z-index: 3;
+    @apply text-center flex text-primaryLocal text-4xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl top-[18vw] xl:top-[8vw];
+}
+
+.prose{
+    margin-top: 3em ;
+}
+
+p {
+    margin-top: 0.25rem;
+    margin-bottom: 1em;
+}
+
+.prose h2{
+    text-transform: uppercase;
+@apply text-xl font-bold leading-tight text-tertiaryLocal;
+}
+
+.prose p {
+    img {
+        position: relative;
+        @apply flex mx-auto rounded-2xl shadow-xl shadow-secondaryLocal/20 h-[40vh] md:h-[50vh] lg:h-[55vh] xl:h-[60vh];
+    }
+    margin-bottom: 2em;
+    @apply text-lg;
+    text-align: justify; /* Justifica el texto para que ocupe todo el ancho */
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+}
+
+.prose {
+    @apply w-[80vw] lg:w-[70vw] xl:w-[60vw] mx-auto;
+}
+
+.cont__publ {
+    @apply absolute text-primaryLocal flex flex-row items-center justify-center text-center rounded-2xl h-auto w-[90vw] sm:w-[58vw] md:w-[38vw] lg:w-[32vw] xl:w-[26vw] bg-secondaryLocal bottom-0 left-1/2 transform -translate-x-1/2 -mb-[6vh] xl:-mb-[5vh] shadow-lg shadow-secondaryLocal/30 font-semibold;
+    /* Ajusté el margen y la altura */
+    z-index: 3;
+    padding: 1rem; /* Ajuste de padding para dar más espacio */
+    max-height: 100%; /* Asegura que no haya recortes de altura */
+    background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+}
+
+.icons__publ {
+    @apply flex flex-row gap-2 xl:gap-3;
+
+    img {
+        @apply h-7 w-7 xl:h-8 xl:w-8;
+    }
+}
+
+

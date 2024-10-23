@@ -1,0 +1,88 @@
+---
+import '../../styles/partials/header.css';
+---
+<header class="section-header ">
+
+    <div class="header-mobile-menu">
+        <div class="drawer">
+            <input id="header-drawer" type="checkbox" class="drawer-toggle"/>
+            <div class="drawer-content">
+                <!-- Page content here -->
+                <label for="header-drawer">
+                    <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728507447/menu_f7euiu.svg"
+                         alt="Menu icon"
+                         class="header-logo">
+                </label>
+            </div>
+            <div class="drawer-side">
+                <label for="header-drawer" aria-label="Cerrar menú lateral" class="drawer-overlay"></label>
+                <div class="h-3 w-[70%] bg-tertiaryLocal z-[1]"></div>
+
+                <ul class="menu-drawer list-menu-mobile">
+                    <li><a href="/" aria-label="Ir al inicio"><img
+                            src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728397864/logo-horizontal-2-transparente-300x79_ymczkz.png"
+                            alt="Logo para telefono" class="header-logo-menu-drawer"></a></li>
+                    <!-- Sidebar content here -->
+                    <li><a href="/"><img
+                            src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728398825/home_tf4fcc.svg"
+                            alt="Inicio" class="icon-menu-mobile"> INICIO</a></li>
+                    <li><a href="/nosotros"><img
+                            src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435593/nosotros_a07ra2.svg"
+                            alt="Nosotros icono para telefono" class="icon-menu-mobile">NOSOTROS</a></li>
+                    <li><a href="/especialidades"><img
+                            src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435592/especialidades_ii5mme.svg"
+                            alt="Especialidades" class="icon-menu-mobile">ESPECIALIDADES</a></li>
+                    <li><a href="/alianzas"><img
+                            src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728440797/clientes_gs7lsg.svg"
+                            alt="Especialidades" class="icon-menu-mobile">ALIANZAS</a></li>
+                    <li><a href="/contactenos"><img
+                            src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435592/contactenos_lklald.svg"
+                            alt="Especialidades" class="icon-menu-mobile">CONTÁCTENOS</a></li>
+                    <li><a href="/brochure"><img
+                            src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435591/brochure_nur47r.svg"
+                            alt="Especialidades" class="icon-menu-mobile">BROCHURE</a></li>
+
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="header-container">
+        <a href="/" class="-mt-[10vh]">
+            <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728397864/logo-horizontal-2-transparente-300x79_ymczkz.png"
+                 alt="logo"
+                 class="h-[12vh] pb-1.5 px-1.5  absolute "/>
+            <!-- Usa logoEx como fuente de la imagen -->
+        </a>
+        <nav class="section-nav">
+            <a href="/nosotros">
+                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435593/nosotros_a07ra2.svg" alt="p"
+                     class="h-[5vh]">
+                <button type="button">NOSOTROS</button>
+            </a>
+            <a href="/especialidades">
+                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435592/especialidades_ii5mme.svg"
+                     alt="p" class="h-[5vh]">
+                <button type="button">ESPECIALIDADES</button>
+            </a>
+            <a href="/alianzas">
+                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728440797/clientes_gs7lsg.svg"
+                     alt="p" class="h-[5vh]">
+                <button type="button">ALIANZAS</button>
+            </a>
+            <a href="/contactenos">
+                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435592/contactenos_lklald.svg"
+                     alt="p" class="h-[5vh]">
+                <button type="button">CONTÁCTENOS</button>
+            </a>
+
+            <a href="/brochure">
+                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435591/brochure_nur47r.svg" alt="p"
+                     class="h-[5vh]">
+                <button type="button">BROCHURE</button>
+            </a>
+        </nav>
+    </div>
+</header>

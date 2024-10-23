@@ -1,0 +1,130 @@
+.section__cont__info {
+    @apply relative bg-secondaryLocal py-[4rem] lg:pt-[4rem] xl:pt-[5rem] lg:pb-0 xl:pb-0 !important;
+    background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+    animation: slideDown 1s ease-in-out; /* Aplica la animación aquí */
+}
+
+.animation-bottom {
+    animation: slideDown 1s ease-in-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.section__cont__info {
+    @apply py-12;
+}
+
+.section__container {
+    @apply container mx-auto px-6 pb-6;
+}
+
+.section__heading {
+    @apply text-3xl font-bold text-center text-primaryLocal mb-8;
+}
+
+.section__grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8;
+}
+
+.section__card {
+    @apply w-[100%] h-auto bg-white shadow-md rounded-lg overflow-hidden;
+}
+
+.section__card__img {
+    @apply w-full h-48 object-cover;
+}
+
+.section__card__content {
+    @apply p-6;
+}
+
+.section__card__title {
+    @apply text-lg font-semibold text-gray-800 uppercase;
+}
+
+.section__card__desc {
+    @apply text-gray-600 mt-2;
+}
+
+.swiper-container {
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+}
+
+.swiper-slide {
+    flex-shrink: 0;
+    width: auto;
+}
+
+/* Botones y paginación para el carrusel de clientes */
+#swiper-button-next-client,
+#swiper-button-prev-client {
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top:-8em ;
+}
+
+#swiper-pagination-client {
+    bottom: 10px;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+@apply mb-[28em] sm:mb-[26em] md:mb-[26em] lg:mb-[22em] xl:mb-[22em]
+}
+
+#swiper-pagination-client .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    opacity: 0.6;
+}
+
+#swiper-pagination-client .swiper-pagination-bullet-active {
+    @apply bg-primaryLocal;
+    opacity: 1;
+}
+
+/* Botones y paginación para el carrusel de asociados */
+#swiper-button-next-associate,
+#swiper-button-prev-associate {
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top:10em ;
+}
+
+#swiper-pagination-associate {
+    bottom: 10px;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    @apply mb-[0.35em] sm:mb-[0.45em] lg:mb-[-0.5em]  xl:mb-[-0.5em];
+}
+
+#swiper-pagination-associate .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    opacity: 0.6;
+}
+
+#swiper-pagination-associate .swiper-pagination-bullet-active {
+    @apply bg-primaryLocal;
+
+    opacity: 1;
+}

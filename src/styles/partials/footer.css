@@ -1,0 +1,64 @@
+.footer-ul-link{
+    @apply grid w-full grid-cols-5 gap-4;
+}
+.footer-ul-link ul{
+    @apply flex flex-col;
+}
+
+.border-footer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    padding: 2px 0 2px;
+    border-bottom: 1px #b7b7fa inset;
+}
+
+.footer-container {
+    @apply text-xl lg:text-lg text-center ;
+}
+
+.footer-content {
+    @apply text-[#021526] pb-10 lg:pb-2;
+}
+
+.border-box-footer {
+    padding: 18px 0 18px;
+    font-size: 16px;
+    line-height: 24px;
+    box-shadow: 0 -7px 12px -14px ;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    @apply shadow-secondaryLocal !important;
+}
+
+.footer-box {
+    @apply flex-1 flex justify-center mb-2;
+}
+
+.footer-logo {
+    @apply h-24  ;
+}
+
+.footer-border {
+    @apply border-footer shadow-md;
+}
+
+
+.footer-links ul {
+    @apply flex flex-row gap-8;
+}
+
+.footer-link {
+    @apply hover:text-secondaryLocal;
+}
+
+.footer-bottom {
+    @apply py-14 lg:py-4 px-14 gap-4  text-tertiaryLocal flex flex-wrap text-center  lg:justify-end;
+
+}
+
+.footer-bottom li:last-child {
+    @apply font-light  hover:text-blue-600 text-lg font-['Assistant'] ;
+}
+

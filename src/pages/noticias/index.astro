@@ -1,0 +1,190 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+import {getCollection} from 'astro:content';
+import SearchNotice from "../../components/SearchNotice.astro";
+const posts = (await getCollection('noticias')).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+<style>
+    main {
+        @apply w-[80vw] md:w-[70vw] lg:w-[75vw] xl:w-[70vw]
+    }
+
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    ul li {
+        @apply text-xl font-normal text-center;
+        width: calc(50% - 1rem);
+
+    }
+
+    ul li:hover {
+
+        h4, p {
+            @apply text-secondaryLocal !important;
+        }
+
+        img {
+            @apply shadow-lg shadow-secondaryLocal/30 !important;
+        }
+    }
+
+    ul li * {
+        text-decoration: none;
+        transition: 0.2s ease;
+    }
+
+    ul li:first-child {
+        width: 100%;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    ul li:first-child img {
+        width: 100%;
+    }
+
+    ul li:first-child .title {
+        font-size: 2.369rem;
+    }
+
+    ul li img {
+        margin-bottom: 0.5rem;
+        border-radius: 12px;
+
+    }
+
+    ul li a {
+        display: block;
+    }
+
+    .title {
+        margin: 0;
+        color: rgb(var(--black));
+        line-height: 1;
+    }
+
+    .date {
+        margin: 0;
+        color: rgb(var(--gray));
+    }
+
+    ul li a:hover h4,
+    ul li a:hover .date {
+        color: rgb(var(--accent));
+    }
+
+    ul a:hover img {
+        box-shadow: var(--box-shadow);
+    }
+
+    @media (max-width: 720px) {
+        ul {
+            gap: 0.5em;
+        }
+
+        ul li {
+            width: 100%;
+            text-align: center;
+        }
+
+        ul li:first-child {
+            margin-bottom: 0;
+        }
+
+        ul li:first-child .title {
+            font-size: 1.563em;
+        }
+    }
+
+    .hero-image {
+        position: absolute;
+        width: 100%;
+        height: 33rem;
+        overflow: visible; /* Cambiado de hidden a visible */
+        @apply left-0 top-0 ;
+    }
+
+    .hero-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover !important;
+        @apply bg-fixed bg-cover bg-center;
+    }
+
+    .hero-image::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(150deg, hsla(196, 20%, 19%, 0.6) 0%, hsla(197, 55%, 54%, 0.3) 100%);
+        pointer-events: none;
+        z-index: 1; /* Asegúrate de que este fondo tenga un z-index más bajo */
+    }
+
+    .hero-cont {
+        text-shadow: 2px 2px 4px rgba(15, 24, 37, 0.4);
+        font-family: "Archivo Black", sans-serif;
+        z-index: 2;
+        @apply w-[90vw] md:w-[80vw] lg:w-[75vw] xl:w-[70vw] absolute flex flex-col justify-center items-center left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2;
+
+        h1, h2 {
+            @apply text-primaryLocal;
+        }
+
+        h1 {
+            @apply text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl ;
+        }
+
+        h2 {
+            text-align: justify;
+            @apply text-sm sm:text-lg md:text-xl xl:text-lg
+        }
+    }
+</style>
+<!-- Apartado              -->
+
+
+<Layout title="NOTICIAS | ESTUDIO JURIDICO CABRERA" description="Las noticias de ESTUDIO JURÍDICO CABRERA">
+    <main class="py-[36rem] mx-auto">
+        <section>
+            <div class="hero-image">
+                <div class="hero-cont">
+                    <h1>NOTICIAS</h1>
+                    <h2>Infórmate sobre las últimas novedades legales y actualizaciones del Estudio Jurídico Cabrera.
+                        Accede a análisis de cambios normativos, resoluciones clave y consejos prácticos de nuestros
+                        expertos.</h2>
+                </div>
+                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1729025386/noticias_sa4pep.jpg"
+                     alt="Noticias de ESTUDIO " class=""/>
+                <SearchNotice/>
+            </div>
+            <ul>
+                {
+                    posts.map((post) => (
+                            <li>
+                                <a href={`/noticias/${post.slug}/`}>
+                                    <img width={720} height={360} src={post.data.heroImage} alt=""/>
+                                    <h4 class="title">{post.data.title}</h4>
+                                    <p class="date">
+                                        <FormattedDate date={post.data.pubDate}/>
+                                    </p>
+                                </a>
+                            </li>
+                    ))
+                }
+            </ul>
+        </section>
+    </main>
+</Layout>

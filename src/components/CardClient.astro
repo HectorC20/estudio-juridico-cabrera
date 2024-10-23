@@ -1,0 +1,17 @@
+---
+export interface Props {
+    src: string;
+    alt: string;
+    nombre: string;
+    pubDate: Date;
+}
+const {src, alt, nombre, pubDate} = Astro.props;
+---
+
+<div class="section__card">
+    <img class="section__card__img" src={src} alt={alt}/>
+    <div class="section__card__content">
+        <h3 class="section__card__title">{nombre}</h3>
+        <p class="section__card__desc hidden">{pubDate.toLocaleDateString()}</p>
+    </div>
+</div>

@@ -3,7 +3,7 @@
     --transition-duration: 1000ms;
     position: relative;
     width: 100%;
-    @apply min-h-[530px] sm:min-h-[580px] md:min-h-[610px] lg:min-h-[620px] xl:min-h-[630px] !important;
+    @apply min-h-[530px] sm:h-[96vh] md:h-[108vh] lg:h-[110vh] xl:h-[100vh] ;
 }
 
 .hero__fullsize {

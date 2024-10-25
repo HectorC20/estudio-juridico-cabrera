@@ -4,6 +4,7 @@ import '../styles/sectionAlliances.css';
 import {getCollection} from "astro:content";
 import "../../node_modules/swiper/swiper-bundle.min.css";
 import SocialLinks from "./SocialLinks.astro";
+import SectionPages from "./SectionPages.astro";
 
 const postsClient = (await getCollection('alianzas')).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -13,12 +14,7 @@ const postsAssociate = (await getCollection('asociados')).sort(
 );
 ---
 
-<section class="section__cont__info">
-    <div class=" section__part__alliances">
-        <h1 class="text-3xl text-center">ALIANZAS </h1>
-        <h3 class="text-center text-lg">Clientes destacados y asociados globales que fortalecen nuestro compromiso con la excelencia legal.</h3>
-        <SocialLinks/>
-    </div>
+<SectionPages title="ALIANZAS" description="Clientes destacados y asociados globales que fortalecen nuestro compromiso con la excelencia legal.">
     <div class="section__container">
         <h2 class="section__heading">CLIENTES</h2>
         <!-- Swiper para clientes -->
@@ -70,5 +66,5 @@ const postsAssociate = (await getCollection('asociados')).sort(
             });
         });
     </script>
-</section>
+</SectionPages>
 

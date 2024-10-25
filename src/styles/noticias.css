@@ -29,7 +29,7 @@
     text-shadow: 2px 2px 4px rgba(15, 24, 37, 0.4);
     font-family: "Archivo Black", sans-serif;
     z-index: 3;
-    @apply text-center flex text-primaryLocal text-4xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl top-[18vw] xl:top-[8vw];
+    @apply px-4 text-center flex text-primaryLocal text-4xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl top-[18vw] xl:top-[8vw];
 }
 
 .prose{

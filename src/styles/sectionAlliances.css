@@ -1,5 +1,5 @@
 .section__cont__info {
-    @apply relative  py-[4rem] lg:pt-[4rem] xl:pt-[5rem] lg:pb-0 xl:pb-0 !important;
+    @apply relative  py-[4rem] lg:pt-[4rem] xl:pt-[5rem]  lg:pb-0 xl:pb-0 !important;
     /*background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");*/
     /*animation: slideDown 1s ease-in-out; !* Aplica la animación aquí *!*/
 }
@@ -19,9 +19,6 @@
     }
 }
 
-.section__cont__info {
-    @apply py-12;
-}
 
 .section__container {
     @apply container mx-auto px-6 pb-6;
@@ -87,19 +84,20 @@
     text-align: center;
     position: absolute;
     width: 100%;
-@apply mb-[28em] sm:mb-[26em] md:mb-[26em] lg:mb-[22em] xl:mb-[22em]
+@apply mb-[30em] sm:mb-[28em] md:mb-[28em] lg:mb-[24em] xl:mb-[24em]
 }
 
 #swiper-pagination-client .swiper-pagination-bullet {
     width: 12px;
     height: 12px;
-    background-color: white;
     opacity: 0.6;
+    @apply bg-secondaryLocal
 }
 
 #swiper-pagination-client .swiper-pagination-bullet-active {
-    @apply bg-primaryLocal;
-    opacity: 1;
+    @apply bg-fifthLocal;
+    opacity: 0.8;
+
 }
 
 /* Botones y paginación para el carrusel de asociados */
@@ -124,18 +122,17 @@
 #swiper-pagination-associate .swiper-pagination-bullet {
     width: 12px;
     height: 12px;
-    background-color: white;
     opacity: 0.6;
+    @apply bg-secondaryLocal;
 }
 
 #swiper-pagination-associate .swiper-pagination-bullet-active {
-    @apply bg-primaryLocal;
-
-    opacity: 1;
+    @apply bg-fifthLocal;
+    opacity: 0.8;
 }
 .section__part__alliances {
     background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
-    @apply relative bg-secondaryLocal mx-auto -mt-6 lg:-mt-4 xl:-mt-5 mb-10 text-primaryLocal font-semibold py-8;
+    @apply relative bg-secondaryLocal mx-auto -mt-6 lg:-mt-4 xl:-mt-5 mb-10 text-primaryLocal font-semibold py-12 md:py-11 lg:py-10 ;
     animation: slideDown 1s ease-in-out;
     z-index: 1; /* Ajustamos el z-index para evitar que los elementos se queden atrás */
 }

@@ -1,0 +1,48 @@
+---
+import SocialLinks from "./SocialLinks.astro";
+interface Props {
+    title: string;
+    description: string;
+}
+const {title, description} = Astro.props;
+---
+<style>
+    .section__cont__info {
+        @apply relative  py-[4rem] lg:pt-[4rem] xl:pt-[5rem] lg:pb-0 xl:pb-0 !important;
+
+    }
+
+    .animation-bottom {
+        animation: slideDown 1s ease-in-out;
+    }
+
+    @keyframes slideDown {
+        from {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .section__part__alliances {
+        background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+        @apply relative bg-secondaryLocal mx-auto -mt-6 lg:-mt-4 xl:-mt-5 mb-10 text-primaryLocal font-semibold py-12 md:py-11 lg:py-10 ;
+        animation: slideDown 1s ease-in-out;
+        z-index: 1; /* Ajustamos el z-index para evitar que los elementos se queden atrás */
+    }
+</style>
+
+<section class="section__cont__info">
+    <div class=" section__part__alliances">
+        <h1 class="text-3xl text-center">{title} </h1>
+        <h3 class="text-center text-lg px-2">{description}</h3>
+        <SocialLinks/>
+    </div>
+
+    <slot/>
+
+</section>
+

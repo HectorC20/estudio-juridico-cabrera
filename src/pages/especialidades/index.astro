@@ -1,57 +1,42 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import SectionPages from "../../components/SectionPages.astro";
+import { getCollection } from "astro:content";
+
+// Obtiene la colección de especialidades y ordena alfabéticamente por título
+const postsClient = (await getCollection('especialidades')).sort((a, b) =>
+    a.data.title.localeCompare(b.data.title, 'es')
+);
 ---
 
 <Layout title="ESPECIALIDADES | ESTUDIO JURÍDICO CABRERA" description="descripcion de especialidades">
-    <SectionPages title="ESPECIALIDADES" description="Ofrecemos una amplia gama de servicios legales especializados para satisfacer las necesidades de nuestros clientes." >
-    <section class="bg-gray-100 py-16">
-        <div class="container mx-auto px-6">
-            <!-- Título de la sección -->
-            <h2 class="text-4xl font-bold text-center text-primaryLocal mb-12">Nuestras Especialidades</h2>
+    <SectionPages title="ESPECIALIDADES" description="Ofrecemos una amplia gama de servicios legales especializados para satisfacer las necesidades de nuestros clientes.">
+        <section class="py-16">
+            <div class="container mx-auto px-6">
+                <!-- Título de la sección -->
+                <h2 class="text-4xl font-bold text-center text-primaryLocal mb-12">Nuestras Especialidades</h2>
 
-            <!-- Descripción -->
-            <p class="text-center text-lg text-gray-600 mb-12">
-                En el Estudio Jurídico Cabrera, ofrecemos una amplia gama de servicios legales especializados
-                para satisfacer las necesidades de nuestros clientes. Conozca nuestras áreas de práctica.
-            </p>
+                <!-- Descripción -->
+                <p class="text-center text-lg text-gray-600 mb-12">
+                    En el Estudio Jurídico Cabrera, ofrecemos una amplia gama de servicios legales especializados
+                    para satisfacer las necesidades de nuestros clientes. Conozca nuestras áreas de práctica.
+                </p>
 
-            <!-- Grid de especialidades -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <!-- Especialidad 1 -->
-                <div class="bg-white shadow-md rounded-lg p-6">
-                    <img src="ruta-de-la-imagen" alt="Especialidad 1" class="w-full h-40 object-cover rounded-md mb-4">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Derecho Civil</h3>
-                    <p class="text-gray-600 mb-4">
-                        Asesoramiento y representación en conflictos civiles, contratos, y más.
-                    </p>
-                    <a href="#" class="text-primaryLocal font-bold hover:underline">Leer más &rarr;</a>
+                <!-- Grid de especialidades -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Iteración sobre cada especialidad -->
+                    {postsClient.map(post => (
+                            <div class="bg-secondaryLocal shadow-md rounded-lg p-6" >
+                                <img src={post.data.src} alt={post.data.alt} class="w-full h-40 object-cover rounded-md mb-4">
+                                <h3 class="text-2xl font-semibold text-primaryLocal mb-2">{post.data.title}</h3>
+                                <p class="text-primaryLocal mb-4">
+                                    {post.data.description}
+                                </p>
+                                <a href={`/especialidades/${post.slug}`} class="text-primaryLocal font-bold hover:underline">Leer más &rarr;</a>
+                            </div>
+                    ))}
                 </div>
-
-                <!-- Especialidad 2 -->
-                <div class="bg-white shadow-md rounded-lg p-6">
-                    <img src="ruta-de-la-imagen" alt="Especialidad 2" class="w-full h-40 object-cover rounded-md mb-4">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Derecho Penal</h3>
-                    <p class="text-gray-600 mb-4">
-                        Defensa y representación en procesos penales, tanto para acusados como víctimas.
-                    </p>
-                    <a href="#" class="text-primaryLocal font-bold hover:underline">Leer más &rarr;</a>
-                </div>
-
-                <!-- Especialidad 3 -->
-                <div class="bg-white shadow-md rounded-lg p-6">
-                    <img src="ruta-de-la-imagen" alt="Especialidad 3" class="w-full h-40 object-cover rounded-md mb-4">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Derecho Laboral</h3>
-                    <p class="text-gray-600 mb-4">
-                        Soluciones efectivas en conflictos laborales, despidos y relaciones laborales.
-                    </p>
-                    <a href="#" class="text-primaryLocal font-bold hover:underline">Leer más &rarr;</a>
-                </div>
-                <!-- Añadir más especialidades de la misma manera -->
-
             </div>
-        </div>
-    </section>
+        </section>
     </SectionPages>
 </Layout>

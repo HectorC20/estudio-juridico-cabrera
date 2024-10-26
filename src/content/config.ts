@@ -7,7 +7,6 @@ const noticias = defineCollection({
     schema: z.object({
         title: z.string(),
         description: z.string(),
-        // Transform string to Date object
         pubDate: z.coerce.date(),
         updatedDate: z.coerce.date().optional(),
         heroImage: z.string().optional(),
@@ -38,4 +37,15 @@ const asociados = defineCollection({
     }),
 });
 
-export const collections = {noticias, alianzas, asociados};
+const especialidades = defineCollection({
+    type: 'content',
+    schema: z.object({
+        id: z.number().optional(),
+        src: z.string().optional(),
+        alt: z.string(),
+        title: z.string(),
+        description: z.string()
+    })
+})
+
+export const collections = {noticias, alianzas, asociados, especialidades};

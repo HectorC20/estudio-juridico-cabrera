@@ -3,7 +3,6 @@ import CardClient from "./CardClient.astro";
 import '../styles/sectionAlliances.css';
 import {getCollection} from "astro:content";
 import "../../node_modules/swiper/swiper-bundle.min.css";
-import SocialLinks from "./SocialLinks.astro";
 import SectionPages from "./SectionPages.astro";
 
 const postsClient = (await getCollection('alianzas')).sort(

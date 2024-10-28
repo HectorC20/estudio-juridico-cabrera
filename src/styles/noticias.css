@@ -43,7 +43,7 @@ p {
 
 .prose h2{
     text-transform: uppercase;
-@apply text-xl font-bold leading-tight text-tertiaryLocal;
+@apply text-xl 2xl:text-3xl font-bold leading-tight text-tertiaryLocal;
 }
 
 .prose p {
@@ -52,7 +52,7 @@ p {
         @apply flex mx-auto rounded-2xl shadow-xl shadow-secondaryLocal/20 h-[40vh] md:h-[50vh] lg:h-[55vh] xl:h-[60vh];
     }
     margin-bottom: 2em;
-    @apply text-lg;
+    @apply text-lg 2xl:text-2xl;
     text-align: justify; /* Justifica el texto para que ocupe todo el ancho */
     width: 100%; /* Asegura que ocupe todo el ancho disponible */
 }
@@ -84,7 +84,7 @@ p {
 }
 
 .prose ul li {
-    @apply mb-2 leading-relaxed text-lg ;
+    @apply mb-2 leading-relaxed text-lg 2xl:text-2xl;
 }
 
 .prose ol {
@@ -92,7 +92,7 @@ p {
 }
 
 .prose ol li {
-    @apply mb-2 leading-relaxed text-lg ;
+    @apply mb-2 leading-relaxed text-lg 2xl:text-2xl;
 }
 
 .prose ul li::marker, .prose ol li::marker {
@@ -102,5 +102,10 @@ p {
 @media (min-width: 768px) {
     .prose ul, .prose ol {
         @apply ml-8 pl-6;
+    }
+}
+.prose{
+    img{
+        @apply object-cover w-[680px] h-[300px] !important;
     }
 }

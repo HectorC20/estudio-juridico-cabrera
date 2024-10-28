@@ -1,6 +1,6 @@
 ---
-const { slugActual } = Astro.props;
-import { getCollection } from "astro:content";
+const {slugActual} = Astro.props;
+import {getCollection} from "astro:content";
 
 const allPosts = (await getCollection('noticias')).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -19,29 +19,45 @@ for (const post of allPosts) {
 ---
 <style>
     .section__NewsTape {
-        background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
-        @apply flex flex-col my-12 mx-12 lg:mx-0 bg-secondaryLocal rounded-2xl py-8 px-4;
+        @apply flex flex-col my-12 mx-12 lg:mx-0  rounded-2xl py-8 px-4;
     }
+
     h4 {
-        @apply text-primaryLocal text-xl font-bold text-center;
+        @apply mb-4 text-secondaryLocal text-3xl lg:text-2xl 2xl:text-4xl font-bold text-center;
     }
-    img {
-        @apply my-8;
+
+    h5 {
+        background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+
+        @apply rounded-b-xl px-1 pb-2 text-xl font-normal bg-secondaryLocal text-primaryLocal
+    }
+
+    .list__News {
+        li:hover {
+           h5{
+
+               @apply shadow-xl shadow-secondaryLocal/20
+           }
+        }
+
+        @apply flex flex-row lg:flex-col gap-3 lg:gap-8
     }
 </style>
 <div class="section__NewsTape">
     <h4>DESCUBRE MÁS NOTICIAS</h4>
-    <ul>
+    <ul class="list__News">
         {uniquePosts.map((post) => (
                 <li>
                     <a href={`/noticias/${post.slug}/`}>
                         <img
-                                width={280}
+                                width={310}
                                 height={140}
                                 src={post.data.heroImage}
                                 alt=""
-                                class="rounded-xl hover:shadow-2xl shadow-primaryLocal"
+                                class="2xl:w-full 2xl:h-[240px] rounded-t-xl shadow-secondaryLocal !important items-center"
                         />
+                        <h5>{post.data.title.length > 30 ? post.data.title.slice(0, 30) + "..." : post.data.title}</h5>
+
                     </a>
                 </li>
         ))}

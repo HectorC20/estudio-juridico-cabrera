@@ -1,5 +1,5 @@
 .section__contact-us {
-    @apply relative bg-secondaryLocal py-[4rem] lg:pt-[4rem] xl:pt-[5rem] lg:pb-0 xl:pb-0 ;
+    @apply relative bg-secondaryLocal py-[4rem] lg:pt-[4rem] xl:pt-[5rem] 2xl:pt-[6rem] lg:pb-0 xl:pb-0 ;
     background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
     animation: slideDown 1s ease-in-out;  /* Aplica la animación aquí */
 }

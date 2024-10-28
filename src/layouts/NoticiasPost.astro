@@ -5,8 +5,9 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Layout from "./Layout.astro";
 import NewsTape from "../components/NewsTape.astro";
 
-type Props = CollectionEntry<'noticias'>;
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+// Definimos las props incluyendo el `slug` actual
+type Props = CollectionEntry<'noticias'>['data'];
+const { title, description, pubDate, updatedDate, heroImage} = Astro.props;
 const currentURL = Astro.url.href;
 ---
 
@@ -53,7 +54,8 @@ const currentURL = Astro.url.href;
                     </div>
                     <slot />
                 </div>
-                <NewsTape slugActual={currentURL} />
+                <!-- Pasamos el slug actual al componente NewsTape -->
+                <NewsTape />
             </div>
         </article>
     </main>

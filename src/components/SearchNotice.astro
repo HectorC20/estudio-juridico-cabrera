@@ -1,7 +1,6 @@
 ---
-
+const currentURL = Astro.url.href;
 ---
-
 <style>
     .cont__publ {
         @apply absolute text-primaryLocal flex flex-col lg:flex-row items-center justify-center text-center rounded-2xl h-auto w-auto bg-secondaryLocal bottom-0 left-1/2 transform -translate-x-1/2 -mb-[6vh] xl:-mb-[5vh] shadow-lg shadow-secondaryLocal/30 font-semibold ;
@@ -23,13 +22,26 @@
 
 <div class="cont__publ">
     <div class="icons__publ">
-        <img alt="facebook" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/facebook_jsyy4v.svg">
-        <img alt="twitter" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946785/twitter_j5muqs.svg">
-        <img alt="whatsapp" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946785/whatsapp_ssklfl.svg">
-        <img alt="linkedin" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/linkedin_zzh7cn.svg">
-        <img alt="pinterest" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/pinterest_vl2gtg.svg">
+        <a href={`https://www.facebook.com/sharer/sharer.php?u=${currentURL}`} target="_blank">
+            <img alt="facebook" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/facebook_jsyy4v.svg">
+        </a>
+        <a href={`https://twitter.com/intent/tweet?url=${currentURL}&text=Check%20out%20this%20page`} target="_blank">
+            <img alt="twitter" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946785/twitter_j5muqs.svg">
+        </a>
+        <a href={`https://api.whatsapp.com/send?text=${currentURL}`} target="_blank">
+            <img alt="whatsapp" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946785/whatsapp_ssklfl.svg">
+        </a>
+        <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${currentURL}`} target="_blank">
+            <img alt="linkedin" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/linkedin_zzh7cn.svg">
+        </a>
+        <a href={`https://pinterest.com/pin/create/button/?url=${currentURL}&media=URL_DE_LA_IMAGEN&description=Descripción%20de%20tu%20página`}
+           target="_blank">
+            <img alt="pinterest"
+                 src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/pinterest_vl2gtg.svg">
+        </a>
     </div>
     <div class="form-control">
-        <input type="text" placeholder="Buscar " class="input input-bordered w-[75vw] sm:w-[70vw] md:w-[50vw] lg:w-[30vw] xl:w-[25vw] mx-2 my-2 lg:my-0 " />
+        <input type="text" placeholder="Buscar "
+               class="input input-bordered w-[75vw] sm:w-[70vw] md:w-[50vw] lg:w-[30vw] xl:w-[25vw] mx-2 my-2 lg:my-0 "/>
     </div>
 </div>

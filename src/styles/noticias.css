@@ -58,7 +58,7 @@ p {
 }
 
 .prose {
-    @apply w-[80vw] lg:w-[70vw] xl:w-[60vw] mx-auto;
+    @apply w-[80vw] lg:w-[70vw] xl:w-[60vw] ml-[10vw] ;
 }
 
 .cont__publ {
@@ -79,3 +79,28 @@ p {
 }
 
 
+.prose ul {
+    @apply list-disc ml-6 pl-4 pb-6 -mt-4;
+}
+
+.prose ul li {
+    @apply mb-2 leading-relaxed text-lg ;
+}
+
+.prose ol {
+    @apply list-decimal ml-6 pl-4 pb-6 -mt-4;
+}
+
+.prose ol li {
+    @apply mb-2 leading-relaxed text-lg ;
+}
+
+.prose ul li::marker, .prose ol li::marker {
+    @apply text-lg text-secondaryLocal;
+}
+
+@media (min-width: 768px) {
+    .prose ul, .prose ol {
+        @apply ml-8 pl-6;
+    }
+}

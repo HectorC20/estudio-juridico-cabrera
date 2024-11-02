@@ -73,7 +73,7 @@
     border-radius: 50%;
     font-size: 20px;
     cursor: pointer;
-    margin-top:-8em ;
+    margin-top:-4em ;
 }
 .swiper-button-next,.swiper-button-prev{
 
@@ -108,7 +108,7 @@
     border-radius: 50%;
     font-size: 20px;
     cursor: pointer;
-    margin-top:10em ;
+    margin-top:15em ;
 }
 
 #swiper-pagination-associate {

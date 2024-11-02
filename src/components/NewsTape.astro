@@ -19,28 +19,33 @@ for (const post of allPosts) {
 ---
 <style>
     .section__NewsTape {
-        @apply flex flex-col my-12 mx-12 lg:mx-0  rounded-2xl py-8 px-4;
+        @apply flex  flex-col my-12 mx-12 lg:mx-0  rounded-2xl py-8 px-4;
     }
 
     h4 {
-        @apply mb-4 text-secondaryLocal text-3xl lg:text-2xl 2xl:text-4xl font-bold text-center;
+        text-shadow: 2px 2px 4px rgba(43, 51, 96, 0.39);
+        @apply mb-4  text-secondaryLocal text-3xl lg:text-2xl  2xl:text-4xl font-bold text-center;
     }
 
     h5 {
-        background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
-
-        @apply rounded-b-xl px-1 pb-2 text-xl font-normal bg-secondaryLocal text-primaryLocal
+        font-family: "Assistant", sans-serif;
+        @apply break-words w-72 rounded-b-xl px-1 pb-2 text-justify 2xl:text-xl font-normal text-secondaryLocal !important
     }
 
     .list__News {
         li:hover {
+            img{
+                @apply shadow-md shadow-tertiaryLocal/30
+            }
            h5{
-
-               @apply shadow-xl shadow-secondaryLocal/20
+               @apply underline text-tertiaryLocal
            }
         }
+        a{
+            @apply flex flex-row py-2 border-b border-cyan-950/30
+        }
 
-        @apply flex flex-row lg:flex-col gap-3 lg:gap-8
+        @apply  flex flex-col
     }
 </style>
 <div class="section__NewsTape">
@@ -50,13 +55,13 @@ for (const post of allPosts) {
                 <li>
                     <a href={`/noticias/${post.slug}/`}>
                         <img
-                                width={310}
-                                height={140}
+                                width={190}
+                                height={120}
                                 src={post.data.heroImage}
                                 alt=""
-                                class="2xl:w-full 2xl:h-[240px] rounded-t-xl shadow-secondaryLocal !important items-center"
+                                class="2xl:w-full 2xl:h-[240px] rounded-xl shadow-secondaryLocal !important items-center"
                         />
-                        <h5>{post.data.title.length > 30 ? post.data.title.slice(0, 30) + "..." : post.data.title}</h5>
+                        <h5>{post.data.title.length > 80 ? post.data.title.slice(0, 80) + "..." : post.data.title}</h5>
 
                     </a>
                 </li>

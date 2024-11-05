@@ -44,7 +44,9 @@ const especialidades = defineCollection({
         src: z.string().optional(),
         alt: z.string(),
         title: z.string(),
-        description: z.string()
+        description: z.string(),
+        pubDate: z.coerce.date(),
+        updatedDate: z.coerce.date().optional(),
     })
 })
 

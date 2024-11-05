@@ -54,7 +54,7 @@ p {
     margin-bottom: 2em;
     @apply text-lg 2xl:text-2xl;
     text-align: justify; /* Justifica el texto para que ocupe todo el ancho */
-    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    width: 100%;
 }
 
 .prose {
@@ -63,10 +63,9 @@ p {
 
 .cont__publ {
     @apply absolute text-primaryLocal flex flex-row items-center justify-center text-center rounded-2xl h-auto w-[90vw] sm:w-[58vw] md:w-[38vw] lg:w-[32vw] xl:w-[26vw] bg-secondaryLocal bottom-0 left-1/2 transform -translate-x-1/2 -mb-[6vh] xl:-mb-[5vh] shadow-lg shadow-secondaryLocal/30 font-semibold;
-    /* Ajusté el margen y la altura */
     z-index: 3;
-    padding: 1rem; /* Ajuste de padding para dar más espacio */
-    max-height: 100%; /* Asegura que no haya recortes de altura */
+    padding: 1rem;
+    max-height: 100%;
     background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
 }
 
@@ -78,21 +77,23 @@ p {
     }
 }
 
-
+.prose h3{
+    @apply text-xl underline font-semibold leading-tight;
+}
 .prose ul {
-    @apply list-disc ml-6 pl-4 pb-6 -mt-4;
+    @apply list-disc ml-6 pl-4 pb-6 -mt-4 ;
 }
 
 .prose ul li {
-    @apply mb-2 leading-relaxed text-lg 2xl:text-2xl;
+    @apply mb-2 font-semibold text-justify leading-relaxed text-lg 2xl:text-2xl;
 }
 
 .prose ol {
-    @apply list-decimal ml-6 pl-4 pb-6 -mt-4;
+    @apply  list-decimal ml-6 pl-4 pb-6 -mt-4;
 }
 
 .prose ol li {
-    @apply mb-2 leading-relaxed text-lg 2xl:text-2xl;
+    @apply mb-2 text-justify font-semibold leading-relaxed text-lg 2xl:text-2xl !important;
 }
 
 .prose ul li::marker, .prose ol li::marker {

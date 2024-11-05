@@ -6,21 +6,20 @@ import Layout from "./Layout.astro";
 import NewsTape from "../components/NewsTape.astro";
 import SpecialtiesTape from "../components/SpecialtiesTape.astro";
 
-type Props = CollectionEntry<'noticias'>['data'];
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+type Props = CollectionEntry<'especialidades'>['data'];
+const { id, alt, title, description,pubDate, updatedDate, src } = Astro.props;
 const currentURL = Astro.url.href;
-const slugActual = Astro.url.pathname.split("/").filter(Boolean).pop();
 ---
-
 <html lang="en">
 <Layout title={title} description={description}>
     <main class="py-[2rem] xl:py-[4rem]">
         <article>
-            <div class="hero-image">
-                {heroImage && <img src={heroImage} alt="" />}
-                <h1 class="notice__title">{title}</h1>
+            <div class="hero-image relative">
+                {src && <img src={src} alt={alt} />}
+                <h1 class="center__title">{title}</h1>
                 <div class="cont__publ">
                     <FormattedDate date={pubDate} />
+
                     <div class="icons__publ">
                         <a href={`https://www.facebook.com/sharer/sharer.php?u=${currentURL}`} target="_blank">
                             <img alt="facebook" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/facebook_jsyy4v.svg">
@@ -55,11 +54,23 @@ const slugActual = Astro.url.pathname.split("/").filter(Boolean).pop();
                     </div>
                     <slot />
                 </div>
-                <!-- Pasamos el slug actual al componente NewsTape -->
-                <NewsTape slugActual={slugActual} />
+                <NewsTape />
             </div>
         </article>
-        <SpecialtiesTape />
+        <SpecialtiesTape/>
     </main>
 </Layout>
 </html>
+
+<style>
+    .center__title {
+        position: absolute;
+        top: 18vw;
+        left: 50%;
+        transform: translateX(-50%);
+        text-shadow: 2px 2px 4px rgba(15, 24, 37, 0.4);
+        font-family: "Archivo Black", sans-serif;
+        z-index: 3;
+        @apply px-4 text-center xl:top-[18vh] text-primaryLocal text-4xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl;
+    }
+</style>

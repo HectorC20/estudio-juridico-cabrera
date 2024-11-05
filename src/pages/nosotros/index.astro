@@ -2,31 +2,82 @@
 import Layout from "../../layouts/Layout.astro";
 ---
 
-<Layout title="NOSOTROS | ESTUDIO JURÍDICO CABRERA" description="descripcion de nosotros">
-    <section class="relative pt-28">
-        <div class="container pb-10 max-w-[1800px] mx-auto">
+<style>
+    .section-nosotros {
+        @apply relative pt-28;
+    }
 
-            <div class="flex justify-center  px-5 md:px-0">
-                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728570969/nosotros_lneya4.jpg" alt="Nosotros" style="max-height: 610px" loading="lazy" class="shadow-lg shadow-indigo-500/40 object-cover rounded-[30px]">
+    .container-nosotros {
+        @apply container max-w-[1800px] pb-10 mx-auto;
+    }
+
+    .image-container-nosotros {
+        @apply flex justify-center px-5 md:px-0;
+    }
+
+    .image-nosotros {
+        @apply shadow-lg shadow-indigo-500/40 object-cover rounded-[30px];
+        max-height: 610px;
+    }
+
+    .title-nosotros {
+        @apply sm:text-3xl text-2xl text-center font-black font-['Assistant'] px-5 text-fifthLocal py-1.5;
+    }
+
+    .description-nosotros {
+        @apply text-center text-lg px-5 lg:px-24;
+    }
+
+    .grid-nosotros {
+        @apply grid gap-12 sm:mx-16 md:grid-cols-2 xl:gap-8 justify-around pt-6;
+    }
+
+    .mission-container,
+    .vision-container {
+        @apply flex border-4 rounded-xl border-secondaryLocal flex-col justify-start text-center px-4;
+        min-height: 450px; /* Ajusta esta altura mínima según tus necesidades */
+    }
+
+    .icon-nosotros {
+        @apply w-auto mx-auto mb-4;
+        width: 320px;
+        height: auto;
+    }
+
+    .subtitle-nosotros {
+        background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+        @apply bg-secondaryLocal w-40 h-12 rounded-b-full mx-auto sm:text-3xl text-2xl font-medium mb-4 text-fifthLocal;
+    }
+
+    .text-nosotros {
+        @apply mx-16;
+    }
+</style>
+
+<Layout title="NOSOTROS | ESTUDIO JURÍDICO CABRERA" description="descripcion de nosotros">
+    <section class="section-nosotros">
+        <div class="container-nosotros">
+
+            <div class="image-container-nosotros">
+                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728570969/nosotros_lneya4.jpg" alt="Nosotros" loading="lazy" class="image-nosotros">
             </div>
 
-            <h1 class="sm:text-3xl text-2xl text-center font-black font-['Assistant'] px-5 text-fifthLocal py-1.5">"Tu confianza es nuestra prioridad"</h1>
-            <p class="text-center text-lg px-5 lg:px-24">En <strong>Estudio Jurídico Cabrera</strong>, nos comprometemos a ofrecer soluciones legales efectivas, con un enfoque personalizado y profesional. Nuestro equipo de expertos está dedicado a brindarte la mejor asesoría jurídica, basándonos en la transparencia, ética y experiencia.</p>
+            <h1 class="title-nosotros">"Tu confianza es nuestra prioridad"</h1>
+            <p class="description-nosotros">En <strong>Estudio Jurídico Cabrera</strong>, nos comprometemos a ofrecer soluciones legales efectivas, con un enfoque personalizado y profesional. Nuestro equipo de expertos está dedicado a brindarte la mejor asesoría jurídica, basándonos en la transparencia, ética y experiencia.</p>
 
-            <div class="grid gap-12 sm:mx-16 md:grid-cols-2 xl:gap-8 justify-around pt-6">
-                <div class="flex flex-col justify-start text-center">
-                    <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728571232/mision_rdorpi.png" alt="misión" style="width: 320px; height: auto;" class="w-auto mx-auto">
-                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-fifthLocal">Misión</h1>
-                    <p class="mx-16">Nuestra misión en <strong>Estudio Jurídico Cabrera</strong> es ofrecer servicios jurídicos de alta calidad, orientados a resolver los problemas legales de nuestros clientes de manera eficiente y eficaz. Nos esforzamos por garantizar que cada cliente reciba la atención y el compromiso que se merece.</p>
+            <div class="grid-nosotros">
+                <div class="mission-container">
+                    <h2 class="subtitle-nosotros">Misión</h2>
+                    <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728571232/mision_rdorpi.png" alt="misión" class="icon-nosotros">
+                    <p class="text-nosotros">Nuestra misión en <strong>Estudio Jurídico Cabrera</strong> es ofrecer servicios jurídicos de alta calidad, orientados a resolver los problemas legales de nuestros clientes de manera eficiente y eficaz. Nos esforzamos por garantizar que cada cliente reciba la atención y el compromiso que se merece.</p>
                 </div>
 
-                <div class="flex flex-col justify-center text-center">
-                    <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728571231/vision_muiixr.png" alt="Visión" style="width: 320px; height: auto;" class="w-auto mx-auto">
-                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-fifthLocal">Visión</h1>
-                    <p class="mx-16">Nuestra visión es ser un despacho de referencia en el ámbito legal, reconocido por nuestra excelencia, compromiso y capacidad para resolver casos complejos con integridad. En <strong>Estudio Jurídico Cabrera</strong>, aspiramos a construir relaciones de confianza a largo plazo con nuestros clientes, basadas en nuestra dedicación y experiencia.</p>
+                <div class="vision-container">
+                    <h2 class="subtitle-nosotros">Visión</h2>
+                    <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728571231/vision_muiixr.png" alt="Visión" class="icon-nosotros">
+                    <p class="text-nosotros">Nuestra visión es ser un despacho de referencia en el ámbito legal, reconocido por nuestra excelencia, compromiso y capacidad para resolver casos complejos con integridad. En <strong>Estudio Jurídico Cabrera</strong>, aspiramos a construir relaciones de confianza a largo plazo con nuestros clientes, basadas en nuestra dedicación y experiencia.</p>
                 </div>
             </div>
         </div>
     </section>
 </Layout>
-

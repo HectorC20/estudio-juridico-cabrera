@@ -1,0 +1,21 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import NoticiasPost from '../../layouts/NoticiasPost.astro';
+import SpecialtiesPost from "../../layouts/SpecialtiesPost.astro";
+
+export async function getStaticPaths() {
+    const posts = await getCollection('especialidades');
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: post,
+    }));
+}
+type Props = CollectionEntry<'noticias'>;
+
+const post = Astro.props;
+const { Content } = await post.render();
+---
+
+<SpecialtiesPost {...post.data}>
+    <Content />
+</SpecialtiesPost>

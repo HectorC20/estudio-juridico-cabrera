@@ -1,112 +1,87 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
-import {getCollection} from 'astro:content';
+import { getCollection } from 'astro:content';
 import SearchNotice from "../../components/SearchNotice.astro";
+
 const posts = (await getCollection('noticias')).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 <style>
     main {
-        @apply w-[80vw] md:w-[70vw] lg:w-[75vw] xl:w-[70vw]
+        @apply w-full flex justify-center py-[36rem];
+    }
+
+    section {
+        @apply w-full flex justify-center;
     }
 
     ul {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
+        @apply lg:w-[60vw] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-12;
     }
 
     ul li {
-        @apply text-xl font-normal text-center;
-        width: calc(50% - 1rem);
-
-    }
-
-    ul li:hover {
-
-        h4, p {
-            @apply text-secondaryLocal !important;
-        }
-
-        img {
-            @apply shadow-lg shadow-secondaryLocal/30 !important;
-        }
-    }
-
-    ul li * {
-        text-decoration: none;
-        transition: 0.2s ease;
-    }
-
-    ul li:first-child {
-        width: 100%;
-        margin-bottom: 1rem;
-        text-align: center;
-    }
-
-    ul li:first-child img {
-        width: 100%;
-    }
-
-    ul li:first-child .title {
-        font-size: 2.369rem;
+        @apply mb-4 text-xl font-normal text-center relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: visible;
     }
 
     ul li img {
-        margin-bottom: 0.5rem;
         border-radius: 12px;
+        width: 100%;
+        height: 20em;
+        object-fit: cover;
     }
 
     ul li a {
         display: block;
+        width: 100%;
+        position: relative;
+        overflow: visible;
+    }
+
+    .text-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 2rem); /* Ajusta el ancho para que respete un margen */
+        padding: 1rem;
+        transition: background-color 0.3s ease;
+        @apply shadow-tertiaryLocal/30 shadow-lg bg-primaryLocal rounded-md -mb-6 z-20;
+    }
+
+
+    ul li:hover .text-overlay {
+        background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+
+        h4, p {
+            @apply text-primaryLocal !important;
+        }
+       @apply bg-secondaryLocal  !important;
     }
 
     .title {
         margin: 0;
-        line-height: 1;
+        line-height: 1.2;
+        white-space: normal;
+        overflow-wrap: break-word; /* Permite que el texto se expanda */
     }
 
     .date {
         margin: 0;
-    }
-
-    ul li a:hover h4,
-    ul li a:hover .date {
-    }
-
-    ul a:hover img {
-    }
-
-    @media (max-width: 720px) {
-        ul {
-            gap: 0.5em;
-        }
-
-        ul li {
-            width: 100%;
-            text-align: center;
-        }
-
-        ul li:first-child {
-            margin-bottom: 0;
-        }
-
-        ul li:first-child .title {
-            font-size: 1.563em;
-        }
+        font-size: 0.9em;
     }
 
     .hero-image {
         position: absolute;
         width: 100%;
         height: 33rem;
-        overflow: visible; /* Cambiado de hidden a visible */
-        @apply left-0 top-0 ;
+        overflow: visible;
+        @apply left-0 top-0;
     }
 
     .hero-image img {
@@ -115,7 +90,6 @@ const posts = (await getCollection('noticias')).sort(
         object-fit: cover !important;
         @apply bg-fixed bg-cover bg-center;
     }
-
     .hero-image::before {
         content: '';
         position: absolute;
@@ -123,34 +97,33 @@ const posts = (await getCollection('noticias')).sort(
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(150deg, hsla(196, 20%, 19%, 0.6) 0%, hsla(197, 55%, 54%, 0.3) 100%);
+        background: linear-gradient(150deg, hsla(196, 20%, 19%, 0.6) 0%, hsla(197, 40%, 34%, 0.3) 100%);
         pointer-events: none;
-        z-index: 1; /* Asegúrate de que este fondo tenga un z-index más bajo */
+        z-index: 1;
     }
-
     .hero-cont {
-        text-shadow: 2px 2px 4px rgba(15, 24, 37, 0.4);
-        font-family: "Archivo Black", sans-serif;
-        z-index: 2;
-        @apply w-[90vw] md:w-[80vw] lg:w-[75vw] xl:w-[70vw] absolute flex flex-col justify-center items-center left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2;
-
         h1, h2 {
             @apply text-primaryLocal !important;
         }
 
         h1 {
-            @apply text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl ;
+            @apply text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl;
         }
 
         h2 {
             text-align: justify;
-            @apply text-sm sm:text-lg md:text-xl xl:text-lg
+            @apply text-sm sm:text-lg md:text-xl xl:text-lg;
         }
+
+        text-shadow: 2px 2px 4px rgba(15, 24, 37, 0.4);
+        font-family: "Archivo Black", sans-serif;
+        z-index: 2;
+        @apply w-[90vw] md:w-[80vw] lg:w-[75vw] xl:w-[70vw] absolute flex flex-col justify-center items-center text-primaryLocal left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 !important;
     }
 </style>
-<!-- Apartado              -->
+
 <Layout title="NOTICIAS | ESTUDIO JURIDICO CABRERA" description="Las noticias de ESTUDIO JURÍDICO CABRERA">
-    <main class="py-[36rem] mx-auto">
+    <main>
         <section>
             <div class="hero-image">
                 <div class="hero-cont">
@@ -166,13 +139,16 @@ const posts = (await getCollection('noticias')).sort(
             <ul>
                 {
                     posts.map((post) => (
-                            <li>
-                                <a href={`/noticias/${post.slug}/`}>
-                                    <img width={720} height={360} src={post.data.heroImage} alt=""/>
-                                    <h4 class="title">{post.data.title}</h4>
-                                    <p class="date">
-                                        <FormattedDate date={post.data.pubDate}/>
-                                    </p>
+                            <li class="rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                                <a href={`/noticias/${post.slug}/`} class="block ">
+                                    <img src={post.data.heroImage} alt="" class="w-full h-48 object-cover"/>
+                                    <div class="text-overlay ">
+                                        <h4 class="title text-lg 2xl:text-xl font-semibold text-secondaryLocal">{post.data.title}</h4>
+                                        <p class="date 2xl:text-xl text-secondaryLocal">
+                                            <FormattedDate date={post.data.pubDate}/>
+                                        </p>
+                                        <div class="h-1 w-full bg-tertiaryLocal absolute bottom-0 left-0 rounded-b-md "></div>
+                                    </div>
                                 </a>
                             </li>
                     ))

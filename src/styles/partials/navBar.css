@@ -14,7 +14,7 @@
 
 /* Contenedor general de la navegación */
 .fnt-nav {
-    @apply rounded-full  w-[70vw] sm:w-[50vw] md:w-[40vw] lg:w-[30vw] flex justify-around -mb-[7vh]  shadow-xl border xl:border-2 border-fifthLocal;
+    @apply rounded-full w-[70vw] sm:w-[50vw] md:w-[40vw] lg:w-[30vw] flex justify-around -mb-[7vh]  shadow-lg border shadow-tertiaryLocal/40 xl:border-2 border-fifthLocal;
 }
 /* Contenido de la navegación */
 .nav-content {

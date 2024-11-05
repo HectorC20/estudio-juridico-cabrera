@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 
-// Obtiene la colección de especialidades y ordena alfabéticamente por título
 const postsClient = (await getCollection('especialidades')).sort((a, b) =>
     a.data.title.localeCompare(b.data.title, 'es')
 );

@@ -42,7 +42,7 @@ const especialidades = defineCollection({
     schema: z.object({
         id: z.number().optional(),
         src: z.string().optional(),
-        alt: z.string(),
+        alt: z.string().optional(),
         title: z.string(),
         description: z.string(),
         pubDate: z.coerce.date(),

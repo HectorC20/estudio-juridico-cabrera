@@ -127,7 +127,7 @@ const postsClient = (await getCollection('especialidades')).sort((a, b) =>
 
     <div id="especialidades-menu"
          class="hidden absolute top-full bg-white shadow-lg ">
-        <ul class="grid grid-cols-4 gap-3 pl-[10%] py-12 ">
+        <ul class="grid grid-cols-4 gap-3 pl-[4%] py-12 ">
             {postsClient.map((post, index) => (
                     <li >
                         <a href={`/especialidades/${post.slug}`} class="font-asa">{post.data.title}</a>
@@ -135,6 +135,27 @@ const postsClient = (await getCollection('especialidades')).sort((a, b) =>
             ))}
         </ul>
     </div>
+
 </header>
 
 
+<script>
+    const especialidadesBtn = document.getElementById('especialidades-btn');
+    const especialidadesMenu = document.getElementById('especialidades-menu');
+
+    if (especialidadesBtn && especialidadesMenu) {
+        especialidadesBtn.addEventListener('mouseenter', () => {
+            especialidadesMenu.classList.remove('hidden');
+        });
+
+        especialidadesMenu.addEventListener('mouseleave', () => {
+            especialidadesMenu.classList.add('hidden');
+        });
+
+        especialidadesMenu.addEventListener('mouseenter', () => {
+            especialidadesMenu.classList.remove('hidden');
+        });
+    } else {
+        // console.error('El botón o el menú de especialidades no existen en el DOM.');
+    }
+</script>

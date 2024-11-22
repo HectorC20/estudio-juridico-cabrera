@@ -75,7 +75,6 @@
 
 .list-menu-mobile {
     background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
-
 }
 
 .menu-drawer {
@@ -92,18 +91,19 @@
 }
 
 #especialidades-menu {
+
     background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
-    @apply shadow-xl shadow-secondaryLocal/30 bg-secondaryLocal w-[100%] absolute z-10 left-[50%] transform translate-x-[-50%]  !important;
-    top: calc(100%); /* Ajusta para que aparezca justo debajo del nav */
+    @apply  shadow-xl shadow-secondaryLocal/30 bg-secondaryLocal w-[100%] absolute z-10 left-[50%] transform translate-x-[-50%]  !important;
+    top: calc(100%  ); /* Ajusta para que aparezca justo debajo del nav */
 }
 
+
 .font-asa {
-    font-family: "Asap Condensed", sans-serif;
+    font-family: "Archivo Black", sans-serif;
     @apply text-sm xl:text-lg font-light  !important;
 }
 
 
-/*---------*/
 .underline-on-hover {
     @apply relative text-primaryLocal;
 }
@@ -135,8 +135,6 @@
 .contact-info li, .link {
     @apply flex items-center gap-2;
 }
-
-/* Número de teléfono */
 .phone-number {
     @apply hidden lg:block  hover:underline px-1;
 }

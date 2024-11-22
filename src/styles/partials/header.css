@@ -138,7 +138,10 @@
 
 /* Número de teléfono */
 .phone-number {
-    @apply hover:underline px-1;
+    @apply hidden lg:block  hover:underline px-1;
+}
+.phone-number-new{
+    @apply block lg:hidden
 }
 
 .social-icons {

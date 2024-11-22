@@ -4,7 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 
 <style>
     .section-nosotros {
-        @apply relative pt-28;
+        @apply relative pt-12;
     }
 
     .container-nosotros {
@@ -16,26 +16,31 @@ import Layout from "../../layouts/Layout.astro";
     }
 
     .image-nosotros {
-        @apply shadow-lg shadow-indigo-500/40 object-cover rounded-[30px];
-        max-height: 610px;
+        border-top-right-radius: 1.5rem;
+        border-bottom-right-radius: 1.5rem;
+        @apply object-cover shadow-xl shadow-tertiaryLocal/20 -mt-1;
+
     }
 
     .title-nosotros {
-        @apply sm:text-3xl text-2xl text-center font-black font-['Assistant'] px-5 text-fifthLocal py-1.5;
+        @apply sm:text-3xl text-2xl xl:text-4xl text-center font-black font-['Assistant'] px-5 text-tertiaryLocal py-1.5;
     }
 
     .description-nosotros {
-        @apply text-center text-lg px-5 lg:px-24;
+        @apply text-center text-lg xl:text-2xl px-5 lg:px-24;
+    }
+
+    .section-nosotros-grid {
+        @apply my-12
     }
 
     .grid-nosotros {
-        @apply grid gap-12 sm:mx-16 md:grid-cols-2 xl:gap-8 justify-around pt-6;
+        @apply grid  gap-12 sm:mx-16 md:grid-cols-2 xl:gap-8 justify-around pt-6;
     }
 
     .mission-container,
     .vision-container {
-        @apply flex border-4 rounded-xl border-secondaryLocal flex-col justify-start text-center px-4;
-        min-height: 450px; /* Ajusta esta altura mínima según tus necesidades */
+        @apply flex    flex-col justify-start text-center px-4 pb-12;
     }
 
     .icon-nosotros {
@@ -45,37 +50,115 @@ import Layout from "../../layouts/Layout.astro";
     }
 
     .subtitle-nosotros {
-        background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
-        @apply bg-secondaryLocal w-40 h-12 rounded-b-full mx-auto sm:text-3xl text-2xl font-medium mb-4 text-fifthLocal;
+        @apply w-40 h-12 text-2xl mx-auto sm:text-3xl lg:text-4xl  font-medium mb-4 text-tertiaryLocal;
     }
 
     .text-nosotros {
-        @apply mx-16;
+        @apply mx-4 lg:mx-12 text-xl ;
+    }
+
+    .hero-image {
+        position: relative; /* Mantén posición relativa para posicionar hijos */
+        width: 100%;
+        height: 25em; /* Altura fija de la sección */
+        overflow: hidden;
+    }
+
+    .hero-image img {
+        width: 100%;
+        height: 100%; /* Asegúrate de que la imagen cubra todo el contenedor */
+        object-fit: cover !important;
+    }
+
+    .hero-image::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 33em; /* Igual altura que el contenedor */
+        background: linear-gradient(150deg, hsla(196, 20%, 19%, 0.6) 0%, hsla(197, 40%, 34%, 0.3) 100%);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .hero-cont {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 70%;
+        text-align: center;
+        z-index: 2;
+    }
+
+    .hero-cont h1, h2 {
+        text-shadow: 2px 2px 4px rgba(15, 24, 37, 0.4);
+
+        font-family: "Archivo Black", sans-serif;
+        @apply text-primaryLocal
+    }
+
+    .hero-cont h1 {
+        font-size: 2rem;
+        @apply sm:text-3xl md:text-5xl lg:text-6xl;
+    }
+
+    .hero-cont h2 {
+        font-size: 1rem;
+        @apply sm:text-lg md:text-xl lg:text-2xl;
     }
 </style>
 
 <Layout title="NOSOTROS | ESTUDIO JURÍDICO CABRERA" description="descripcion de nosotros">
+    <div class="hero-image  relative">
+        <div class="hero-cont">
+            <h1>NOSOTROS</h1>
+            <h2>Infórmate sobre las últimas novedades legales y actualizaciones del Estudio Jurídico Cabrera.
+                Accede a análisis de cambios normativos, resoluciones clave y consejos prácticos de nuestros
+                expertos.</h2>
+        </div>
+        <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1732237230/nosotrosinfo_jejdrl.jpg"
+             alt="Noticias de ESTUDIO "/>
+        <!-- Agregamos SocialLinks aquí para que esté dentro del mismo contenedor -->
+    </div>
+
     <section class="section-nosotros">
         <div class="container-nosotros">
-
-            <div class="image-container-nosotros">
-                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728570969/nosotros_lneya4.jpg" alt="Nosotros" loading="lazy" class="image-nosotros">
-            </div>
-
-            <h1 class="title-nosotros">"Tu confianza es nuestra prioridad"</h1>
-            <p class="description-nosotros">En <strong>Estudio Jurídico Cabrera</strong>, nos comprometemos a ofrecer soluciones legales efectivas, con un enfoque personalizado y profesional. Nuestro equipo de expertos está dedicado a brindarte la mejor asesoría jurídica, basándonos en la transparencia, ética y experiencia.</p>
-
-            <div class="grid-nosotros">
-                <div class="mission-container">
-                    <h2 class="subtitle-nosotros">Misión</h2>
-                    <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728571232/mision_rdorpi.png" alt="misión" class="icon-nosotros">
-                    <p class="text-nosotros">Nuestra misión en <strong>Estudio Jurídico Cabrera</strong> es ofrecer servicios jurídicos de alta calidad, orientados a resolver los problemas legales de nuestros clientes de manera eficiente y eficaz. Nos esforzamos por garantizar que cada cliente reciba la atención y el compromiso que se merece.</p>
+            <div class="flex lg:flex-row flex-col justify-between">
+                <div class="image-container-nosotros">
+                    <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728570969/nosotros_lneya4.jpg"
+                         alt="Nosotros" loading="lazy" class="image-nosotros">
                 </div>
+                <div class="flex flex-col my-auto gap-12">
+                    <h1 class="title-nosotros">"Tu confianza es nuestra prioridad"</h1>
+                    <p class="description-nosotros">En <strong>Estudio Jurídico Cabrera</strong>, nos comprometemos a
+                        ofrecer soluciones legales efectivas, con un enfoque personalizado y profesional. Nuestro equipo
+                        de expertos está dedicado a brindarte la mejor asesoría jurídica, basándonos en la
+                        transparencia, ética y experiencia.</p>
+                </div>
+            </div>
+            <div class="section-nosotros-grid">
+                <div class="grid-nosotros">
+                    <div class="mission-container">
+                        <h2 class="subtitle-nosotros">Misión</h2>
+                        <p class="text-nosotros">Nuestra misión en <strong>Estudio Jurídico Cabrera</strong> es ofrecer
+                            servicios jurídicos de alta calidad, orientados a resolver los problemas legales de nuestros
+                            clientes de manera eficiente y eficaz. Nos esforzamos por garantizar que cada cliente reciba
+                            la
+                            atención y el compromiso que se merece.</p>
+                    </div>
 
-                <div class="vision-container">
-                    <h2 class="subtitle-nosotros">Visión</h2>
-                    <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728571231/vision_muiixr.png" alt="Visión" class="icon-nosotros">
-                    <p class="text-nosotros">Nuestra visión es ser un despacho de referencia en el ámbito legal, reconocido por nuestra excelencia, compromiso y capacidad para resolver casos complejos con integridad. En <strong>Estudio Jurídico Cabrera</strong>, aspiramos a construir relaciones de confianza a largo plazo con nuestros clientes, basadas en nuestra dedicación y experiencia.</p>
+                    <div class="vision-container">
+                        <h2 class="subtitle-nosotros">Visión</h2>
+                        <p class="text-nosotros">Nuestra visión es ser un despacho de referencia en el ámbito legal,
+                            reconocido por nuestra excelencia, compromiso y capacidad para resolver casos complejos con
+                            integridad. En <strong>Estudio Jurídico Cabrera</strong>, aspiramos a construir relaciones
+                            de
+                            confianza a largo plazo con nuestros clientes, basadas en nuestra dedicación y experiencia.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

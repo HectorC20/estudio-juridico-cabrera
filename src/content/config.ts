@@ -19,8 +19,8 @@ const alianzas = defineCollection({
         id: z.number().optional(),
         src: z.string().optional(),
         alt: z.string(),
-        nombre: z.string(),
-        pubDate: z.coerce.date(),
+        nombre: z.string().default('Nombre desconocido'),  // Valor por defecto
+        pubDate: z.coerce.date().default(new Date()),  // Valor por defecto
         updatedDate: z.coerce.date().optional(),
     }),
 });
@@ -31,8 +31,8 @@ const asociados = defineCollection({
         id: z.number().optional(),
         src: z.string().optional(),
         alt: z.string(),
-        nombre: z.string(),
-        pubDate: z.coerce.date(),
+        nombre: z.string().optional(),
+        pubDate: z.coerce.date().nullable(),  // Cambia a nullable() en lugar de optional()
         updatedDate: z.coerce.date().optional(),
     }),
 });

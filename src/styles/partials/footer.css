@@ -54,11 +54,11 @@
 }
 
 .footer-bottom {
-    @apply py-14 lg:py-4 px-14 gap-4  text-tertiaryLocal flex flex-wrap text-center  lg:justify-end;
+    @apply py-14 lg:py-4 px-14 gap-4  text-fifthLocal/60 flex flex-wrap text-center  lg:justify-end;
 
 }
 
 .footer-bottom li:last-child {
-    @apply font-light  hover:text-blue-600 text-lg font-['Assistant'] ;
+    @apply   hover:text-blue-600 text-lg  font-semibold font-['Assistant'] ;
 }
 

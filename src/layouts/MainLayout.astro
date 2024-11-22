@@ -1,6 +1,7 @@
 ---
 import Footer from "../components/partials/Footer.astro";
 import NavBar from "../components/partials/Navbar.astro";
+import ScriptAnimation from "../components/ScriptAnimation.vue";
 import MainHeader from "../components/partials/MainHeader.astro";
 
 interface Props {
@@ -59,5 +60,7 @@ const {title, description, image = '/blog-placeholder-1.jpg'} = Astro.props;
     <slot/>
 </div>
 <Footer/>
+<ScriptAnimation client:only="vue"/>
+
 </body>
 </html>

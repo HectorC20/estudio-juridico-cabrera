@@ -1,11 +1,46 @@
 ---
-import CarouselBlog from "../components/CarouselBlog.vue"
+import CarouselBlog from "../components/CarouselBlog.vue";
 import MainLayout from "../layouts/MainLayout.astro";
+import SectionNosotros from "../components/SectionNosotros.astro";
+import SectionAsociados from "../components/SectionAsociados.astro";
+import SectionLoMejor from "../components/SectionLoMejor.astro";
+import LoadingScreen from "../components/Loader/Loading.astro"; // Importa el componente de carga
 ---
 
 <!doctype html>
 <html lang="en">
 <MainLayout title="ABOGADOS EN TUMBES | ESTUDIO JURIDICO CABRERA" description="abogados">
-    <CarouselBlog client:only="vue"/>
+    <!-- Pantalla de carga -->
+    <LoadingScreen client:load />
+
+    <!-- Contenido principal -->
+    <div id="main-content" class="hidden">
+        <CarouselBlog client:only="vue" />
+        <SectionNosotros />
+        <SectionAsociados />
+        <SectionLoMejor />
+    </div>
+
+    <script>
+        // Lógica para ocultar el componente de carga
+        window.addEventListener('load', () => {
+            const loader = document.querySelector('.loading-screen');
+            const mainContent = document.getElementById('main-content');
+
+            if (loader) {
+                loader.classList.add('hidden'); // Ocultar el loader
+                setTimeout(() => loader.remove(), 500); // Eliminar el loader tras la transición
+            }
+            if (mainContent) {
+                mainContent.classList.remove('hidden'); // Mostrar el contenido principal
+            }
+        });
+    </script>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </MainLayout>
 </html>

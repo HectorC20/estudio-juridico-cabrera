@@ -1,0 +1,57 @@
+---
+---
+<style>
+    .section-nosotros {
+        @apply w-full  relative justify-between pb-6;
+    }
+
+    .container-nosotros {
+        @apply container  mx-auto flex flex-wrap lg:justify-between gap-8 items-center;
+    }
+
+    .image-container-nosotros {
+        @apply justify-center flex w-full -ml-12 object-cover max-w-[500px] h-[400px] ;
+    }
+
+    .image-nosotros {
+        @apply object-cover max-h-[30em] w-full lg:max-w-none ;
+    }
+
+    .content-nosotros {
+        @apply flex flex-col gap-6 w-full lg:w-1/2 text-center lg:text-left;
+    }
+
+    .title-nosotros {
+        font-family: "Archivo Black", sans-serif;
+
+        @apply text-xl sm:text-2xl lg:text-3xl xl:text-5xl 2xl:text-6xl font-black font-['Assistant'] text-secondaryLocal max-w-[600px] mx-auto lg:mx-0;
+    }
+
+    .description-nosotros {
+        @apply text-sm sm:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-gray-700 max-w-[550px] mx-auto lg:mx-0 leading-relaxed;
+    }
+</style>
+
+<section class="section-nosotros">
+    <div class="container-nosotros">
+        <!-- Imagen -->
+        <a class="image-container-nosotros" href="/especialidades">
+            <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1731712518/bg-info-nosotros_hmoqs4.png"
+                 alt="Nosotros" loading="lazy" class="image-nosotros"/>
+        </a>
+        <!-- Contenido -->
+        <div class="content-nosotros">
+            <h1 class="title-nosotros">
+                Especialidades Legales que Marcan la Diferencia
+            </h1>
+            <p class="description-nosotros">
+                ¡Protegemos tus derechos con soluciones legales personalizadas y efectivas!
+            </p>
+            <a href="/especialidades">
+                <button class="btn bg-secondaryLocal text-primaryLocal text-xl hover:bg-tertiaryLocal w-52 2xl:w-72 2xl:text-2xl">
+                    Descubre cómo
+                </button>
+            </a>
+        </div>
+    </div>
+</section>

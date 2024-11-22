@@ -1,0 +1,21 @@
+---
+export interface Props {
+    src: string;
+    alt: string;
+    nombre: string;
+    pubDate: Date;
+}
+const {src, alt, nombre, pubDate} = Astro.props;
+---
+<style>
+    .section__card__alianzas {
+        @apply  w-[100%] h-auto bg-white rounded-lg overflow-hidden;
+    }
+    .section__card__img__alianzas {
+        @apply w-full h-36 object-cover;
+        filter: grayscale(100%);
+    }
+</style>
+<div class="section__card__alianzas">
+    <img class="section__card__img__alianzas" src={src} alt={alt} />
+</div>

@@ -1,18 +1,18 @@
 .section-header {
-    @apply absolute text-primaryLocal w-full mt-4  z-20 bg-none ;
+    @apply absolute text-primaryLocal w-full  z-20 bg-none ;
 }
 
 .section-header-other {
     background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
-    @apply absolute text-primaryLocal w-full pt-4 pb-2 lg:pb-1 xl:pb-0.5 z-20 bg-secondaryLocal shadow-lg shadow-secondaryLocal/30;
+    @apply absolute text-primaryLocal w-full  pb-2 lg:pb-1 xl:pb-0.5 z-20 bg-secondaryLocal shadow-lg shadow-secondaryLocal/30;
 }
 
 .header-container {
-    @apply xl:container mx-auto hidden flex-wrap lg:px-4 xl:px-5 py-2 flex-col md:flex-row items-center justify-between relative lg:flex ;
+    @apply xl:container mx-auto hidden mt-10 flex-wrap lg:px-4 xl:px-5 py-2 flex-col md:flex-row items-center justify-between relative lg:flex ;
 }
 
 .section-nav {
-    @apply flex-1 flex items-center justify-end  lg:pr-0;
+    @apply flex-1 flex items-center justify-end -mr-4 lg:pr-0;
 }
 
 .section-nav a {
@@ -33,9 +33,7 @@
     @apply relative z-30;
 }
 
-/*Estilo para los teléfonos*/
 .header-mobile-menu {
-
     @apply w-full lg:hidden px-6  flex justify-between items-center;
 }
 
@@ -56,8 +54,10 @@
     justify-content: space-between;
     margin-top: auto;
 }
-
-.header-logo, .drawer {
+.header-logo{
+    @apply mt-2 mr-2 h-6 w-6 !important;
+}
+ .drawer {
     @apply h-8 w-8 !important;
 }
 
@@ -89,16 +89,110 @@
 
 .edit-logo {
     background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
-    @apply h-[12vh] pb-1.5 px-1.5 rounded-xl absolute bg-secondaryLocal shadow-lg shadow-secondaryLocal/30;
+    @apply h-[12vh] 2xl:h-[10vh] pb-1.5 px-1.5 rounded-xl absolute bg-secondaryLocal shadow-lg shadow-secondaryLocal/30;
 }
 
 #especialidades-menu {
     background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
-    @apply  shadow-xl shadow-secondaryLocal/30 bg-secondaryLocal w-[100%] absolute z-10 left-[50%] transform translate-x-[-50%]  !important;
-    top: calc(100%  ); /* Ajusta para que aparezca justo debajo del nav */
+    @apply shadow-xl shadow-secondaryLocal/30 bg-secondaryLocal w-[100%] absolute z-10 left-[50%] transform translate-x-[-50%]  !important;
+    top: calc(100%); /* Ajusta para que aparezca justo debajo del nav */
 }
 
 .font-asa {
     font-family: "Asap Condensed", sans-serif;
     @apply text-sm xl:text-lg font-light  !important;
+}
+
+
+/*---------*/
+.underline-on-hover {
+    @apply relative text-primaryLocal;
+}
+
+.underline-on-hover::after {
+    content: '';
+    @apply absolute bottom-0 left-0 bg-primaryLocal;
+    height: 1px;
+    width: 0;
+    transition: width 0.3s ease-in-out;
+}
+
+.underline-on-hover:hover::after {
+    width: 100%;
+}
+
+.cont-header-container {
+    @apply container ml-12 lg:ml-auto flex gap-3 mt-2 lg:mt-0 md:gap-0 justify-center lg:justify-between mx-auto lg:px-4 xl:px-6;
+}
+
+.link, .phone-number, .social-link {
+    @apply text-primaryLocal transition-all duration-300;
+}
+
+.icon {
+    @apply h-[22px];
+}
+
+.contact-info li, .link {
+    @apply flex items-center gap-2;
+}
+
+/* Número de teléfono */
+.phone-number {
+    @apply hover:underline px-1;
+}
+
+.social-icons {
+    @apply flex gap-2;
+}
+
+
+.cont-add-header {
+    background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+    font-family: "Assistant", sans-serif;
+    @apply h-8 font-semibold  flex justify-center items-center mx-auto bg-secondaryLocal w-full absolute top-0
+}
+
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Estilo base sin animación */
+.animate-from-left,
+.animate-from-right {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.hidden-before-animate {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.slideInFromLeft {
+    animation: slideInFromLeft 1s ease-in-out forwards;
+    opacity: 1; /* Para asegurarse de que esté visible durante la animación */
+}
+
+.slideInFromRight {
+    animation: slideInFromRight 1s ease-in-out forwards;
+    opacity: 1; /* Para asegurarse de que esté visible durante la animación */
 }

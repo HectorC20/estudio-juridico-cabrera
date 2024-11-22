@@ -1,7 +1,5 @@
 .section__cont__info {
     @apply relative  py-[4rem] lg:pt-[4rem] xl:pt-[5rem]  lg:pb-0 xl:pb-0 !important;
-    /*background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");*/
-    /*animation: slideDown 1s ease-in-out; !* Aplica la animación aquí *!*/
 }
 
 .animation-bottom {
@@ -19,13 +17,11 @@
     }
 }
 
-
 .section__container {
     @apply container mx-auto px-6 pb-6;
 }
 
 .section__heading {
-
     @apply text-3xl font-bold text-center text-secondaryLocal mb-8;
 }
 
@@ -34,7 +30,7 @@
 }
 
 .section__card {
-    @apply  w-[100%] h-auto bg-white shadow-lg shadow-secondaryLocal/30 rounded-t-lg overflow-hidden;
+    @apply w-[100%] h-auto bg-white shadow-lg shadow-secondaryLocal/30 rounded-t-lg overflow-hidden;
 }
 
 .section__card__img {
@@ -65,7 +61,6 @@
     width: auto;
 }
 
-/* Botones y paginación para el carrusel de clientes */
 #swiper-button-next-client,
 #swiper-button-prev-client {
     color: white;
@@ -73,18 +68,19 @@
     border-radius: 50%;
     font-size: 20px;
     cursor: pointer;
-    margin-top:-4em ;
+    margin-top: -4em;
 }
-.swiper-button-next,.swiper-button-prev{
 
+.swiper-button-next, .swiper-button-prev {
     @apply text-secondaryLocal !important;
 }
+
 #swiper-pagination-client {
     bottom: 10px;
     text-align: center;
     position: absolute;
     width: 100%;
-@apply mb-[30em] sm:mb-[28em] md:mb-[28em] lg:mb-[24em] xl:mb-[24em]
+    @apply mb-[30em] sm:mb-[28em] md:mb-[28em] lg:mb-[24em] xl:mb-[24em]
 }
 
 #swiper-pagination-client .swiper-pagination-bullet {
@@ -97,10 +93,8 @@
 #swiper-pagination-client .swiper-pagination-bullet-active {
     @apply bg-fifthLocal;
     opacity: 0.8;
-
 }
 
-/* Botones y paginación para el carrusel de asociados */
 #swiper-button-next-associate,
 #swiper-button-prev-associate {
     color: white;
@@ -108,7 +102,7 @@
     border-radius: 50%;
     font-size: 20px;
     cursor: pointer;
-    margin-top:15em ;
+    margin-top: 15em;
 }
 
 #swiper-pagination-associate {
@@ -130,9 +124,10 @@
     @apply bg-fifthLocal;
     opacity: 0.8;
 }
+
 .section__part__alliances {
     background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
     @apply relative bg-secondaryLocal mx-auto -mt-6 lg:-mt-4 xl:-mt-5 mb-10 text-primaryLocal font-semibold py-12 md:py-11 lg:py-10 ;
     animation: slideDown 1s ease-in-out;
-    z-index: 1; /* Ajustamos el z-index para evitar que los elementos se queden atrás */
+    z-index: 1;
 }

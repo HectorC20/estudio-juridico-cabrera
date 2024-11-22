@@ -6,11 +6,21 @@ import "../../node_modules/swiper/swiper-bundle.min.css";
 import SectionPages from "./SectionPages.astro";
 
 const postsClient = (await getCollection('alianzas')).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+    (a, b) => {
+        const aPubDate = a.data.pubDate ? a.data.pubDate.valueOf() : 0; // Si pubDate es null o undefined, usa 0
+        const bPubDate = b.data.pubDate ? b.data.pubDate.valueOf() : 0; // Lo mismo para b
+        return bPubDate - aPubDate;
+    }
 );
+
 const postsAssociate = (await getCollection('asociados')).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+    (a, b) => {
+        const aPubDate = a.data.pubDate ? a.data.pubDate.valueOf() : 0; // Si pubDate es null o undefined, usa 0
+        const bPubDate = b.data.pubDate ? b.data.pubDate.valueOf() : 0; // Lo mismo para b
+        return bPubDate - aPubDate;
+    }
 );
+
 ---
 
 <SectionPages title="ALIANZAS" description="Clientes destacados y asociados globales que fortalecen nuestro compromiso con la excelencia legal.">
@@ -24,9 +34,10 @@ const postsAssociate = (await getCollection('asociados')).sort(
                             <CardClient
                                     src={post.data.src || 'https://res.cloudinary.com/dixzojb4s/image/upload/v1729437484/cliente3_sjbzeo.jpg'}
                                     alt={post.data.alt || 'imagen del cliente'}
-                                    nombre={post.data.nombre}
-                                    pubDate={post.data.pubDate}
+                                    nombre={post.data.nombre || 'Nombre desconocido'}
+                            pubDate={post.data.pubDate || new Date()}
                             />
+
                         </div>
                 ))}
             </div>
@@ -44,10 +55,11 @@ const postsAssociate = (await getCollection('asociados')).sort(
                         <div class="swiper-slide">
                             <CardClient
                                     src={post.data.src || 'https://res.cloudinary.com/dixzojb4s/image/upload/v1729437484/cliente3_sjbzeo.jpg'}
-                                    alt={post.data.alt || 'imagen del asociado'}
-                                    nombre={post.data.nombre}
-                                    pubDate={post.data.pubDate}
+                                    alt={post.data.alt || 'imagen del cliente'}
+                                    nombre={post.data.nombre || 'Nombre desconocido'}
+                            pubDate={post.data.pubDate || new Date()}
                             />
+
                         </div>
                 ))}
             </div>

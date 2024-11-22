@@ -4,16 +4,14 @@ import MainLayout from "../layouts/MainLayout.astro";
 import SectionNosotros from "../components/SectionNosotros.astro";
 import SectionAsociados from "../components/SectionAsociados.astro";
 import SectionLoMejor from "../components/SectionLoMejor.astro";
-import LoadingScreen from "../components/Loader/Loading.astro"; // Importa el componente de carga
+import LoadingScreen from "../components/loader/Loading.astro";
 ---
 
 <!doctype html>
 <html lang="en">
 <MainLayout title="ABOGADOS EN TUMBES | ESTUDIO JURIDICO CABRERA" description="abogados">
     <!-- Pantalla de carga -->
-    <LoadingScreen client:load />
-
-    <!-- Contenido principal -->
+    <LoadingScreen />
     <div id="main-content" class="hidden">
         <CarouselBlog client:only="vue" />
         <SectionNosotros />

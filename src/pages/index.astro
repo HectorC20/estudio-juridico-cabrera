@@ -5,6 +5,8 @@ import SectionNosotros from "../components/SectionNosotros.astro";
 import SectionAsociados from "../components/SectionAsociados.astro";
 import SectionLoMejor from "../components/SectionLoMejor.astro";
 import LoadingScreen from "../components/loader/Loading.astro";
+import SectionNoticesHome from "../components/SectionNoticesHome.astro";
+import SectionLogros from "../components/SectionLogros.astro";
 ---
 
 <!doctype html>
@@ -14,9 +16,11 @@ import LoadingScreen from "../components/loader/Loading.astro";
     <LoadingScreen />
     <div id="main-content" class="hidden">
         <CarouselBlog client:only="vue" />
+        <SectionLogros/>
         <SectionNosotros />
         <SectionAsociados />
         <SectionLoMejor />
+        <SectionNoticesHome/>
     </div>
 
     <script>

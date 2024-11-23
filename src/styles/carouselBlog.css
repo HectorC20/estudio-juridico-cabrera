@@ -262,9 +262,9 @@
 }
 
 .section__notices__home{
-    @apply absolute bottom-[-25vh] sm:bottom-[-28vh] md:bottom-[-26vh] lg:bottom-[-20vh] xl:bottom-[-20vh] inset-x-0 flex justify-center;
+    @apply absolute bottom-[-20em] sm:bottom-[-16em] md:bottom-[-10em] lg:bottom-[-13em] xl:bottom-[-9em] inset-x-0 flex justify-center;
 }
 .content__notices__home{
     background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
-    @apply rounded-xl h-[10em] sm:h-[11em] md:h-[10em] lg:h-[11em] xl:h-[12em] w-[80vw] lg:w-[70vw] bg-secondaryLocal shadow-xl shadow-secondaryLocal/60;
+    @apply rounded-xl h-[23em] sm:h-[14em] md:h-[14em] lg:h-[14em] xl:h-[13em] w-[80vw] lg:w-[70vw] bg-secondaryLocal shadow-lg shadow-primaryLocal/15 ;
 }

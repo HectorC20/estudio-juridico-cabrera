@@ -8,7 +8,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="pb-[30vh]">
+  <div >
     <div class="hero ">
       <div class="bg-hero"></div>
       <div class="hero__fullsize"></div>
@@ -81,11 +81,11 @@ onMounted(() => {
       </div>
       <div class="section__notices__home">
         <div class="content__notices__home">
-          <div class="px-8 py-6 text-center text-primaryLocal text-2xl font-semibold">LO DESTACADO</div>
+          <div class="px-8 py-6 text-center text-primaryLocal text-xl lg:text-2xl font-bold">LO DESTACADO</div>
           <div class=" grid grid-cols-1 sm:grid-cols-2 gap-6">
             <!-- Sección de Noticias -->
             <div class="space-y-2 text-center px-3 ">
-              <h3 class="text-xl font-bold text-primaryLocal">NOTICIA</h3>
+              <h3 class="text-lg lg:text-xl font-bold text-primaryLocal">NOTICIA</h3>
               <p class="text-sm text-primaryLocal uppercase">
                 El proceso de conciliación en Perú: una alternativa efectiva para resolver conflictos.
               </p>
@@ -94,7 +94,7 @@ onMounted(() => {
               </a>
             </div>
             <!-- Sección de Reconocimientos -->
-            <div class="space-y-4 text-center">
+            <div class="space-y-4 text-center px-3">
               <h3 class="text-xl font-bold text-primaryLocal">RECONOCIMIENTO</h3>
               <p class="text-sm text-primaryLocal uppercase">
                 Premio a la Excelencia Jurídica 2023.

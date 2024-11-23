@@ -1,0 +1,75 @@
+---
+---
+
+<style>
+    .section__logros {
+        background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+        @apply bg-secondaryLocal w-full h-[54em] sm:h-[45em] md:h-[40em] lg:h-[22em];
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Posiciona el contenido en la parte inferior */
+    }
+
+    .logros__container {
+        @apply w-[90vw] mx-auto gap-4 mb-12;
+    }
+
+    .logros__lista {
+        @apply flex flex-col gap-12 md:gap-8 lg:gap-4 xl:gap-0 lg:flex-row justify-around items-center;
+    }
+
+    .logros__item {
+        @apply flex items-center gap-4 text-left sm:text-center; /* Alineación desde la izquierda en móvil */
+    }
+
+    .logros__text {
+        @apply text-primaryLocal;
+    }
+
+    .logros__text span:first-child {
+        @apply text-4xl font-bold block; /* Primera línea: +cantidad */
+    }
+
+    .logros__text span:last-child {
+        @apply text-2xl block; /* Segunda línea: título */
+    }
+
+    img {
+        @apply h-20; /* Tamaño de la imagen */
+    }
+</style>
+
+<section class="section__logros">
+    <div class="logros__container">
+        <ul class="logros__lista">
+            <li class="logros__item">
+                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1732331613/clientes_vpfaik.svg" alt="clientes">
+                <div class="logros__text">
+                    <span>+3000</span>
+                    <span>Clientes</span>
+                </div>
+            </li>
+            <li class="logros__item">
+                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1732331627/casos_gkd2pr.svg" alt="casos">
+                <div class="logros__text">
+                    <span>+4000</span>
+                    <span>Casos</span>
+                </div>
+            </li>
+            <li class="logros__item">
+                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1732331626/desde_pxz98u.svg" alt="desde">
+                <div class="logros__text">
+                    <span>+30</span>
+                    <span>Años de Experiencia</span>
+                </div>
+            </li>
+            <li class="logros__item">
+                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1732331626/certificados_qiwith.svg" alt="certificados">
+                <div class="logros__text">
+                    <span>+200</span>
+                    <span>Certificados</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>

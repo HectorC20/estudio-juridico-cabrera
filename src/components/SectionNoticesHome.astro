@@ -1,0 +1,155 @@
+---
+import FormattedDate from "../components/FormattedDate.astro";
+import {getCollection} from 'astro:content';
+const posts = (await getCollection('noticias')).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+<style>
+    ul {
+        @apply lg:w-[60vw] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-12;
+    }
+
+    .more__des {
+        @apply text-secondaryLocal text-sm
+    }
+
+    ul li {
+        @apply mb-4 text-xl font-normal text-center relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: visible;
+    }
+
+    ul li img {
+        border-radius: 12px;
+        width: 100%;
+        height: 20em;
+        object-fit: cover;
+    }
+
+    ul li a {
+        display: block;
+        width: 100%;
+        position: relative;
+        overflow: visible;
+    }
+
+    .text-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 2rem); /* Ajusta el ancho para que respete un margen */
+        padding: 1rem;
+        transition: background-color 0.3s ease;
+        @apply shadow-tertiaryLocal/30 shadow-lg bg-primaryLocal rounded-md -mb-6 z-20;
+    }
+
+
+    ul li:hover .text-overlay {
+        background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+
+        h4, p, .more__des {
+            @apply text-primaryLocal !important;
+        }
+
+        @apply bg-secondaryLocal  !important;
+    }
+
+    .title {
+        margin: 0;
+        line-height: 1.2;
+        white-space: normal;
+        overflow-wrap: break-word;
+    }
+
+    .date {
+        margin: 0;
+        font-size: 0.9em;
+    }
+
+    .hero-image {
+        position: absolute;
+        width: 100%;
+        height: 33rem;
+        overflow: visible;
+        @apply left-0 top-0;
+    }
+
+    .hero-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover !important;
+        @apply bg-fixed bg-cover bg-center;
+    }
+
+    .hero-image::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(150deg, hsla(196, 20%, 19%, 0.6) 0%, hsla(197, 40%, 34%, 0.3) 100%);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .hero-cont {
+        h1, h2 {
+            @apply text-primaryLocal !important;
+        }
+
+        h1 {
+            @apply text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl;
+        }
+
+        h2 {
+            text-align: justify;
+            @apply text-sm sm:text-lg md:text-xl xl:text-lg;
+        }
+
+        font-family: "Archivo Black", sans-serif;
+        z-index: 2;
+        @apply w-[90vw] md:w-[80vw] lg:w-[75vw] xl:w-[70vw] absolute flex flex-col justify-center items-center text-primaryLocal left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 !important;
+    }
+    .part__noticias__home{
+        @apply lg:w-[60vw] mb-4 mx-auto flex justify-between
+    }
+    .title__notices__home {
+        font-family: "Archivo Black", sans-serif;
+        @apply text-4xl text-secondaryLocal
+    }
+    .btn__notices__home{
+        background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+        @apply btn bg-secondaryLocal hover:bg-tertiaryLocal text-primaryLocal text-lg
+    }
+</style>
+
+<section class="my-12">
+    <div class="part__noticias__home">
+       <h3 class="title__notices__home"> Novedades</h3>
+        <a href="/noticias" class=" btn__notices__home"><button > Ver más</button></a>
+    </div>
+    <ul>
+        {
+            posts.map((post) => (
+                    <li class="rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                        <a href={`/noticias/${post.slug}/`} class="block ">
+                            <img src={post.data.heroImage} alt="" class="w-full h-48 object-cover"/>
+                            <div class="text-overlay ">
+                                <h4 class="title text-lg 2xl:text-xl font-semibold text-secondaryLocal">{post.data.title}</h4>
+                                <p class="date 2xl:text-xl text-secondaryLocal">
+                                    <FormattedDate date={post.data.pubDate}/>
+                                </p>
+                                <div class="more__des">Leer Más</div>
+                                <div class="h-1 w-full bg-tertiaryLocal absolute bottom-0 left-0 rounded-b-md "></div>
+                            </div>
+                        </a>
+                    </li>
+            ))
+        }
+    </ul>
+</section>

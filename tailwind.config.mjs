@@ -12,10 +12,10 @@ export default {
 				slideDown: 'slideDown 1s ease-in-out',  // Aquí va la animación
 			},
 			colors: {
-				primaryLocal: "#F7F9F2",
-				secondaryLocal: "#306aab",
-				tertiaryLocal: "#10375C",
-				fourthLocal: "#E9EFEC",
+				primaryLocal: "#f9f6e7",
+				secondaryLocal: "#132740",
+				tertiaryLocal: "#1b2336",
+				fourthLocal: "#c79e69",
 				fifthLocal: "#021526",
 			},
 			boxShadow: {

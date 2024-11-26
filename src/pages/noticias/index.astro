@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
-import { getCollection } from 'astro:content';
+import {getCollection} from 'astro:content';
 import SearchNotice from "../../components/SearchNotice.astro";
 
 const posts = (await getCollection('noticias')).sort(
@@ -54,14 +54,18 @@ const posts = (await getCollection('noticias')).sort(
         @apply shadow-tertiaryLocal/30 shadow-lg bg-primaryLocal rounded-md -mb-6 z-20;
     }
 
+    .more__des {
+        @apply text-secondaryLocal text-sm
+    }
 
     ul li:hover .text-overlay {
         background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
 
-        h4, p {
+        h4, p, .more__des {
             @apply text-primaryLocal !important;
         }
-       @apply bg-secondaryLocal  !important;
+
+        @apply bg-secondaryLocal  !important;
     }
 
     .title {
@@ -90,6 +94,7 @@ const posts = (await getCollection('noticias')).sort(
         object-fit: cover !important;
         @apply bg-fixed bg-cover bg-center;
     }
+
     .hero-image::before {
         content: '';
         position: absolute;
@@ -101,6 +106,7 @@ const posts = (await getCollection('noticias')).sort(
         pointer-events: none;
         z-index: 1;
     }
+
     .hero-cont {
         h1, h2 {
             @apply text-primaryLocal !important;
@@ -135,25 +141,32 @@ const posts = (await getCollection('noticias')).sort(
                 <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1729025386/noticias_sa4pep.jpg"
                      alt="Noticias de ESTUDIO " class=""/>
                 <SearchNotice/>
+
             </div>
-            <ul>
-                {
-                    posts.map((post) => (
-                            <li class="rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105">
-                                <a href={`/noticias/${post.slug}/`} class="block ">
-                                    <img src={post.data.heroImage} alt="" class="w-full h-48 object-cover"/>
-                                    <div class="text-overlay ">
-                                        <h4 class="title text-lg 2xl:text-xl font-semibold text-secondaryLocal">{post.data.title}</h4>
-                                        <p class="date 2xl:text-xl text-secondaryLocal">
-                                            <FormattedDate date={post.data.pubDate}/>
-                                        </p>
-                                        <div class="h-1 w-full bg-tertiaryLocal absolute bottom-0 left-0 rounded-b-md "></div>
-                                    </div>
-                                </a>
-                            </li>
-                    ))
-                }
-            </ul>
+            <div class="flex flex-col">
+                <ul>
+
+                    {
+                        posts.map((post) => (
+                                <li class="rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                                    <a href={`/noticias/${post.slug}/`} class="block ">
+                                        <img src={post.data.heroImage} alt="" class="w-full h-48 object-cover"/>
+                                        <div class="text-overlay ">
+                                            <h4 class="title text-lg 2xl:text-xl font-semibold text-secondaryLocal">{post.data.title}</h4>
+                                            <p class="date 2xl:text-xl text-secondaryLocal">
+                                                <FormattedDate date={post.data.pubDate}/>
+                                            </p>
+                                            <div class="more__des">Leer Más</div>
+
+                                            <div class="h-1 w-full bg-tertiaryLocal absolute bottom-0 left-0 rounded-b-md "></div>
+                                        </div>
+                                    </a>
+                                </li>
+                        ))
+                    }
+
+                </ul>
+            </div>
         </section>
     </main>
 </Layout>

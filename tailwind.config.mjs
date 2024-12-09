@@ -13,8 +13,8 @@ export default {
 			},
 			colors: {
 				primaryLocal: "#f9f6e7",
-				secondaryLocal: "#132740",
-				tertiaryLocal: "#1b2336",
+				secondaryLocal: "#043053",
+				tertiaryLocal: "#0e1f33",
 				fourthLocal: "#c79e69",
 				fifthLocal: "#021526",
 			},

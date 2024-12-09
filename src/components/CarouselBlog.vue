@@ -1,7 +1,6 @@
 <script setup lang="js">
 import {onMounted} from 'vue';
 import {initSwiper} from '../utils/CarouselController';
-// Inicializamos Swiper cuando el componente se monta
 onMounted(() => {
   initSwiper();
 });

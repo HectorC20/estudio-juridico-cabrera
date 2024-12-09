@@ -30,7 +30,7 @@
 }
 
 .section__card {
-    @apply w-[100%] h-auto bg-white shadow-lg shadow-secondaryLocal/30 rounded-t-lg overflow-hidden;
+    @apply w-[100%] h-auto bg-white  shadow-secondaryLocal/30 rounded-t-lg overflow-hidden;
 }
 
 .section__card__img {

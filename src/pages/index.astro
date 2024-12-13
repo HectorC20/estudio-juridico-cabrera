@@ -24,20 +24,30 @@ import SectionLogros from "../components/SectionLogros.astro";
     </div>
 
     <script>
-        // Lógica para ocultar el componente de carga
         window.addEventListener('load', () => {
             const loader = document.querySelector('.loading-screen');
             const mainContent = document.getElementById('main-content');
 
+            // Tiempo mínimo en milisegundos que el loader debe mostrarse
+            const minDisplayTime = 3000;
+            const startTime = performance.now();
+
             if (loader) {
-                loader.classList.add('hidden'); // Ocultar el loader
-                setTimeout(() => loader.remove(), 500); // Eliminar el loader tras la transición
-            }
-            if (mainContent) {
-                mainContent.classList.remove('hidden'); // Mostrar el contenido principal
+                // Calcular el tiempo restante para cumplir con el mínimo
+                const elapsedTime = performance.now() - startTime;
+                const remainingTime = Math.max(minDisplayTime - elapsedTime, 0);
+
+                setTimeout(() => {
+                    loader.classList.add('hidden'); // Ocultar el loader
+                    setTimeout(() => loader.remove(), 500); // Eliminar el loader tras la transición
+                    if (mainContent) {
+                        mainContent.classList.remove('hidden'); // Mostrar el contenido principal
+                    }
+                }, remainingTime);
             }
         });
     </script>
+
 
     <style>
         .hidden {

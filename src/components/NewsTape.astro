@@ -1,14 +1,23 @@
 ---
 const { slugActual } = Astro.props;
-import { getCollection } from "astro:content";
+const apiUrl = "http://localhost:4322/wam/news/newsLat";
+const response = await fetch(apiUrl);
 
-const allPosts = (await getCollection('noticias')).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+interface NewsPost {
+    newsName: string;
+    title: string;
+    heroImage?: string;
+}
 
-// Filtramos la noticia actual
-const uniquePosts = allPosts.filter((post) => post.slug !== slugActual).slice(0, 3);
+const latestNews: NewsPost[] = await response.json();
+
+const normalizeSlug = (slug: string): string => decodeURIComponent(slug).toLowerCase().trim();
+
+const uniquePosts = latestNews
+    .filter((post: NewsPost) => normalizeSlug(post.newsName) !== normalizeSlug(slugActual))
+    .slice(0, 4);
 ---
+
 <style>
     @keyframes shimmer {
         0% {
@@ -18,13 +27,14 @@ const uniquePosts = allPosts.filter((post) => post.slug !== slugActual).slice(0,
             background-position: 100%;
         }
     }
+
     .section__NewsTape {
-        @apply flex  flex-col my-12 md:mx-12 lg:mx-0  rounded-2xl py-8 lg:px-4 mx-[10vw];
+        @apply flex flex-col my-12 md:mx-12 lg:mx-0 rounded-2xl py-8 lg:px-4 mx-[10vw];
     }
 
     h4 {
         @apply mb-4 text-secondaryLocal text-3xl lg:text-2xl 2xl:text-4xl font-bold text-center;
-        background: linear-gradient(90deg, #25439f, #619cdc, #25439f); /* Azul marino y dorado */
+        background: linear-gradient(90deg, #25439f, #619cdc, #25439f);
         background-size: 200%;
         background-clip: text;
         -webkit-background-clip: text;
@@ -34,38 +44,42 @@ const uniquePosts = allPosts.filter((post) => post.slug !== slugActual).slice(0,
 
     h5 {
         font-family: "Assistant", sans-serif;
-        @apply break-words  w-auto lg:w-72 rounded-b-xl px-1 pb-2 text-justify 2xl:text-xl font-normal text-secondaryLocal !important
+        @apply break-words w-auto lg:w-72 rounded-b-xl px-1 pb-2 text-justify 2xl:text-xl font-normal text-secondaryLocal !important;
     }
 
     .list__News {
         li:hover {
-            img{
-                @apply shadow-md shadow-tertiaryLocal/30
+            img {
+                @apply shadow-md shadow-tertiaryLocal/30;
             }
-           h5{
-               @apply underline text-tertiaryLocal
-           }
-        }
-        a{
-            @apply flex flex-col lg:flex-row py-3 border-b border-cyan-950/30
+
+            h5 {
+                @apply underline text-tertiaryLocal;
+            }
         }
 
-        @apply  flex flex-col sm:grid-cols-2 sm:grid lg:flex lg:flex-col
+        a {
+            @apply flex flex-col lg:flex-row py-3 border-b border-cyan-950/30;
+        }
+
+        @apply flex flex-col sm:grid-cols-2 sm:grid lg:flex lg:flex-col;
     }
-
 </style>
+
 <div class="section__NewsTape">
     <h4>DESCUBRE MÁS NOTICIAS</h4>
     <ul class="list__News">
-        {uniquePosts.map((post) => (
-                <li >
-                    <a href={`/noticias/${post.slug}/`}>
+        {uniquePosts.map((post: NewsPost) => (
+                <li>
+                    <a href={`/noticias/${post.newsName}/`}>
                         <img
-                                src={post.data.heroImage}
-                                alt=""
-                                class="w-[240px] h-[140px] sm:w-[260px] sm:h-[160px] lg:w-[180] lg:h-[115px] xl:w-[190px] xl:h-[120px] 2xl:w-full 2xl:h-[160px] rounded-xl shadow-secondaryLocal !important items-center mx-auto"
+                                src={post.heroImage || "/ruta/a/imagen/por/defecto.jpg"}
+                                alt={post.title}
+                                class="w-[240px] h-[140px] sm:w-[260px] sm:h-[160px] lg:w-[180px] lg:h-[115px] xl:w-[190px] xl:h-[120px] 2xl:w-full 2xl:h-[160px] rounded-xl shadow-secondaryLocal !important items-center mx-auto"
                         />
-                        <h5>{post.data.title.length > 80 ? post.data.title.slice(0, 80) + "..." : post.data.title}</h5>
+                        <h5>
+                            {post.title.length > 80 ? post.title.slice(0, 80) + "..." : post.title}
+                        </h5>
                     </a>
                 </li>
         ))}

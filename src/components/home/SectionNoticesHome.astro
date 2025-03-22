@@ -1,10 +1,19 @@
 ---
-import FormattedDate from "../components/FormattedDate.astro";
-import {getCollection} from 'astro:content';
-const posts = (await getCollection('noticias')).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+import FormattedDate from "../FormattedDate.astro";
+
+const response = await fetch('http://localhost:4322/wam/news/newsLat');
+
+// Definir el tipo para las noticias
+interface NewsPost {
+    newsName: string;
+    title: string;
+    heroImage?: string;
+    pubDate: string;
+}
+
+const latestNews: NewsPost[] = await response.json();
 ---
+
 <style>
     ul {
         @apply lg:w-[60vw] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-12;
@@ -41,12 +50,11 @@ const posts = (await getCollection('noticias')).sort(
         bottom: 0;
         left: 50%;
         transform: translateX(-50%);
-        width: calc(100% - 2rem); /* Ajusta el ancho para que respete un margen */
+        width: calc(100% - 2rem);
         padding: 1rem;
         transition: background-color 0.3s ease;
         @apply shadow-tertiaryLocal/30 shadow-lg bg-primaryLocal rounded-md -mb-6 z-20;
     }
-
 
     ul li:hover .text-overlay {
         background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
@@ -130,19 +138,18 @@ const posts = (await getCollection('noticias')).sort(
 
 <section class="my-12">
     <div class="part__noticias__home">
-       <h3 class="title__notices__home"> Novedades</h3>
+        <h3 class="title__notices__home"> Novedades</h3>
         <a href="/noticias" class=" btn__notices__home"><button > Ver más</button></a>
     </div>
     <ul>
-        {
-            posts.map((post) => (
+        {latestNews.map((news) => (
                     <li class="rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105">
-                        <a href={`/noticias/${post.slug}/`} class="block ">
-                            <img src={post.data.heroImage} alt="" class="w-full h-48 object-cover"/>
+                        <a href={`/noticias/${news.newsName}/`} class="block ">
+                            <img src={news.heroImage} alt="" class="w-full h-48 object-cover"/>
                             <div class="text-overlay ">
-                                <h4 class="title text-lg 2xl:text-xl font-semibold text-secondaryLocal">{post.data.title}</h4>
+                                <h4 class="title text-lg 2xl:text-xl font-semibold text-secondaryLocal">{news.title}</h4>
                                 <p class="date 2xl:text-xl text-secondaryLocal">
-                                    <FormattedDate date={post.data.pubDate}/>
+                                    <FormattedDate date={new Date(news.pubDate)}/>
                                 </p>
                                 <div class="more__des">Leer Más</div>
                                 <div class="h-1 w-full bg-tertiaryLocal absolute bottom-0 left-0 rounded-b-md "></div>

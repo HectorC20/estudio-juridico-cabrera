@@ -1,13 +1,34 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
-import {getCollection} from 'astro:content';
 import SearchNotice from "../../components/SearchNotice.astro";
 
-const posts = (await getCollection('noticias')).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+const apiUrl = 'http://localhost:4322/wam/news/newsList';
+
+interface NewsItem {
+    newsName: string;
+    title: string;
+    pubDate: string;
+    heroImage?: string;
+}
+
+let newsList: NewsItem[] = [];
+
+try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
+
+    newsList = (await response.json()) as NewsItem[];
+} catch (error) {
+    console.error("Error al obtener las noticias:", error);
+    newsList = [];
+}
+
+const sortedNews = newsList.sort((a, b) =>
+    new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
 );
 ---
+
 <style>
     main {
         @apply w-full flex justify-center py-[36rem];
@@ -141,30 +162,26 @@ const posts = (await getCollection('noticias')).sort(
                 <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1729025386/noticias_sa4pep.jpg"
                      alt="Noticias de ESTUDIO " class=""/>
                 <SearchNotice/>
-
             </div>
             <div class="flex flex-col">
                 <ul>
-
                     {
-                        posts.map((post) => (
+                        sortedNews.map((post: NewsItem) => (
                                 <li class="rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105">
-                                    <a href={`/noticias/${post.slug}/`} class="block ">
-                                        <img src={post.data.heroImage} alt="" class="w-full h-48 object-cover"/>
-                                        <div class="text-overlay ">
-                                            <h4 class="title text-lg 2xl:text-xl font-semibold text-secondaryLocal">{post.data.title}</h4>
+                                    <a href={`/noticias/${post.newsName}/`} class="block">
+                                        <img src={post.heroImage || 'https://via.placeholder.com/400x200'} alt="" class="w-full h-48 object-cover"/>
+                                        <div class="text-overlay">
+                                            <h4 class="title text-lg 2xl:text-xl font-semibold text-secondaryLocal">{post.title}</h4>
                                             <p class="date 2xl:text-xl text-secondaryLocal">
-                                                <FormattedDate date={post.data.pubDate}/>
+                                                <FormattedDate date={new Date(post.pubDate)}/>
                                             </p>
                                             <div class="more__des">Leer Más</div>
-
-                                            <div class="h-1 w-full bg-tertiaryLocal absolute bottom-0 left-0 rounded-b-md "></div>
+                                            <div class="h-1 w-full bg-tertiaryLocal absolute bottom-0 left-0 rounded-b-md"></div>
                                         </div>
                                     </a>
                                 </li>
                         ))
                     }
-
                 </ul>
             </div>
         </section>

@@ -1,12 +1,12 @@
 ---
 import CarouselBlog from "../components/CarouselBlog.vue";
 import MainLayout from "../layouts/MainLayout.astro";
-import SectionNosotros from "../components/SectionNosotros.astro";
-import SectionAsociados from "../components/SectionAsociados.astro";
-import SectionLoMejor from "../components/SectionLoMejor.astro";
+import SectionNosotros from "../components/home/SectionNosotros.astro";
+import SectionAsociados from "../components/home/SectionAsociados.astro";
+import SectionLoMejor from "../components/home/SectionLoMejor.astro";
 import LoadingScreen from "../components/loader/Loading.astro";
-import SectionNoticesHome from "../components/SectionNoticesHome.astro";
-import SectionLogros from "../components/SectionLogros.astro";
+import SectionNoticesHome from "../components/home/SectionNoticesHome.astro";
+import SectionLogros from "../components/home/SectionLogros.astro";
 ---
 
 <!doctype html>
@@ -27,21 +27,17 @@ import SectionLogros from "../components/SectionLogros.astro";
         window.addEventListener('load', () => {
             const loader = document.querySelector('.loading-screen');
             const mainContent = document.getElementById('main-content');
-
-            // Tiempo mínimo en milisegundos que el loader debe mostrarse
             const minDisplayTime = 3000;
             const startTime = performance.now();
-
             if (loader) {
-                // Calcular el tiempo restante para cumplir con el mínimo
                 const elapsedTime = performance.now() - startTime;
                 const remainingTime = Math.max(minDisplayTime - elapsedTime, 0);
 
                 setTimeout(() => {
-                    loader.classList.add('hidden'); // Ocultar el loader
-                    setTimeout(() => loader.remove(), 500); // Eliminar el loader tras la transición
+                    loader.classList.add('hidden');
+                    setTimeout(() => loader.remove(), 500);
                     if (mainContent) {
-                        mainContent.classList.remove('hidden'); // Mostrar el contenido principal
+                        mainContent.classList.remove('hidden');
                     }
                 }, remainingTime);
             }

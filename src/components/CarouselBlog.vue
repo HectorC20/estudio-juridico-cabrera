@@ -43,6 +43,7 @@ onMounted(() => {
 
             </div>
           </div>
+
           <div class="swiper-slide">
             <div class="content content--slide">
               <img class="content__image"
@@ -92,7 +93,7 @@ onMounted(() => {
                 Leer más
               </a>
             </div>
-            <!-- Sección de Reconocimientos -->
+            <!-- Sección de Reconocimientos No cambiar-->
             <div class="space-y-4 text-center px-3">
               <h3 class="text-xl font-bold text-primaryLocal">RECONOCIMIENTO</h3>
               <p class="text-sm text-primaryLocal uppercase">

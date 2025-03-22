@@ -2,14 +2,14 @@
     position: relative;
     width: 100%;
     height: 26rem;
-    overflow: visible; /* Cambiado de hidden a visible */
+    overflow: visible;
 }
 
 .hero-image img {
     width: 100%;
     height: 100%;
     object-fit: cover !important;
-    @apply  bg-fixed bg-cover bg-center;
+    @apply bg-fixed bg-cover bg-center;
 }
 
 .hero-image::before {
@@ -32,8 +32,8 @@
     @apply px-4 text-center flex text-primaryLocal text-4xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl top-[18vw] xl:top-[8vw];
 }
 
-.prose{
-    margin-top: 3em ;
+.prose {
+    margin-top: 3em;
 }
 
 p {
@@ -41,19 +41,20 @@ p {
     margin-bottom: 1em;
 }
 
-.prose h2{
+.prose h2 {
     text-transform: uppercase;
-@apply text-xl 2xl:text-3xl font-bold leading-tight text-tertiaryLocal;
+    @apply text-xl 2xl:text-3xl font-bold leading-tight text-tertiaryLocal;
 }
 
 .prose p {
     img {
         position: relative;
-        @apply flex mx-auto rounded-2xl shadow-xl shadow-secondaryLocal/20 h-[40vh] md:h-[50vh] lg:h-[55vh] xl:h-[60vh];
+        @apply flex w-full rounded-2xl shadow-xl shadow-secondaryLocal/20 h-[40vh] md:h-[50vh] lg:h-[55vh] xl:h-[60vh] mb-2 !important ;
     }
+
     margin-bottom: 2em;
     @apply text-lg 2xl:text-2xl;
-    text-align: justify; /* Justifica el texto para que ocupe todo el ancho */
+    text-align: justify;
     width: 100%;
 }
 
@@ -77,9 +78,19 @@ p {
     }
 }
 
-.prose h3{
-    @apply text-xl underline font-semibold leading-tight;
+.prose h1, h2, h3, h4, h5, h6 {
+    @apply text-fifthLocal font-semibold leading-tight;
 }
+
+.prose h3 {
+    @apply text-xl
+}
+
+.prose h4 {
+    @apply text-lg
+}
+
+
 .prose ul {
     @apply list-disc ml-6 pl-4 pb-6 -mt-4 ;
 }
@@ -89,7 +100,7 @@ p {
 }
 
 .prose ol {
-    @apply  list-decimal ml-6 pl-4 pb-6 -mt-4;
+    @apply list-decimal ml-6 pl-4 pb-6 -mt-4;
 }
 
 .prose ol li {
@@ -105,8 +116,20 @@ p {
         @apply ml-8 pl-6;
     }
 }
-.prose{
-    img{
+
+.prose {
+    img {
         @apply object-cover w-[680px] h-[300px] !important;
+    }
+}
+
+.author-info {
+    a {
+        @apply flex flex-row gap-3 hover:underline;
+
+    }
+
+    img {
+        @apply h-8  w-8 object-cover rounded-xl !important;
     }
 }

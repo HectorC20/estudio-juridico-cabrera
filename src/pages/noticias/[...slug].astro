@@ -1,19 +1,79 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
 import NoticiasPost from '../../layouts/NoticiasPost.astro';
+import MarkdownContent from "../../components/MarkdownContent.astro";
+
+interface NewsPost {
+    newsName: string;
+    id_author: string;
+    title: string;
+    description: string;
+    pubDate: string;
+    updatedDate?: string;
+    heroImage?: string;
+    categories: string[];
+    tags?: string[];
+    readingTime: number;
+}
 
 export async function getStaticPaths() {
-    const posts = await getCollection('noticias');
-    return posts.map((post) => ({
-        params: { slug: post.slug },
+    const apiUrl = 'http://localhost:4322/wam/news/newsList';
+    const response = await fetch(apiUrl);
+    const newsList: NewsPost[] = await response.json(); // 🔥 Se tipa `newsList`
+
+    return newsList.map((post: NewsPost) => ({  // 🔥 Se tipa `post`
+        params: { slug: post.newsName },
         props: post,
     }));
 }
-type Props = CollectionEntry<'noticias'>;
-const post = Astro.props;
-const { Content } = await post.render();
+
+// Obtener el slug de la URL
+const { slug } = Astro.params;
+const postApiUrl = `http://localhost:4322/wam/news/newsSlug?slug=${slug}`;
+const postResponse = await fetch(postApiUrl);
+const post = await postResponse.json();
+
+if (post.error) {
+    return new Response(null, {
+        status: 404,
+        statusText: 'Not Found',
+    });
+}
+
+const { data, content } = post;
+const id_author = data.id_author;
+
+// Datos por defecto del autor en caso de error o ausencia
+let authorData = {
+    name: "Autor Desconocido",
+    lastname: " ?? ??",
+    profileImage: "https://via.placeholder.com/50"
+};
+
+if (id_author) {
+    const authorApiUrl = `http://localhost:4322/wam/author/author?id=${id_author}`;
+    try {
+        const authorResponse = await fetch(authorApiUrl);
+
+        if (authorResponse.ok) {
+            const authorResponseData = await authorResponse.json();
+            authorData = authorResponseData.data; // 🔥 Se extrae la propiedad `data`
+        } else {
+            console.log("⚠️ Error al obtener datos del autor:", authorResponse.status);
+        }
+    } catch (error) {
+        console.error("❌ Error en la API del autor:", error);
+    }
+} else {
+    console.error("❌ id_author es undefined, no se pudo buscar el autor.");
+}
+
+// Combinar los datos de la noticia con los datos del autor
+const postWithAuthor = {
+    ...data,
+    author: authorData,
+};
 ---
 
-<NoticiasPost {...post.data}>
-    <Content />
+<NoticiasPost {...postWithAuthor}>
+    <MarkdownContent content={content} />
 </NoticiasPost>

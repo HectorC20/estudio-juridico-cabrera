@@ -1,8 +1,8 @@
 ---
-import '../styles/sectionAlliances.css';
+import '../../styles/sectionAlliances.css';
 import {getCollection} from "astro:content";
-import "../../node_modules/swiper/swiper-bundle.min.css";
-import CardAlliances from "./CardAlliances.astro";
+import "swiper/swiper-bundle.css";
+import CardAlliances from "../CardAlliances.astro";
 const postsAssociate = (await getCollection('asociados')).sort(
     (a, b) => {
         const aPubDate = a.data.pubDate ? a.data.pubDate.valueOf() : 0; // Si pubDate es null o undefined, usa 0
@@ -50,7 +50,7 @@ const postsAssociate = (await getCollection('asociados')).sort(
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        import('../../src/scripts/swiper-carousel-alliances_index').then((module) => {
+        import('../../scripts/swiper-carousel-alliances_index').then((module) => {
             module.initializeSwiperAssociate('#swiper-associate');
         });
     });

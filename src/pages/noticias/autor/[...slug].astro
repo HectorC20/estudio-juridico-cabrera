@@ -1,0 +1,133 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import SectionPages from "../../../components/SectionPages.astro";
+
+// Definimos los tipos para los datos de autor y noticias
+type Author = {
+    id: string;
+    name: string;
+    lastname: string;
+    profileImage: string;
+    description?: string;
+    facebook?: string;
+    instagram?: string;
+    linkedin?: string;
+};
+
+type News = {
+    slug: string;
+    title: string;
+    heroImage: string;
+};
+
+// Obtener los paths estáticos desde la API
+export async function getStaticPaths() {
+    const apiUrl = 'http://localhost:4322/wam/author/list';
+    const response = await fetch(apiUrl);
+    const authors: Author[] = await response.json();
+
+    return authors.map((author: Author) => ({
+        params: { slug: author.id },
+        props: author,
+    }));
+}
+
+// Obtener el slug del autor desde la URL
+const { slug } = Astro.params;
+const authorId: string = slug;
+
+// URLs de las APIs para obtener datos del autor y sus noticias
+const authorApiUrl = `http://localhost:4322/wam/author/author?id=${authorId}`;
+const newsApiUrl = `http://localhost:4322/wam/author/newsByAuthor?id=${authorId}`;
+
+// Llamadas a la API en paralelo
+const [authorResponse, newsResponse] = await Promise.all([
+    fetch(authorApiUrl),
+    fetch(newsApiUrl),
+]);
+
+// Convertir respuestas a JSON
+const author: { data: Author, error?: boolean } = await authorResponse.json();
+const newsList: News[] = await newsResponse.json();
+
+// Manejar el error si no se encuentra el autor
+if (author.error) {
+    return new Response(null, {
+        status: 404,
+        statusText: 'Not Found',
+    });
+}
+
+// Función para formatear nombres correctamente
+function formatName(name: string, lastname: string): string {
+    return `${name} ${lastname}`
+        .replace(/([A-ZÁÉÍÓÚÜ])([A-ZÁÉÍÓÚÜ]+)/g, '$1$2') // Mantiene mayúsculas sin espacios extra
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+---
+
+<style>
+    .icons__publ img {
+        @apply bg-secondaryLocal rounded-full h-7 w-7 xl:h-8 xl:w-8;
+    }
+</style>
+
+<Layout title="AUTOR - Noticias" description="Conoce más sobre nuestros autores y sus publicaciones.">
+    <SectionPages title="AUTOR"
+                  description="Ofrecemos una amplia gama de servicios legales especializados para satisfacer las necesidades de nuestros clientes.">
+        <main class="container mx-auto px-4 py-8">
+            <section class="bg-white shadow-lg rounded-lg p-6 md:flex md:items-center md:gap-6">
+                <img class="w-32 h-32 md:w-48 md:h-48 rounded-full object-cover border-4 border-gray-200"
+                     src={author.data.profileImage}
+                     alt={`Foto de ${author.data.name}`}/>
+
+                <div class="mt-4 md:mt-0 text-center md:text-left">
+                    <h1 class="text-2xl font-bold text-gray-800">
+                        {formatName(author.data.name, author.data.lastname)}
+                    </h1>
+                    <p class="mt-2 text-gray-600">{author.data.description || "Este autor no tiene descripción."}</p>
+                    <div class="text-gray-600 flex flex-col">
+                        Redes:
+                        <div class="flex flex-wrap icons__publ gap-3">
+                            {author.data.facebook && (
+                                    <a href={author.data.facebook} target="_blank">
+                                        <img alt="facebook"
+                                             src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/facebook_jsyy4v.svg">
+                                    </a>
+                            )}
+                            {author.data.instagram && (
+                                    <a href={author.data.instagram} target="_blank">
+                                        <img alt="instagram"
+                                             src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946785/twitter_j5muqs.svg">
+                                    </a>
+                            )}
+                            {author.data.linkedin && (
+                                    <a href={author.data.linkedin} target="_blank">
+                                        <img alt="linkedin"
+                                             src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/linkedin_zzh7cn.svg">
+                                    </a>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mt-8">
+                <h2 class="text-xl font-semibold text-gray-800">Noticias escritas por {author.data.name}:</h2>
+                <ul class="mt-4 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+                    {newsList.map((news: News) => (
+                            <li class="bg-white shadow-md rounded-lg overflow-hidden">
+                                <a href={`/noticias/${news.slug}`} class="block hover:opacity-90">
+                                    <img class="w-full h-48 object-cover" src={news.heroImage} alt="Imagen de la noticia"/>
+                                    <div class="p-4 bg-secondaryLocal text-primaryLocal">
+                                        <h3 class="text-lg font-semibold">{news.title}</h3>
+                                    </div>
+                                </a>
+                            </li>
+                    ))}
+                </ul>
+            </section>
+        </main>
+    </SectionPages>
+</Layout>

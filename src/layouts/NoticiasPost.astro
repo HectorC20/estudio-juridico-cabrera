@@ -7,7 +7,7 @@ import NewsTape from "../components/NewsTape.astro";
 import SpecialtiesTape from "../components/SpecialtiesTape.astro";
 
 type Props = CollectionEntry<'noticias'>['data'];
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, readingTime, categories, tags, author } = Astro.props;
 const currentURL = Astro.url.href;
 const slugActual = Astro.url.pathname.split("/").filter(Boolean).pop();
 ---
@@ -17,49 +17,76 @@ const slugActual = Astro.url.pathname.split("/").filter(Boolean).pop();
     <main class="py-[2rem] xl:py-[4rem]">
         <article>
             <div class="hero-image">
-                {heroImage && <img src={heroImage} alt="" />}
+                {heroImage && <img src={heroImage} alt=""/>}
                 <h1 class="notice__title">{title}</h1>
                 <div class="cont__publ">
-                    <FormattedDate date={pubDate} />
+                    <FormattedDate date={new Date(pubDate)}/>
                     <div class="icons__publ">
                         <a href={`https://www.facebook.com/sharer/sharer.php?u=${currentURL}`} target="_blank">
-                            <img alt="facebook" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/facebook_jsyy4v.svg">
+                            <img alt="facebook"
+                                 src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/facebook_jsyy4v.svg">
                         </a>
-                        <a href={`https://twitter.com/intent/tweet?url=${currentURL}&text=Check%20out%20this%20page`} target="_blank">
-                            <img alt="twitter" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946785/twitter_j5muqs.svg">
+                        <a href={`https://twitter.com/intent/tweet?url=${currentURL}&text=Check%20out%20this%20page`}
+                           target="_blank">
+                            <img alt="twitter"
+                                 src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946785/twitter_j5muqs.svg">
                         </a>
                         <a href={`https://api.whatsapp.com/send?text=${currentURL}`} target="_blank">
-                            <img alt="whatsapp" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946785/whatsapp_ssklfl.svg">
+                            <img alt="whatsapp"
+                                 src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946785/whatsapp_ssklfl.svg">
                         </a>
                         <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${currentURL}`} target="_blank">
-                            <img alt="linkedin" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/linkedin_zzh7cn.svg">
+                            <img alt="linkedin"
+                                 src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/linkedin_zzh7cn.svg">
                         </a>
-                        <a href={`https://pinterest.com/pin/create/button/?url=${currentURL}&media=URL_DE_LA_IMAGEN&description=Descripción%20de%20tu%20página`} target="_blank">
-                            <img alt="pinterest" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/pinterest_vl2gtg.svg">
+                        <a href={`https://pinterest.com/pin/create/button/?url=${currentURL}&media=URL_DE_LA_IMAGEN&description=Descripción%20de%20tu%20página`}
+                           target="_blank">
+                            <img alt="pinterest"
+                                 src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/pinterest_vl2gtg.svg">
                         </a>
                     </div>
                 </div>
             </div>
             <div class="flex flex-col lg:flex-row gap-6">
+
                 <div class="prose">
+                    <div class="author-info">
+                        <a href={`/noticias/autor/${author.id}`}>
+                            <img
+                                    src={author.profileImage}
+                                    alt={`Foto de perfil de ${author.name} ${author.lastname}`}
+                                    class="profile__user__news"
+                            />
+                            <p> {author.name} {author.lastname}</p>
+                        </a>
+                    </div>
+
+                    <div class="flex flex-row justify-between">
+                        <div class="text-primaryLocal font-semibold bg-secondaryLocal w-auto pt-2 px-2 rounded-t-xl ">Categorías {categories}</div>
+                        <div class="text-primaryLocal font-semibold bg-secondaryLocal w-36 pt-2 px-2 rounded-t-xl ">
+                            Lectura - {readingTime} min
+                        </div>
+
+                    </div>
                     <div class="title">
                         <div class="date">
                             {updatedDate && (
                                     <div class="last-updated-on">
                                         Last updated on
-                                        <FormattedDate date={updatedDate} />
+                                        <FormattedDate date={updatedDate}/>
                                     </div>
                             )}
                         </div>
-                        <hr />
+                        <hr/>
                     </div>
-                    <slot />
+                    <slot/>
                 </div>
-                <!-- Pasamos el slug actual al componente NewsTape -->
-                <NewsTape slugActual={slugActual} />
+                <NewsTape slugActual={slugActual}/>
             </div>
+            <div class="ml-[9vw] text-fifthLocal font-semibold  w-auto pt-2 px-2 rounded-t-xl ">Etiquetas: {tags}</div>
+
         </article>
-        <SpecialtiesTape />
+        <SpecialtiesTape/>
     </main>
 </Layout>
 </html>

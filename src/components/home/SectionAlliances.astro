@@ -1,9 +1,9 @@
 ---
-import CardClient from "./CardClient.astro";
-import '../styles/sectionAlliances.css';
+import CardClient from "../CardClient.astro";
+import '../../styles/sectionAlliances.css';
 import {getCollection} from "astro:content";
-import "../../node_modules/swiper/swiper-bundle.min.css";
-import SectionPages from "./SectionPages.astro";
+import "swiper/swiper-bundle.css";
+import SectionPages from "../SectionPages.astro";
 
 const postsClient = (await getCollection('alianzas')).sort(
     (a, b) => {
@@ -71,7 +71,7 @@ const postsAssociate = (await getCollection('asociados')).sort(
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            import('../../src/scripts/swiper-carousel-alliances').then((module) => {
+            import('../../scripts/swiper-carousel-alliances').then((module) => {
                 module.initializeSwiperClient('#swiper-client');
                 module.initializeSwiperAssociate('#swiper-associate');
             });

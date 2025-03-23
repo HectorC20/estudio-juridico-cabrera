@@ -1,6 +1,7 @@
 ---
 const { slugActual } = Astro.props;
-const API_BASE_URL = import.meta.env.PUBLIC_NODE_API_WAM;
+import {API_BASE_URL} from "../consts";
+
 
 const apiUrl = `${API_BASE_URL}/news/newsLat`;
 const response = await fetch(apiUrl);

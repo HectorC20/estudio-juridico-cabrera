@@ -1,6 +1,6 @@
 ---
 import FormattedDate from "../FormattedDate.astro";
-const API_BASE_URL = import.meta.env.PUBLIC_NODE_API_WAM;
+import {API_BASE_URL} from "../../consts";
 
 const response = await fetch(`${API_BASE_URL}/news/newsLat`);
 

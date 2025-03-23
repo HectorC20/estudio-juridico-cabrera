@@ -1,8 +1,8 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import SectionPages from "../../../components/SectionPages.astro";
+const API_BASE_URL = import.meta.env.NODE_API_WAM;
 
-// Definimos los tipos para los datos de autor y noticias
 type Author = {
     id: string;
     name: string;
@@ -20,9 +20,8 @@ type News = {
     heroImage: string;
 };
 
-// Obtener los paths estáticos desde la API
 export async function getStaticPaths() {
-    const apiUrl = 'http://localhost:4322/wam/author/list';
+    const apiUrl = `${API_BASE_URL}/author/list`;
     const response = await fetch(apiUrl);
     const authors: Author[] = await response.json();
 
@@ -32,25 +31,20 @@ export async function getStaticPaths() {
     }));
 }
 
-// Obtener el slug del autor desde la URL
 const { slug } = Astro.params;
 const authorId: string = slug;
 
-// URLs de las APIs para obtener datos del autor y sus noticias
-const authorApiUrl = `http://localhost:4322/wam/author/author?id=${authorId}`;
-const newsApiUrl = `http://localhost:4322/wam/author/newsByAuthor?id=${authorId}`;
+const authorApiUrl = `${API_BASE_URL}/author/author?id=${authorId}`;
+const newsApiUrl = `${API_BASE_URL}/author/newsByAuthor?id=${authorId}`;
 
-// Llamadas a la API en paralelo
 const [authorResponse, newsResponse] = await Promise.all([
     fetch(authorApiUrl),
     fetch(newsApiUrl),
 ]);
 
-// Convertir respuestas a JSON
 const author: { data: Author, error?: boolean } = await authorResponse.json();
 const newsList: News[] = await newsResponse.json();
 
-// Manejar el error si no se encuentra el autor
 if (author.error) {
     return new Response(null, {
         status: 404,
@@ -58,7 +52,6 @@ if (author.error) {
     });
 }
 
-// Función para formatear nombres correctamente
 function formatName(name: string, lastname: string): string {
     return `${name} ${lastname}`
         .replace(/([A-ZÁÉÍÓÚÜ])([A-ZÁÉÍÓÚÜ]+)/g, '$1$2') // Mantiene mayúsculas sin espacios extra

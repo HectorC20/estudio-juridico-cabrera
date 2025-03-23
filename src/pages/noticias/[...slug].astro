@@ -1,6 +1,7 @@
 ---
 import NoticiasPost from '../../layouts/NoticiasPost.astro';
 import MarkdownContent from "../../components/MarkdownContent.astro";
+const API_BASE_URL = import.meta.env.NODE_API_WAM;
 
 interface NewsPost {
     newsName: string;
@@ -16,7 +17,7 @@ interface NewsPost {
 }
 
 export async function getStaticPaths() {
-    const apiUrl = 'http://localhost:4322/wam/news/newsList';
+    const apiUrl = `${API_BASE_URL}/news/newsList`;
     const response = await fetch(apiUrl);
     const newsList: NewsPost[] = await response.json(); // 🔥 Se tipa `newsList`
 
@@ -28,7 +29,7 @@ export async function getStaticPaths() {
 
 // Obtener el slug de la URL
 const { slug } = Astro.params;
-const postApiUrl = `http://localhost:4322/wam/news/newsSlug?slug=${slug}`;
+const postApiUrl = `${API_BASE_URL}/news/newsSlug?slug=${slug}`;
 const postResponse = await fetch(postApiUrl);
 const post = await postResponse.json();
 
@@ -50,7 +51,7 @@ let authorData = {
 };
 
 if (id_author) {
-    const authorApiUrl = `http://localhost:4322/wam/author/author?id=${id_author}`;
+    const authorApiUrl = `${API_BASE_URL}/author/author?id=${id_author}`;
     try {
         const authorResponse = await fetch(authorApiUrl);
 

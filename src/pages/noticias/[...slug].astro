@@ -1,8 +1,7 @@
 ---
 import NoticiasPost from '../../layouts/NoticiasPost.astro';
 import MarkdownContent from "../../components/MarkdownContent.astro";
-const API_BASE_URL = import.meta.env.NODE_API_WAM;
-
+import {API_BASE_URL} from "../../consts";
 interface NewsPost {
     newsName: string;
     id_author: string;
@@ -19,9 +18,8 @@ interface NewsPost {
 export async function getStaticPaths() {
     const apiUrl = `${API_BASE_URL}/news/newsList`;
     const response = await fetch(apiUrl);
-    const newsList: NewsPost[] = await response.json(); // 🔥 Se tipa `newsList`
-
-    return newsList.map((post: NewsPost) => ({  // 🔥 Se tipa `post`
+    const newsList: NewsPost[] = await response.json();
+    return newsList.map((post: NewsPost) => ({
         params: { slug: post.newsName },
         props: post,
     }));
@@ -57,18 +55,17 @@ if (id_author) {
 
         if (authorResponse.ok) {
             const authorResponseData = await authorResponse.json();
-            authorData = authorResponseData.data; // 🔥 Se extrae la propiedad `data`
+            authorData = authorResponseData.data;
         } else {
-            console.log("⚠️ Error al obtener datos del autor:", authorResponse.status);
+            console.log(" Error al obtener datos del autor:", authorResponse.status);
         }
     } catch (error) {
-        console.error("❌ Error en la API del autor:", error);
+        console.error("Error en la API del autor:", error);
     }
 } else {
-    console.error("❌ id_author es undefined, no se pudo buscar el autor.");
+    console.error(" id_author es undefined, no se pudo buscar el autor.");
 }
 
-// Combinar los datos de la noticia con los datos del autor
 const postWithAuthor = {
     ...data,
     author: authorData,

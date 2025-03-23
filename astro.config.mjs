@@ -4,9 +4,11 @@ import vue from '@astrojs/vue';
 import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import dotenv from 'dotenv';
 
-// https://astro.build/config
+dotenv.config();
+
 export default defineConfig({
   site: 'https://estudio-juridico-cabrera.vercel.app',
-  integrations: [vue (),tailwind(), mdx(), sitemap()],
+  integrations: [vue(), tailwind(), mdx(), sitemap()],
 });

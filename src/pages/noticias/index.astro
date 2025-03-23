@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import SearchNotice from "../../components/SearchNotice.astro";
-const API_BASE_URL = import.meta.env.NODE_API_WAM;
+import {API_BASE_URL} from "../../consts";
 
 const apiUrl = `${API_BASE_URL}/news/newsList`;
 

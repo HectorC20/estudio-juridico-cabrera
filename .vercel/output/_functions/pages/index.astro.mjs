@@ -1,6 +1,6 @@
 /* empty css                                 */
 import { a as createComponent, m as maybeRenderHead, d as renderTemplate, c as createAstro, e as addAttribute, h as renderHead, r as renderComponent, b as renderSlot, g as renderScript } from '../chunks/astro/server_DPPTnymn.mjs';
-import { $ as $$Navbar, a as $$Footer, g as getCollection } from '../chunks/_astro_content_thsGtm6o.mjs';
+import { $ as $$Navbar, a as $$Footer, g as getCollection } from '../chunks/_astro_content_BkI9uxyV.mjs';
 /* empty css                                  */
 /* empty css                                 */
 /* empty css                                 */

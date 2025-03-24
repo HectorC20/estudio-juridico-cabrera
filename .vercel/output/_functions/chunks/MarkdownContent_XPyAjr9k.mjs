@@ -1,7 +1,7 @@
 import { c as createAstro, a as createComponent, m as maybeRenderHead, e as addAttribute, d as renderTemplate, u as unescapeHTML } from './astro/server_DPPTnymn.mjs';
 import { A as API_BASE_URL } from './consts_aQvBWVUu.mjs';
 /* empty css                          */
-import { g as getCollection } from './_astro_content_thsGtm6o.mjs';
+import { g as getCollection } from './_astro_content_BkI9uxyV.mjs';
 import { marked } from 'marked';
 
 const $$Astro$1 = createAstro("https://estudio-juridico-cabrera.vercel.app");

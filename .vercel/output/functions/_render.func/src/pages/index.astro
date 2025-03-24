@@ -1,0 +1,54 @@
+---
+import CarouselBlog from "../components/CarouselBlog.vue";
+import MainLayout from "../layouts/MainLayout.astro";
+import SectionNosotros from "../components/home/SectionNosotros.astro";
+import SectionAsociados from "../components/home/SectionAsociados.astro";
+import SectionLoMejor from "../components/home/SectionLoMejor.astro";
+import LoadingScreen from "../components/loader/Loading.astro";
+import SectionNoticesHome from "../components/home/SectionNoticesHome.astro";
+import SectionLogros from "../components/home/SectionLogros.astro";
+---
+
+<!doctype html>
+<html lang="en">
+<MainLayout title="ABOGADOS EN TUMBES | ESTUDIO JURIDICO CABRERA" description="abogados">
+    <!-- Pantalla de carga -->
+    <LoadingScreen />
+    <div id="main-content" class="hidden">
+        <CarouselBlog client:only="vue" />
+        <SectionLogros/>
+        <SectionNosotros />
+        <SectionAsociados />
+        <SectionLoMejor />
+        <SectionNoticesHome/>
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+            const loader = document.querySelector('.loading-screen');
+            const mainContent = document.getElementById('main-content');
+            const minDisplayTime = 3000;
+            const startTime = performance.now();
+            if (loader) {
+                const elapsedTime = performance.now() - startTime;
+                const remainingTime = Math.max(minDisplayTime - elapsedTime, 0);
+
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                    setTimeout(() => loader.remove(), 500);
+                    if (mainContent) {
+                        mainContent.classList.remove('hidden');
+                    }
+                }, remainingTime);
+            }
+        });
+    </script>
+
+
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</MainLayout>
+</html>

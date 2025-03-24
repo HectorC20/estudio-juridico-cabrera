@@ -1,0 +1,190 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+import SearchNotice from "../../components/SearchNotice.astro";
+import {API_BASE_URL} from "../../consts";
+
+const apiUrl = `${API_BASE_URL}/news/newsList`;
+
+interface NewsItem {
+    newsName: string;
+    title: string;
+    pubDate: string;
+    heroImage?: string;
+}
+
+let newsList: NewsItem[] = [];
+
+try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
+
+    newsList = (await response.json()) as NewsItem[];
+} catch (error) {
+    console.error("Error al obtener las noticias:", error);
+    newsList = [];
+}
+
+const sortedNews = newsList.sort((a, b) =>
+    new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
+);
+---
+
+<style>
+    main {
+        @apply w-full flex justify-center py-[36rem];
+    }
+
+    section {
+        @apply w-full flex justify-center;
+    }
+
+    ul {
+        @apply lg:w-[60vw] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-12;
+    }
+
+    ul li {
+        @apply mb-4 text-xl font-normal text-center relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: visible;
+    }
+
+    ul li img {
+        border-radius: 12px;
+        width: 100%;
+        height: 20em;
+        object-fit: cover;
+    }
+
+    ul li a {
+        display: block;
+        width: 100%;
+        position: relative;
+        overflow: visible;
+    }
+
+    .text-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 2rem); /* Ajusta el ancho para que respete un margen */
+        padding: 1rem;
+        transition: background-color 0.3s ease;
+        @apply shadow-tertiaryLocal/30 shadow-lg bg-primaryLocal rounded-md -mb-6 z-20;
+    }
+
+    .more__des {
+        @apply text-secondaryLocal text-sm
+    }
+
+    ul li:hover .text-overlay {
+        background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+
+        h4, p, .more__des {
+            @apply text-primaryLocal !important;
+        }
+
+        @apply bg-secondaryLocal  !important;
+    }
+
+    .title {
+        margin: 0;
+        line-height: 1.2;
+        white-space: normal;
+        overflow-wrap: break-word; /* Permite que el texto se expanda */
+    }
+
+    .date {
+        margin: 0;
+        font-size: 0.9em;
+    }
+
+    .hero-image {
+        position: absolute;
+        width: 100%;
+        height: 33rem;
+        overflow: visible;
+        @apply left-0 top-0;
+    }
+
+    .hero-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover !important;
+        @apply bg-fixed bg-cover bg-center;
+    }
+
+    .hero-image::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(150deg, hsla(196, 20%, 19%, 0.6) 0%, hsla(197, 40%, 34%, 0.3) 100%);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .hero-cont {
+        h1, h2 {
+            @apply text-primaryLocal !important;
+        }
+
+        h1 {
+            @apply text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl;
+        }
+
+        h2 {
+            text-align: justify;
+            @apply text-sm sm:text-lg md:text-xl xl:text-lg;
+        }
+
+        text-shadow: 2px 2px 4px rgba(15, 24, 37, 0.4);
+        font-family: "Archivo Black", sans-serif;
+        z-index: 2;
+        @apply w-[90vw] md:w-[80vw] lg:w-[75vw] xl:w-[70vw] absolute flex flex-col justify-center items-center text-primaryLocal left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 !important;
+    }
+</style>
+
+<Layout title="NOTICIAS | ESTUDIO JURIDICO CABRERA" description="Las noticias de ESTUDIO JURÍDICO CABRERA">
+    <main>
+        <section>
+            <div class="hero-image">
+                <div class="hero-cont">
+                    <h1>NOTICIAS</h1>
+                    <h2>Infórmate sobre las últimas novedades legales y actualizaciones del Estudio Jurídico Cabrera.
+                        Accede a análisis de cambios normativos, resoluciones clave y consejos prácticos de nuestros
+                        expertos.</h2>
+                </div>
+                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1729025386/noticias_sa4pep.jpg"
+                     alt="Noticias de ESTUDIO " class=""/>
+                <SearchNotice/>
+            </div>
+            <div class="flex flex-col">
+                <ul>
+                    {
+                        sortedNews.map((post: NewsItem) => (
+                                <li class="rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                                    <a href={`/noticias/${post.newsName}/`} class="block">
+                                        <img src={post.heroImage || 'https://via.placeholder.com/400x200'} alt="" class="w-full h-48 object-cover"/>
+                                        <div class="text-overlay">
+                                            <h4 class="title text-lg 2xl:text-xl font-semibold text-secondaryLocal">{post.title}</h4>
+                                            <p class="date 2xl:text-xl text-secondaryLocal">
+                                                <FormattedDate date={new Date(post.pubDate)}/>
+                                            </p>
+                                            <div class="more__des">Leer Más</div>
+                                            <div class="h-1 w-full bg-tertiaryLocal absolute bottom-0 left-0 rounded-b-md"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                        ))
+                    }
+                </ul>
+            </div>
+        </section>
+    </main>
+</Layout>

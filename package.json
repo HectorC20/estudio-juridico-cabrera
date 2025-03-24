@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "20.x"
+  },
   "name": "estudio-juridico-cabrera",
   "type": "module",
   "version": "0.0.1",

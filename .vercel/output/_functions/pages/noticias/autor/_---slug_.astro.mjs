@@ -1,6 +1,6 @@
 /* empty css                                       */
 import { c as createAstro, a as createComponent, r as renderComponent, d as renderTemplate, m as maybeRenderHead, e as addAttribute } from '../../../chunks/astro/server_DPPTnymn.mjs';
-import { $ as $$Layout } from '../../../chunks/Layout_uHwCwsJz.mjs';
+import { $ as $$Layout } from '../../../chunks/Layout_BMCzS7fv.mjs';
 import { $ as $$SectionPages } from '../../../chunks/SectionPages_aB0vEsnn.mjs';
 import { A as API_BASE_URL } from '../../../chunks/consts_aQvBWVUu.mjs';
 /* empty css                                        */

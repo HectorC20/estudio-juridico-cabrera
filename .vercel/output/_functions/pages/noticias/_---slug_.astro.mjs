@@ -2,8 +2,8 @@
 import { c as createAstro, a as createComponent, r as renderComponent, d as renderTemplate, m as maybeRenderHead, e as addAttribute, b as renderSlot } from '../../chunks/astro/server_DPPTnymn.mjs';
 /* empty css                                     */
 import { $ as $$FormattedDate } from '../../chunks/FormattedDate_CaLaONUg.mjs';
-import { $ as $$Layout } from '../../chunks/Layout_uHwCwsJz.mjs';
-import { $ as $$NewsTape, a as $$SpecialtiesTape, b as $$MarkdownContent } from '../../chunks/MarkdownContent_XPyAjr9k.mjs';
+import { $ as $$Layout } from '../../chunks/Layout_BMCzS7fv.mjs';
+import { $ as $$NewsTape, a as $$SpecialtiesTape, b as $$MarkdownContent } from '../../chunks/MarkdownContent_CSli1Tqq.mjs';
 import { A as API_BASE_URL } from '../../chunks/consts_aQvBWVUu.mjs';
 export { renderers } from '../../renderers.mjs';
 

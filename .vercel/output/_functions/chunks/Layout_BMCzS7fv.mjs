@@ -1,5 +1,5 @@
 import { a as createComponent, m as maybeRenderHead, g as renderScript, e as addAttribute, d as renderTemplate, c as createAstro, h as renderHead, r as renderComponent, b as renderSlot } from './astro/server_DPPTnymn.mjs';
-import { g as getCollection, $ as $$Navbar, a as $$Footer } from './_astro_content_BkI9uxyV.mjs';
+import { g as getCollection, $ as $$Navbar, a as $$Footer } from './_astro_content_DBs57xFC.mjs';
 /* empty css                          */
 
 const $$Header = createComponent(async ($$result, $$props, $$slots) => {

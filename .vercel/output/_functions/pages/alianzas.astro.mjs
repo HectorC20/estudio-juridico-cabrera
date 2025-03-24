@@ -1,8 +1,8 @@
 /* empty css                                 */
 import { c as createAstro, a as createComponent, m as maybeRenderHead, e as addAttribute, d as renderTemplate, r as renderComponent, g as renderScript } from '../chunks/astro/server_DPPTnymn.mjs';
-import { $ as $$Layout } from '../chunks/Layout_uHwCwsJz.mjs';
+import { $ as $$Layout } from '../chunks/Layout_BMCzS7fv.mjs';
 /* empty css                                 */
-import { g as getCollection } from '../chunks/_astro_content_BkI9uxyV.mjs';
+import { g as getCollection } from '../chunks/_astro_content_DBs57xFC.mjs';
 import { $ as $$SectionPages } from '../chunks/SectionPages_aB0vEsnn.mjs';
 export { renderers } from '../renderers.mjs';
 

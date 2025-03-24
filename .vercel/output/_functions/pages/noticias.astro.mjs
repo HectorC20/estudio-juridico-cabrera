@@ -1,6 +1,6 @@
 /* empty css                                 */
 import { c as createAstro, a as createComponent, m as maybeRenderHead, e as addAttribute, d as renderTemplate, r as renderComponent } from '../chunks/astro/server_DPPTnymn.mjs';
-import { $ as $$Layout } from '../chunks/Layout_uHwCwsJz.mjs';
+import { $ as $$Layout } from '../chunks/Layout_BMCzS7fv.mjs';
 import { $ as $$FormattedDate } from '../chunks/FormattedDate_CaLaONUg.mjs';
 /* empty css                                 */
 import { A as API_BASE_URL } from '../chunks/consts_aQvBWVUu.mjs';

@@ -1,8 +1,8 @@
 /* empty css                                 */
 import { a as createComponent, r as renderComponent, d as renderTemplate, m as maybeRenderHead, e as addAttribute } from '../chunks/astro/server_DPPTnymn.mjs';
-import { $ as $$Layout } from '../chunks/Layout_uHwCwsJz.mjs';
+import { $ as $$Layout } from '../chunks/Layout_BMCzS7fv.mjs';
 import { $ as $$SectionPages } from '../chunks/SectionPages_aB0vEsnn.mjs';
-import { g as getCollection } from '../chunks/_astro_content_BkI9uxyV.mjs';
+import { g as getCollection } from '../chunks/_astro_content_DBs57xFC.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$Index = createComponent(async ($$result, $$props, $$slots) => {

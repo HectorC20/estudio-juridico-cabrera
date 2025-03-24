@@ -1,9 +1,15 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 
-const postsClient = (await getCollection('especialidades')).sort((a, b) =>
-    a.data.title.localeCompare(b.data.title, 'es')
-);
+// Obtener las especialidades
+const postsClient: CollectionEntry<'especialidades'>[] = await getCollection('especialidades');
+
+// Función para obtener 4 elementos aleatorios
+const getRandomPosts = (posts: CollectionEntry<'especialidades'>[], count: number) => {
+    return [...posts].sort(() => 0.5 - Math.random()).slice(0, count);
+};
+
+const randomPosts = getRandomPosts(postsClient, 4);
 ---
 
 <style>
@@ -13,17 +19,17 @@ const postsClient = (await getCollection('especialidades')).sort((a, b) =>
     }
 
     .especialidad-card:hover {
-
-        .especialidad-title{
-            @apply shadow-xl  bg-tertiaryLocal
+        .especialidad-title {
+            @apply shadow-xl bg-tertiaryLocal;
         }
     }
-    .especialidad-card{
-        @apply w-full  md:pr-2  ;
+
+    .especialidad-card {
+        @apply w-full md:pr-2;
     }
 
     .especialidad-image {
-        @apply w-full h-36 object-cover rounded-t-md ;
+        @apply w-full h-36 object-cover rounded-t-md;
     }
 
     .especialidad-title {
@@ -32,17 +38,17 @@ const postsClient = (await getCollection('especialidades')).sort((a, b) =>
     }
 
     .especialidad-title-p {
-        @apply  mb-4 text-secondaryLocal text-3xl lg:text-3xl 2xl:text-4xl font-bold text-center;
-
+        @apply mb-4 text-secondaryLocal text-3xl lg:text-3xl 2xl:text-4xl font-bold text-center;
     }
+
     .especialidad-link {
         @apply text-tertiaryLocal font-bold hover:underline;
     }
-
 </style>
+
 <h2 class="especialidad-title-p">ESPECIALIDADES</h2>
 <div class="especialidades-grid">
-    {postsClient.map(post => (
+    {randomPosts.map(post => (
             <a href={`/especialidades/${post.slug}`} class="especialidad-card">
                 <div>
                     <img src={post.data.src} alt={post.data.alt} class="especialidad-image">

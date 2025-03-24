@@ -1,20 +1,23 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
+import { getCollection } from 'astro:content';
 import SpecialtiesPost from "../../layouts/SpecialtiesPost.astro";
-
+import MarkdownContent from "../../components/MarkdownContent.astro";
+export const prerender = true;
 export async function getStaticPaths() {
     const posts = await getCollection('especialidades');
     return posts.map((post) => ({
         params: { slug: post.slug },
-        props: post,
+        props: {
+            ...post,
+            body: post.body || '',
+        },
     }));
 }
-type Props = CollectionEntry<'noticias'>;
 
 const post = Astro.props;
-const { Content } = await post.render();
 ---
 
 <SpecialtiesPost {...post.data}>
-    <Content />
+    {Astro.props.body ? <MarkdownContent content={Astro.props.body} /> : <p>Contenido no disponible</p>}
+
 </SpecialtiesPost>

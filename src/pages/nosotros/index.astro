@@ -1,5 +1,18 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import CardClient from "../../components/CardAlliancesAbout.astro";
+import '../../styles/sectionAlliances.css';
+
+import {getCollection} from "astro:content";
+import "swiper/swiper-bundle.css";
+
+const postsAssociate = (await getCollection('alianzas')).sort(
+(a, b) => {
+    const aPubDate = a.data.pubDate ? a.data.pubDate.valueOf() : 0; // Si pubDate es null o undefined, usa 0
+        const bPubDate = b.data.pubDate ? b.data.pubDate.valueOf() : 0; // Lo mismo para b
+        return bPubDate - aPubDate;
+    }
+);
 ---
 
 <style>
@@ -16,8 +29,8 @@ import Layout from "../../layouts/Layout.astro";
     }
 
     .image-nosotros {
-        border-top-right-radius: 1.5rem;
-        border-bottom-right-radius: 1.5rem;
+        border-top-right-radius: 1.25rem;
+        border-bottom-right-radius: 1.25rem;
         @apply object-cover shadow-xl shadow-tertiaryLocal/20 -mt-1;
 
     }
@@ -40,7 +53,7 @@ import Layout from "../../layouts/Layout.astro";
 
     .mission-container,
     .vision-container {
-        @apply flex    flex-col justify-start text-center px-4 pb-12;
+        @apply flex    flex-col justify-start text-center px-4;
     }
 
     .icon-nosotros {
@@ -111,11 +124,12 @@ import Layout from "../../layouts/Layout.astro";
     }
 </style>
 
-<Layout title="NOSOTROS | ESTUDIO JURÍDICO CABRERA" description="descripcion de nosotros">
+<Layout title="Nosotros - Estudio Jurídico Cabrera" description="Conozca a nuestro equipo de expertos legales, comprometidos a brindarle soluciones jurídicas eficaces y personalizadas, basadas en más de 30 años de experiencia">
     <div class="hero-image  relative">
         <div class="hero-cont">
             <h1>NOSOTROS</h1>
-            <h2>Conoce al Estudio Jurídico Cabrera, un equipo comprometido con la excelencia, la confianza y la defensa de tus intereses legales.</h2>
+            <h2>Conoce al Estudio Jurídico Cabrera, un equipo comprometido con la excelencia, la confianza y la defensa
+                de tus intereses legales.</h2>
         </div>
         <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1732237230/nosotrosinfo_jejdrl.jpg"
              alt="Noticias de ESTUDIO "/>
@@ -126,7 +140,7 @@ import Layout from "../../layouts/Layout.astro";
         <div class="container-nosotros">
             <div class="flex lg:flex-row flex-col justify-between">
                 <div class="image-container-nosotros">
-                    <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728570969/nosotros_lneya4.jpg"
+                    <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1743651253/fondo_juntos_pe4dek.webp"
                          alt="Nosotros" loading="lazy" class="image-nosotros">
                 </div>
                 <div class="flex flex-col my-auto gap-12">
@@ -141,16 +155,52 @@ import Layout from "../../layouts/Layout.astro";
                 <div class="grid-nosotros">
                     <div class="mission-container">
                         <h2 class="subtitle-nosotros">Misión</h2>
-                        <p class="text-nosotros">Mantener una empresa eficiente con alto grado profesional y cultura humana que la haga perdurable en el tiempo, contribuyendo al crecimiento sostenido. y armónico de sus clientes y colaboradores.</p>
+                        <p class="text-nosotros">Mantener una empresa eficiente con alto grado profesional y cultura
+                            humana que la haga perdurable en el tiempo, contribuyendo al crecimiento sostenido. y
+                            armónico de sus clientes y colaboradores.</p>
                     </div>
 
                     <div class="vision-container">
                         <h2 class="subtitle-nosotros">Visión</h2>
-                        <p class="text-nosotros">Prestar un servicio profesional, honesto, responsable y eficiente de asesoría jurídica, gestión y recuperación de cartera. Con tecnología de punta y metodologías enmarcadas en la Ley, preservando la imagen y el respeto público de nuestros clientes y creando una cultura de cumplimiento de contratos y obligaciones que favorezcan sistemáticamente el crecimiento de nuestros clientes y usuarios.
+                        <p class="text-nosotros">Prestar un servicio profesional, honesto, responsable y eficiente de
+                            asesoría jurídica, gestión y recuperación de cartera. Con tecnología de punta y metodologías
+                            enmarcadas en la Ley, preservando la imagen y el respeto público de nuestros clientes y
+                            creando una cultura de cumplimiento de contratos y obligaciones que favorezcan
+                            sistemáticamente el crecimiento de nuestros clientes y usuarios.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Swiper para asociados -->
+        <h2 class=" pt-6 text-tertiaryLocal" id="section_alliances">ALIANZAS GLOBALES</h2>
+
+        <div id="swiper-associate" class="swiper-container mb-12">
+            <div class="swiper-wrapper">
+                {postsAssociate.map((post) => (
+                        <div class="swiper-slide">
+                            <CardClient
+                                    src={post.data.src || 'https://res.cloudinary.com/dixzojb4s/image/upload/v1729437484/cliente3_sjbzeo.jpg'}
+                                    alt={post.data.alt || 'imagen del cliente'}
+                                    nombre={post.data.nombre || 'Nombre desconocido'}
+                                    pubDate={post.data.pubDate || new Date()}
+                                    url={post.data.url}
+                            />
+
+                        </div>
+                ))}
+            </div>
+            <div id="swiper-button-next-associate" class="swiper-button-next"></div>
+            <div id="swiper-button-prev-associate" class="swiper-button-prev"></div>
+            <div id="swiper-pagination-associate" class="swiper-pagination"></div>
+        </div>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            import('../../scripts/swiper-carousel-alliances').then((module) => {
+                module.initializeSwiperAssociate('#swiper-associate');
+            });
+        });
+    </script>
 </Layout>

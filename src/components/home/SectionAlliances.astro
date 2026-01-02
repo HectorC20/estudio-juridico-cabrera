@@ -5,15 +5,7 @@ import {getCollection} from "astro:content";
 import "swiper/swiper-bundle.css";
 import SectionPages from "../SectionPages.astro";
 
-const postsClient = (await getCollection('alianzas')).sort(
-    (a, b) => {
-        const aPubDate = a.data.pubDate ? a.data.pubDate.valueOf() : 0; // Si pubDate es null o undefined, usa 0
-        const bPubDate = b.data.pubDate ? b.data.pubDate.valueOf() : 0; // Lo mismo para b
-        return bPubDate - aPubDate;
-    }
-);
-
-const postsAssociate = (await getCollection('asociados')).sort(
+const postsClient = (await getCollection('clientes')).sort(
     (a, b) => {
         const aPubDate = a.data.pubDate ? a.data.pubDate.valueOf() : 0; // Si pubDate es null o undefined, usa 0
         const bPubDate = b.data.pubDate ? b.data.pubDate.valueOf() : 0; // Lo mismo para b
@@ -23,7 +15,7 @@ const postsAssociate = (await getCollection('asociados')).sort(
 
 ---
 
-<SectionPages title="ALIANZAS" description="Clientes destacados y asociados globales que fortalecen nuestro compromiso con la excelencia legal.">
+<SectionPages title="CLIENTES" description="Clientes destacados y asociados globales que fortalecen nuestro compromiso con la excelencia legal.">
     <div class="section__container">
         <h2 class="section__heading">CLIENTES</h2>
         <!-- Swiper para clientes -->
@@ -46,9 +38,11 @@ const postsAssociate = (await getCollection('asociados')).sort(
             <div id="swiper-pagination-client" class="swiper-pagination"></div>
         </div>
 
-        <h2 class="section__heading pt-8">ASOCIADOS GLOBALES</h2>
 
         <!-- Swiper para asociados -->
+        <!--
+                <h2 class="section__heading pt-8">ASOCIADOS GLOBALES</h2>
+
         <div id="swiper-associate" class="swiper-container">
             <div class="swiper-wrapper">
                 {postsAssociate.map((post) => (
@@ -68,7 +62,8 @@ const postsAssociate = (await getCollection('asociados')).sort(
             <div id="swiper-pagination-associate" class="swiper-pagination"></div>
         </div>
     </div>
-
+-->
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             import('../../scripts/swiper-carousel-alliances').then((module) => {

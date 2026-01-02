@@ -3,6 +3,7 @@ import Footer from "../components/partials/Footer.astro";
 import NavBar from "../components/partials/Navbar.astro";
 import ScriptAnimation from "../components/ScriptAnimation.vue";
 import MainHeader from "../components/partials/MainHeader.astro";
+import ScriptTawkto from "../components/ScriptTawkto.vue";
 
 interface Props {
     title: string;
@@ -10,7 +11,7 @@ interface Props {
     image?: string;
 }
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const {title, description, image = '/blog-placeholder-1.jpg'} = Astro.props;
+const {title, description, image = '/blog-placeholder-1.webp'} = Astro.props;
 ---
 <!doctype html>
 <html lang="es">
@@ -19,6 +20,7 @@ const {title, description, image = '/blog-placeholder-1.jpg'} = Astro.props;
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
     <meta name="generator" content={Astro.generator}/>
+    <meta name="keywords" content="Piura, Tumbes, Lima, Trujillo, Perú, Sullana, Aguas Verdes, Puyango, Estudio Jurídico Cabrera, abogados en Piura, abogados en Tumbes, derecho civil, derecho penal, derecho laboral, asesoría legal, estudio de abogados, defensa legal, contratos, derecho de familia, herencias, sucesiones, trámites legales, asesoría empresarial, litigios, demandas, derecho comercial, derecho administrativo, derecho tributario, consultoría legal, arbitraje, conciliaciones, legalización de documentos, notaría, abogado especializado, bufete de abogados, representación legal, leyes en Perú, normativas legales, asistencia jurídica, jurisprudencia, Código Civil, Código Penal, asesoría en contratos, redacción de documentos legales, defensa judicial">
 
     <!-- Font preloads -->
     <link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin/>
@@ -26,6 +28,8 @@ const {title, description, image = '/blog-placeholder-1.jpg'} = Astro.props;
 
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL}/>
+    <!--Robots-->
+    <meta name="robots" content="index, follow">
 
     <!-- Primary Meta Tags -->
     <title>{title}</title>
@@ -61,6 +65,7 @@ const {title, description, image = '/blog-placeholder-1.jpg'} = Astro.props;
 </div>
 <Footer/>
 <ScriptAnimation client:only="vue"/>
+<ScriptTawkto client:only="vue"/>
 
 </body>
 </html>

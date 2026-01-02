@@ -3,21 +3,30 @@ import Footer from "../components/partials/Footer.astro";
 import NavBar from "../components/partials/Navbar.astro";
 import Header from "../components/partials/Header.astro";
 import ScriptAnimation from "../components/ScriptAnimation.vue";
+import ScriptTawkto from "../components/ScriptTawkto.vue";
 interface Props {
     title: string;
     description: string;
     image?: string;
+    authorName?: string;
+    authorProfile?: string;
+    robotsTag?: string;
+    pubDate?: string;
 }
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const {title, description, image = '/blog-placeholder-1.jpg'} = Astro.props;
+const { title, description, image = '/blog-placeholder-1.webp', authorName, authorProfile, pubDate, robotsTag = 'index, follow' } = Astro.props;
+
 ---
 <!doctype html>
 <html lang="es">
 <head>
+
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
     <meta name="generator" content={Astro.generator}/>
+    <meta name="robots" content={robotsTag} />
+    <meta name="keywords" content="Piura, Tumbes, Lima, Trujillo, Perú, Sullana, Aguas Verdes, Puyango, Estudio Jurídico Cabrera, abogados en Piura, abogados en Tumbes, derecho civil, derecho penal, derecho laboral, asesoría legal, estudio de abogados, defensa legal, contratos, derecho de familia, herencias, sucesiones, trámites legales, asesoría empresarial, litigios, demandas, derecho comercial, derecho administrativo, derecho tributario, consultoría legal, arbitraje, conciliaciones, legalización de documentos, notaría, abogado especializado, bufete de abogados, representación legal, leyes en Perú, normativas legales, asistencia jurídica, jurisprudencia, Código Civil, Código Penal, asesoría en contratos, redacción de documentos legales, defensa judicial">
 
     <!-- Font preloads -->
     <link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin/>
@@ -32,7 +41,7 @@ const {title, description, image = '/blog-placeholder-1.jpg'} = Astro.props;
     <meta name="description" content={description}/>
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website"/>
+    <meta property="og:type" content="article"/>
     <meta property="og:url" content={Astro.url}/>
     <meta property="og:title" content={title}/>
     <meta property="og:description" content={description}/>
@@ -60,5 +69,9 @@ const {title, description, image = '/blog-placeholder-1.jpg'} = Astro.props;
 </div>
 <Footer/>
 <ScriptAnimation client:only="vue"/>
+<ScriptTawkto client:only="vue"/>
+
 </body>
 </html>
+
+

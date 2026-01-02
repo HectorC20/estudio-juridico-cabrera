@@ -26,12 +26,12 @@ export async function getStaticPaths() {
     const authors: Author[] = await response.json();
 
     return authors.map((author: Author) => ({
-        params: { slug: author.id },
+        params: {slug: author.id},
         props: author,
     }));
 }
 
-const { slug } = Astro.params;
+const {slug} = Astro.params;
 const authorId: string = slug;
 
 const authorApiUrl = `${API_BASE_URL}/author/author?id=${authorId}`;
@@ -70,7 +70,7 @@ function formatName(name: string, lastname: string): string {
     <SectionPages title="AUTOR"
                   description="Ofrecemos una amplia gama de servicios legales especializados para satisfacer las necesidades de nuestros clientes.">
         <main class="container mx-auto px-4 py-8">
-            <section class="bg-white shadow-lg rounded-lg p-6 md:flex md:items-center md:gap-6">
+            <section class="flex items-center flex-col lg:flex-row sm:justify-center md:justify-start bg-white shadow-lg rounded-lg p-6 md:flex md:items-center md:gap-6">
                 <img class="w-32 h-32 md:w-48 md:h-48 rounded-full object-cover border-4 border-gray-200"
                      src={author.data.profileImage}
                      alt={`Foto de ${author.data.name}`}/>
@@ -80,7 +80,7 @@ function formatName(name: string, lastname: string): string {
                         {formatName(author.data.name, author.data.lastname)}
                     </h1>
                     <p class="mt-2 text-gray-600">{author.data.description || "Este autor no tiene descripción."}</p>
-                    <div class="text-gray-600 flex flex-col">
+                    <div class="text-secondaryLocal flex flex-col">
                         Redes:
                         <div class="flex flex-wrap icons__publ gap-3">
                             {author.data.facebook && (
@@ -112,7 +112,8 @@ function formatName(name: string, lastname: string): string {
                     {newsList.map((news: News) => (
                             <li class="bg-white shadow-md rounded-lg overflow-hidden">
                                 <a href={`/noticias/${news.slug}`} class="block hover:opacity-90">
-                                    <img class="w-full h-48 object-cover" src={news.heroImage} alt="Imagen de la noticia"/>
+                                    <img class="w-full h-48 object-cover" src={news.heroImage}
+                                         alt="Imagen de la noticia"/>
                                     <div class="p-4 bg-secondaryLocal text-primaryLocal">
                                         <h3 class="text-lg font-semibold">{news.title}</h3>
                                     </div>

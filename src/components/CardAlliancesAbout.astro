@@ -1,3 +1,30 @@
 ---
-$END$
+export interface Props {
+    src: string;
+    alt: string;
+    nombre: string;
+    pubDate: Date;
+    url?: string; // ✅ Agregamos la URL como opcional
+}
+const {src, alt, nombre, pubDate, url} = Astro.props;
 ---
+
+{url ? (
+<a href={url} target="_blank" rel="noopener noreferrer" class="block hover:opacity-90 transition">
+    <div class="section__card">
+        <img class="section__card__img" src={src} alt={alt}/>
+        <div class="section__card__content">
+            <h3 class="section__card__title">{nombre}</h3>
+            <p class="section__card__desc hidden">{pubDate.toLocaleDateString()}</p>
+        </div>
+    </div>
+</a>
+    ) : (
+<div class="section__card">
+    <img class="section__card__img" src={src} alt={alt}/>
+    <div class="section__card__content">
+        <h3 class="section__card__title">{nombre}</h3>
+        <p class="section__card__desc hidden">{pubDate.toLocaleDateString()}</p>
+    </div>
+</div>
+    )}

@@ -9,7 +9,7 @@ const postsClient = (await getCollection('especialidades')).sort((a, b) =>
 );
 ---
 
-<Layout title="ESPECIALIDADES | ESTUDIO JURÍDICO CABRERA" description="descripcion de especialidades">
+<Layout title="Especialidades- Estudio Jurídico Cabrera" description="Conozca nuestras especialidades legales y cómo podemos ayudarle a resolver sus desafíos jurídicos en áreas clave como derecho corporativo, familiar, penal y más">
     <SectionPages title="ESPECIALIDADES" description="Ofrecemos una amplia gama de servicios legales especializados para satisfacer las necesidades de nuestros clientes.">
         <section class="py-12">
             <div class="container mx-auto px-6">
@@ -23,7 +23,7 @@ const postsClient = (await getCollection('especialidades')).sort((a, b) =>
                                 <p class="text-primaryLocal mb-4">
                                     {post.data.description}
                                 </p>
-                                <a href={`/especialidades/${post.slug}`} class="text-primaryLocal font-bold hover:underline">Leer más &rarr;</a>
+                                <a href={`/especialidades/${post.slug}/`} class="text-primaryLocal font-bold hover:underline">Leer más &rarr;</a>
                             </div>
                     ))}
                 </div>

@@ -1,3 +1,15 @@
 ---
-$END$
+import Layout from "../../layouts/Layout.astro";
+import '../../styles/contactenos.css';
+import CanvaPDF from "../../components/pdf/CanvaPDF.vue";
+import SectionPages from "../../components/SectionPages.astro";
 ---
+
+<Layout title="Brochure - Estudio Jurídico Cabrera" description="Descubre nuestro brochure y conoce cómo nuestros servicios legales especializados pueden protegerte y ayudarte en tus necesidades jurídicas">
+    <SectionPages
+            title="Nuestro Brochure"
+            description="Descubre nuestra amplia gama de servicios legales diseñados para ofrecer soluciones efectivas y personalizadas a nuestros clientes."
+    />
+
+    <CanvaPDF client:only="vue"/>
+</Layout>

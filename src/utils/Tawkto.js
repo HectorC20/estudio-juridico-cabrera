@@ -1,23 +1,26 @@
+// Declaramos una variable global para asegurarnos que el script se carga solo una vez
+let tawkScriptLoaded = false;
 
-// Declaración global para Tawk_API
-declare global {
-    interface Window {
-        Tawk_API: any;
+export const Tawk_API = {};
+
+Tawk_API.LoadStart = new Date();
+
+export function loadTawkScript() {
+    // Si el script ya ha sido cargado, no hacemos nada
+    if (tawkScriptLoaded) {
+        return;
     }
-}
 
-export function loadTawkToScript(): void {
-    const Tawk_API = window.Tawk_API || {};
-    const Tawk_LoadStart = new Date();
+    // Marca que el script se ha cargado
+    tawkScriptLoaded = true;
 
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = "https://embed.tawk.to/5dba6828e4c2fa4b6bd9469c/default";
-    script.charset = "UTF-8";
-    script.setAttribute("crossorigin", "*");
+    var s1 = document.createElement("script");
+    s1.id = "tawk-script"; // Asigna un ID para evitar duplicados
+    s1.async = true;
+    s1.src = import.meta.env.PUBLIC_KEY_TAWKTO;
+    s1.charset = 'UTF-8';
+    s1.setAttribute('crossorigin', '*');
 
-    const firstScript = document.getElementsByTagName("script")[0];
-    if (firstScript) {
-        firstScript.parentNode?.insertBefore(script, firstScript);
-    }
+    var s0 = document.getElementsByTagName("script")[0];
+    s0.parentNode.insertBefore(s1, s0);
 }

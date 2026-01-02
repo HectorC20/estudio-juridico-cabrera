@@ -1,0 +1,3 @@
+User-agent: *
+disallow: /test/
+Sitemap: https://estudiojuridicocabrera.com/sitemap-index.xml

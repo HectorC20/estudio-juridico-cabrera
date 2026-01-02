@@ -1,115 +1,97 @@
 <script setup lang="js">
-import {onMounted} from 'vue';
-import {initSwiper} from '../utils/CarouselController';
-onMounted(() => {
+import { onMounted, ref, nextTick } from 'vue';
+import { initSwiper } from '../utils/CarouselController';
+import { API_BASE_URL } from '../consts';
+
+const newsList = ref([]);
+
+onMounted(async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/news/newsList`);
+    if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
+
+    const data = await response.json();
+    newsList.value = data.slice(0, 4);
+  } catch (error) {
+    console.error("Error al obtener las noticias:", error);
+  }
+
+  await nextTick(); // Espera a que Vue termine de renderizar
   initSwiper();
 });
+
 </script>
 
 <template>
-  <div >
-    <div class="hero ">
+  <div>
+    <div class="hero">
       <div class="bg-hero"></div>
       <div class="hero__fullsize"></div>
       <div class="hero__swiper swiper">
-        <div class=" swiper-wrapper ">
-          <!-- Tus slides aquí -->
+        <div class="swiper-wrapper">
+
+          <!-- Primer slide (fijo, no se modifica) -->
           <div class="swiper-slide">
             <div class="content content--slide">
               <img class="content__image"
-                   src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728314313/treintaanios_xm6zw9.png"
+                   src="https://res.cloudinary.com/dixzojb4s/image/upload/v1743458662/treintaanios_xm6zw9_jfw2og.webp"
                    alt="s">
-              <div class="content__text ">
-                <h1 class="content__subtitle">+30 Años
-                  De Experiencia</h1>
-                <h2 class="content__title main-title-display "></h2>
+              <div class="content__text">
+                <h1 class="content__subtitle">+30 Años De Experiencia</h1>
+                <h2 class="content__title main-title-display"></h2>
                 <p class="content__desc">Contamos con Abogados altamente calificados, quienes resolverán sus consultas y
-                  le ayudaran a resolver su problema.</p>
+                  le ayudarán a resolver su problema.</p>
               </div>
-
             </div>
           </div>
 
-          <div class="swiper-slide">
+          <!-- Slides dinámicos desde la API -->
+          <div v-for="news in newsList" :key="news.newsName" class="swiper-slide">
             <div class="content content--slide">
-              <img class="content__image"
-                   src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728534168/indecopi_ak7tof.png" alt="s">
-
+              <img class="content__image" :src="news.heroImage || 'https://via.placeholder.com/400x200'" alt="Noticia">
               <div class="content__text">
-                <h2 class="content__title">Pasos para presentar una queja ante Indecopi: todo lo que necesitas
-                  saber</h2>
-                <p class="content__desc">contenido 2</p>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="swiper-slide">
-            <div class="content content--slide">
-              <img class="content__image"
-                   src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728534169/proceso_administrativo_cvhhpz.png" alt="s">
-              <div class="content__text">
-                <h2 class="content__title">Guía completa sobre el procedimiento administrativo en Perú</h2>
-                <p class="content__desc">contenido 3</p>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="swiper-slide">
-            <div class="content content--slide">
-              <img class="content__image"
-                   src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728534169/tutela_cv4ffz.png" alt="s">
-              <div class="content__text">
-                <h2 class="content__title">La tutela en el derecho peruano: concepto y principales características</h2>
-                <p class="content__desc">contenido 4</p>
+                <h2 class="content__title">{{ news.title }}</h2>
+                <p class="content__desc">
+                  <a :href="`/noticias/${news.newsName}/`" class="text-primaryLocal font-semibold hover:underline">
+                    Saber más
+                  </a>
+                </p>
               </div>
             </div>
           </div>
-          <div class="swiper-slide">
-            <div class="content content--slide">
-              <img class="content__image"
-                   src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728534168/sistema_lblphl.png"
-                   alt="s">
-              <div class="content__text">
-                <h2 class="content__title">El sistema judicial en Perú: retos y reformas en el proceso judicial</h2>
-                <p class="content__desc">contenido 5</p>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
+
+      <!-- Sección de Destacados -->
       <div class="section__notices__home">
         <div class="content__notices__home">
           <div class="px-8 py-6 text-center text-primaryLocal text-xl lg:text-2xl font-bold">LO DESTACADO</div>
-          <div class=" grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <!-- Sección de Noticias -->
-            <div class="space-y-2 text-center px-3 ">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Noticia destacada -->
+            <div class="space-y-2 text-center px-3">
               <h3 class="text-lg lg:text-xl font-bold text-primaryLocal">NOTICIA</h3>
               <p class="text-sm text-primaryLocal uppercase">
-                El proceso de conciliación en Perú: una alternativa efectiva para resolver conflictos.
+                El proceso de conciliación en Perú
               </p>
-              <a href="#" class="text-sm text-primaryLocal font-semibold hover:underline">
+              <a href="https://estudiojuridicocabrera.com/noticias/el-proceso-de-conciliacin-en-per-una-alternativa-efectiva-para-resolver-conflictos/" class="text-sm text-primaryLocal font-semibold hover:underline">
                 Leer más
               </a>
             </div>
-            <!-- Sección de Reconocimientos No cambiar-->
+            <!-- Reconocimientos (no se modifica) -->
             <div class="space-y-4 text-center px-3">
               <h3 class="text-xl font-bold text-primaryLocal">RECONOCIMIENTO</h3>
               <p class="text-sm text-primaryLocal uppercase">
-                Premio a la Excelencia Jurídica 2023.
+                + DE 4000 CASOS GESTIONADOS
               </p>
-              <a href="#" class="text-sm text-primaryLocal font-semibold hover:underline">
-                Ver detalles
-              </a>
+
             </div>
           </div>
         </div>
-
       </div>
     </div>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
-    />
+    <!-- Estilos y Swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
   </div>
 </template>
 

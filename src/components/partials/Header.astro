@@ -65,21 +65,21 @@ const postsClient = (await getCollection('especialidades')).sort((a, b) =>
                     <li><a href="/"><img
                             src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728398825/home_tf4fcc.svg"
                             alt="Inicio" class="icon-menu-mobile"> INICIO</a></li>
-                    <li><a href="/nosotros"><img
+                    <li><a href="/nosotros/"><img
                             src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435593/nosotros_a07ra2.svg"
                             alt="Nosotros icono para telefono" class="icon-menu-mobile">NOSOTROS</a></li>
-                    <li><a href="/especialidades"><img
+                    <li><a href="/especialidades/"><img
                             src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435592/especialidades_ii5mme.svg"
-                            alt="Especialidades" class="icon-menu-mobile">ESPECIALIDADES</a></li>
-                    <li><a href="/alianzas"><img
+                            alt="icon-m-especialidades" class="icon-menu-mobile">ESPECIALIDADES</a></li>
+                    <li><a href="/clientes/"><img
                             src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728440797/clientes_gs7lsg.svg"
-                            alt="Especialidades" class="icon-menu-mobile">ALIANZAS</a></li>
-                    <li><a href="/contactenos"><img
+                            alt="icon-m-clientes" class="icon-menu-mobile">CLIENTES</a></li>
+                    <li><a href="/contactenos/"><img
                             src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435592/contactenos_lklald.svg"
-                            alt="Especialidades" class="icon-menu-mobile">CONTÁCTENOS</a></li>
-                    <li><a href="/brochure"><img
+                            alt="icon-m-contactenos" class="icon-menu-mobile">CONTÁCTENOS</a></li>
+                    <li><a href="/brochure/"><img
                             src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435591/brochure_nur47r.svg"
-                            alt="Especialidades" class="icon-menu-mobile">BROCHURE</a></li>
+                            alt="icon-m-brochure" class="icon-menu-mobile">BROCHURE</a></li>
                 </ul>
             </div>
         </div>
@@ -88,37 +88,37 @@ const postsClient = (await getCollection('especialidades')).sort((a, b) =>
     <div class="header-container">
         <a href="/" class="-mt-[10vh]">
             <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728397864/logo-horizontal-2-transparente-300x79_ymczkz.png"
-                 alt="logo"
+                 alt="logo telefono"
                  class="edit-logo z-30"/>
         </a>
         <nav class="section-nav">
-            <a href="/nosotros">
-                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435593/nosotros_a07ra2.svg" alt="p"
+            <a href="/nosotros/">
+                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435593/nosotros_a07ra2.svg" alt="imagen de nosotros"
                      class="h-[5vh]">
                 <button type="button">NOSOTROS</button>
             </a>
             <div class="relative">
-                <a href="/especialidades" id="especialidades-btn" class="flex items-center gap-1">
+                <a href="/especialidades/" id="especialidades-btn" class="flex items-center gap-1">
                     <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435592/especialidades_ii5mme.svg"
-                         alt="p" class="h-[5vh] ">
+                         alt="imagen de especialidades" class="h-[5vh] ">
                     <button type="button" class="">ESPECIALIDADES</button>
                 </a>
             </div>
 
-            <a href="/alianzas">
+            <a href="/clientes/">
                 <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728440797/clientes_gs7lsg.svg"
                      alt="p" class="h-[5vh]">
-                <button type="button">ALIANZAS</button>
+                <button type="button">CLIENTES</button>
             </a>
 
-            <a href="/contactenos">
+            <a href="/contactenos/">
                 <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435592/contactenos_lklald.svg"
-                     alt="p" class="h-[5vh]">
+                     alt="icon de contactenos escritorio" class="h-[5vh]">
                 <button type="button">CONTÁCTENOS</button>
             </a>
 
-            <a href="/brochure">
-                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435591/brochure_nur47r.svg" alt="p"
+            <a href="/brochure/">
+                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435591/brochure_nur47r.svg" alt="brochure icono"
                      class="h-[5vh]">
                 <button type="button">BROCHURE</button>
             </a>
@@ -130,7 +130,7 @@ const postsClient = (await getCollection('especialidades')).sort((a, b) =>
         <ul class="grid grid-cols-4 gap-3 pl-[4%] py-12 ">
             {postsClient.map((post, index) => (
                     <li >
-                        <a href={`/especialidades/${post.slug}`} class="font-asa">{post.data.title}</a>
+                        <a href={`/especialidades/${post.slug}/`} class="font-asa">{post.data.title}</a>
                     </li>
             ))}
         </ul>

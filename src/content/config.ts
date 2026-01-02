@@ -1,5 +1,4 @@
-import {defineCollection, z} from 'astro:content';
-
+import { defineCollection, z } from 'astro:content';
 
 const noticias = defineCollection({
     type: 'content',
@@ -21,8 +20,7 @@ const noticias = defineCollection({
     }),
 });
 
-
-const alianzas = defineCollection({
+const clientes = defineCollection({
     type: 'content',
     schema: z.object({
         id: z.number().optional(),
@@ -34,15 +32,26 @@ const alianzas = defineCollection({
     }),
 });
 
-const asociados = defineCollection({
+const alianzas = defineCollection({
     type: 'content',
     schema: z.object({
         id: z.number().optional(),
         src: z.string().optional(),
         alt: z.string(),
         nombre: z.string().optional(),
-        pubDate: z.coerce.date().nullable(),  // Cambia a nullable() en lugar de optional()
+        pubDate: z.coerce.date().nullable(),
         updatedDate: z.coerce.date().optional(),
+        url: z.string().url().optional(),
+    }),
+});
+
+const paginas = defineCollection({
+    type: 'content',
+    schema: z.object({
+        city: z.string(),
+        title: z.string(),
+        description: z.string(),
+        keywords: z.string(),
     }),
 });
 
@@ -57,6 +66,6 @@ const especialidades = defineCollection({
         pubDate: z.coerce.date(),
         updatedDate: z.coerce.date().optional(),
     })
-})
+});
 
-export const collections = {noticias, alianzas, asociados, especialidades};
+export const collections = { paginas, noticias, clientes, alianzas, especialidades };

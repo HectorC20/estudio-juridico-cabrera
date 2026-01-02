@@ -2,9 +2,9 @@
 import type { CollectionEntry } from 'astro:content';
 import '../styles/noticias.css';
 import FormattedDate from '../components/FormattedDate.astro';
-import Layout from "./Layout.astro";
 import NewsTape from "../components/NewsTape.astro";
 import SpecialtiesTape from "../components/SpecialtiesTape.astro";
+import NewsLayout from "./NewsLayout.astro";
 
 type Props = CollectionEntry<'noticias'>['data'];
 const { title, description, pubDate, updatedDate, heroImage, readingTime, categories, tags, author } = Astro.props;
@@ -13,11 +13,21 @@ const slugActual = Astro.url.pathname.split("/").filter(Boolean).pop();
 ---
 
 <html lang="en">
-<Layout title={title} description={description}>
+<NewsLayout
+        title={title}
+        description={description}
+        image={heroImage}
+        authorName={`${author.name} ${author.lastname}`}
+        pubDate={pubDate}
+        tags={tags}
+        categories={categories}
+>
+
     <main class="py-[2rem] xl:py-[4rem]">
         <article>
             <div class="hero-image">
-                {heroImage && <img src={heroImage} alt=""/>}
+                {heroImage && <img src={heroImage} alt={heroImage.split('/').pop()?.split('.')[0] || 'Imagen de la noticia'} />}
+
                 <h1 class="notice__title">{title}</h1>
                 <div class="cont__publ">
                     <FormattedDate date={new Date(pubDate)}/>
@@ -51,18 +61,20 @@ const slugActual = Astro.url.pathname.split("/").filter(Boolean).pop();
 
                 <div class="prose">
                     <div class="author-info">
-                        <a href={`/noticias/autor/${author.id}`}>
+                        <a href={`/noticias/autor/${author.id}/`}>
                             <img
                                     src={author.profileImage}
                                     alt={`Foto de perfil de ${author.name} ${author.lastname}`}
                                     class="profile__user__news"
                             />
-                            <p> {author.name} {author.lastname}</p>
+                            <p>{`${author.name} ${author.lastname}`.trim()}</p>
                         </a>
                     </div>
 
                     <div class="flex flex-row justify-between">
-                        <div class="text-primaryLocal font-semibold bg-secondaryLocal w-auto pt-2 px-2 rounded-t-xl ">Categorías {categories}</div>
+                        <div class="text-primaryLocal font-semibold bg-secondaryLocal w-auto pt-2 px-2 rounded-t-xl ">
+                            Categorías: {categories.join(", ")}
+                        </div>
                         <div class="text-primaryLocal font-semibold bg-secondaryLocal w-36 pt-2 px-2 rounded-t-xl ">
                             Lectura - {readingTime} min
                         </div>
@@ -83,10 +95,11 @@ const slugActual = Astro.url.pathname.split("/").filter(Boolean).pop();
                 </div>
                 <NewsTape slugActual={slugActual}/>
             </div>
-            <div class="ml-[9vw] text-fifthLocal font-semibold  w-auto pt-2 px-2 rounded-t-xl ">Etiquetas: {tags}</div>
+            <div class="ml-[9vw] text-fifthLocal font-semibold  w-auto pt-2 px-2 rounded-t-xl ">Etiquetas: {tags?.length ? tags.join(", ") : "Sin etiquetas"}
+            </div>
 
         </article>
         <SpecialtiesTape/>
     </main>
-</Layout>
+</NewsLayout>
 </html>

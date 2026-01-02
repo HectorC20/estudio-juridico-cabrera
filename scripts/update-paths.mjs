@@ -1,0 +1,68 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+// Obtener __dirname en ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Rutas de archivos
+const constantsPath = path.join(__dirname, '../src/constants.ts');
+const entryPath = path.join(__dirname, '../dist/server/entry.mjs');
+
+// Función para extraer valores de constantes del archivo TS usando Regex
+// Nota: Hacemos esto para evitar tener que compilar TS para este script simple
+function extractConstant(content, name) {
+    const regex = new RegExp(`export const ${name} = ["']([^"']+)["'];`);
+    const match = content.match(regex);
+    return match ? match[1] : null;
+}
+
+try {
+    console.log('🔄 Iniciando actualización de rutas para cPanel...');
+
+    // 1. Leer constants.ts
+    if (!fs.existsSync(constantsPath)) {
+        throw new Error(`No se encontró el archivo de constantes en: ${constantsPath}`);
+    }
+    const constantsContent = fs.readFileSync(constantsPath, 'utf-8');
+    
+    const clientPath = extractConstant(constantsContent, 'CPANEL_CLIENT_PATH');
+    const serverPath = extractConstant(constantsContent, 'CPANEL_SERVER_PATH');
+
+    if (!clientPath || !serverPath) {
+        throw new Error('No se pudieron extraer CPANEL_CLIENT_PATH o CPANEL_SERVER_PATH de constants.ts');
+    }
+
+    console.log(`📍 Rutas detectadas:`);
+    console.log(`   - Client: ${clientPath}`);
+    console.log(`   - Server: ${serverPath}`);
+
+    // 2. Leer y modificar entry.mjs
+    if (!fs.existsSync(entryPath)) {
+        throw new Error(`No se encontró el archivo entry.mjs en: ${entryPath}. Asegúrate de haber ejecutado el build primero.`);
+    }
+
+    let entryContent = fs.readFileSync(entryPath, 'utf-8');
+
+    // Reemplazamos las líneas client y server
+    // Buscamos tanto la versión hardcoded antigua como la dinámica o cualquier otra
+    // La regex busca la clave "client": seguido de cualquier valor hasta la coma
+    entryContent = entryContent.replace(
+        /"client":\s*("[^"]*"|new URL\([^)]+\)\.href),?/,
+        `"client": "${clientPath}",`
+    );
+
+    entryContent = entryContent.replace(
+        /"server":\s*("[^"]*"|new URL\([^)]+\)\.href),?/,
+        `"server": "${serverPath}",`
+    );
+
+    // 3. Guardar cambios
+    fs.writeFileSync(entryPath, entryContent, 'utf-8');
+    console.log('✅ entry.mjs actualizado correctamente con rutas de cPanel.');
+
+} catch (error) {
+    console.error('❌ Error actualizando rutas:', error.message);
+    process.exit(1);
+}

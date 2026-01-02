@@ -3,7 +3,7 @@ import '../../styles/sectionAlliances.css';
 import {getCollection} from "astro:content";
 import "swiper/swiper-bundle.css";
 import CardAlliances from "../CardAlliances.astro";
-const postsAssociate = (await getCollection('asociados')).sort(
+const postsAssociate = (await getCollection('clientes')).sort(
     (a, b) => {
         const aPubDate = a.data.pubDate ? a.data.pubDate.valueOf() : 0; // Si pubDate es null o undefined, usa 0
         const bPubDate = b.data.pubDate ? b.data.pubDate.valueOf() : 0; // Lo mismo para b
@@ -12,6 +12,9 @@ const postsAssociate = (await getCollection('asociados')).sort(
 );
 ---
 <style>
+   #swiper-associate{
+       @apply min-h-[10em];
+   }
     .section__title__asociados {
         font-family: "Archivo Black", sans-serif;
         @apply font-bold text-center text-secondaryLocal mb-8 pt-8 text-5xl 2xl:text-5xl;
@@ -22,21 +25,21 @@ const postsAssociate = (await getCollection('asociados')).sort(
 
     .swiper-slide {
         transform: scale(1); /* Mantiene el tamaño de las diapositivas constante */
-        transition: transform 1.8s linear, opacity 1.8s linear; /* Alineado con la duración del JS */
+        transition: transform 1.8s linear, opacity 1.8s linear;
     }
 
     .swiper-slide-active {
-        opacity: 1; /* Totalmente visible */
+        opacity: 1;
     }
 
     .swiper-slide:not(.swiper-slide-active) {
-        opacity: 0.9; /* Atenuación muy sutil */
+        opacity: 0.9;
     }
 
 </style>
 
 <div class="section__container">
-    <h2 class="section__title__asociados ">Alianzas Globales</h2>
+    <h2 class="section__title__asociados ">Clientes Globales</h2>
     <div id="swiper-associate" class="swiper-container">
         <div class="swiper-wrapper">
             {postsAssociate.map((post) => (

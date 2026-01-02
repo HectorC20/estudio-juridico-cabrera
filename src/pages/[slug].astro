@@ -1,3 +1,41 @@
 ---
+import {getCollection} from 'astro:content';
+import CarouselBlog from "../components/CarouselBlog.vue";
+import SectionNosotros from "../components/home/SectionNosotros.astro";
+import SectionAsociados from "../components/home/SectionAsociados.astro";
+import SectionLoMejor from "../components/home/SectionLoMejor.astro";
+import SectionNoticesHome from "../components/home/SectionNoticesHome.astro";
+import SectionLogros from "../components/home/SectionLogros.astro";
+import LayoutCountry from "../layouts/LayoutCountry.astro";
+import { AstroError } from "astro/errors";
+// Capturamos el 'country' desde la URL
+const {slug} = Astro.params;
 
+// Aquí obtenemos los datos relacionados con el 'country', por ejemplo, de una colección de páginas
+const paginas = await getCollection('paginas');
+
+// Buscamos la página que coincida con el 'country' capturado
+const pagina = paginas.find(p => p.slug === slug);
+if (!pagina) {
+    return new Response(null, { status: 404 });
+}
+
+// Título y descripción dinámicos
+const title = pagina.data.title || 'Título por defecto';
+const description = pagina.data.description || 'Descripción por defecto';
+const keywords = pagina.data.keywords || 'Palabras clave por defecto';
 ---
+
+<!doctype html>
+<LayoutCountry title={title} description={description} keywords={keywords}>
+    <!-- Pantalla de carga -->
+    <div id="main-content">
+        <CarouselBlog client:only="vue"/>
+        <SectionLogros/>
+        <SectionNosotros/>
+        <SectionAsociados/>
+        <SectionLoMejor/>
+        <SectionNoticesHome/>
+    </div>
+
+</LayoutCountry>

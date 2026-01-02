@@ -1,6 +1,6 @@
 import { defineComponent, h, createSSRApp } from 'vue';
 import { renderToString } from 'vue/server-renderer';
-import { j as renderJSX, f as createVNode, k as AstroJSX, l as AstroUserError } from './chunks/astro/server_DPPTnymn.mjs';
+import { j as renderJSX, h as createVNode, k as AstroJSX, l as AstroUserError } from './chunks/astro/server_uab8IH_Z.mjs';
 
 const setup = () => {};
 

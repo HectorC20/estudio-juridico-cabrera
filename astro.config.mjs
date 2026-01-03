@@ -3,15 +3,18 @@ import vue from '@astrojs/vue';
 import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
+import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
+const isVercel = process.env.VERCEL === '1';
+
 export default defineConfig({
   site: 'https://estudiojuridicocabrera.com',
   output: 'server',
-  adapter: node({ mode: 'standalone' }),
+  adapter: isVercel ? vercel() : node({ mode: 'standalone' }),
   vite: {
     server: {
       

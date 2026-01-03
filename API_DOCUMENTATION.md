@@ -39,9 +39,50 @@ Los endpoints marcados con 🔒 requieren un token JWT en el header `Authorizati
 | `GET` | `/news/categories/:category` | Listar noticias por categoría. | 🔓 |
 | `GET` | `/news/tags` | Listar todos los tags disponibles. | 🔓 |
 | `GET` | `/news/tags/:tag` | Listar noticias por tag. | 🔓 |
+| `GET` | `/news/highlighted` | Obtener la noticia destacada para el home. | 🔓 |
+
+### 📊 Estadísticas (`/stats`)
+| Método | Endpoint | Descripción | Auth |
+|---|---|---|---|
+| `GET` | `/stats/home` | Obtener estadísticas generales para el home (ej. casos gestionados). | 🔓 |
 
 ### ⚖️ Especialidades (`/specialties`)
 | Método | Endpoint | Descripción | Auth |
 |---|---|---|---|
 | `GET` | `/specialties` | Listar todas las especialidades. | 🔓 |
 | `GET` | `/specialties/:slug` | Obtener detalles de una especialidad por slug. | 🔓 |
+
+---
+
+## 📝 Detalles de Implementación (Nuevos Endpoints)
+
+Estos endpoints son requeridos para la sección de Blog y Destacados del Home.
+
+### 1. Noticia Destacada
+**Endpoint**: `GET /api/v1/news/highlighted`
+
+Debe devolver el objeto de la noticia que se desea resaltar en el home.
+
+**Respuesta Exitosa (200 OK):**
+```json
+{
+  "slug": "el-proceso-de-conciliacion-en-peru",
+  "newsName": "el-proceso-de-conciliacion-en-peru",
+  "title": "El proceso de conciliación en Perú",
+  "heroImage": "https://url-a-la-imagen.com/imagen.jpg",
+  "pubDate": "2024-03-20T10:00:00Z",
+  "description": "Breve descripción de la noticia..."
+}
+```
+
+### 2. Estadísticas del Home
+**Endpoint**: `GET /api/v1/stats/home`
+
+Debe devolver los contadores y textos estadísticos.
+
+**Respuesta Exitosa (200 OK):**
+```json
+{
+  "casesManaged": "+ DE 4000 CASOS GESTIONADOS"
+}
+```

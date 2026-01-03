@@ -115,4 +115,21 @@ export class NewsService {
             return [];
         }
     }
+
+    static async getHighlighted(): Promise<NewsSummary | null> {
+        try {
+            const response = await fetch(`${NEWS_ENDPOINT}/highlighted`);
+            if (!response.ok) {
+                 // If the endpoint doesn't exist yet, we might want to fallback to fetching latest and picking one, 
+                 // but for this task I will implement it as if the endpoint exists or will exist.
+                 if (response.status === 404) return null;
+                 throw new Error("Failed to fetch highlighted news");
+            }
+            const data = await response.json();
+            return new NewsSummary(data);
+        } catch (error) {
+            console.error("Error fetching highlighted news:", error);
+            return null;
+        }
+    }
 }

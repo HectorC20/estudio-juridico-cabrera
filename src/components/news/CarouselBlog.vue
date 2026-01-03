@@ -2,19 +2,27 @@
 import { onMounted, ref, nextTick } from 'vue';
 import { initSwiper } from '@/utils/CarouselController';
 import { NewsService } from '@/services/NewsService';
+import { StatsService } from '@/services/StatsService';
 
 const newsList = ref([]);
+const highlightedNews = ref(null);
+const homeStats = ref(null);
 const isLoading = ref(true);
 
 onMounted(async () => {
   try {
-    const data = await NewsService.getNewsList();
-    newsList.value = data.slice(0, 4);
+    const [newsData, highlightedData, statsData] = await Promise.all([
+      NewsService.getNewsList(),
+      NewsService.getHighlighted(),
+      StatsService.getHomeStats()
+    ]);
+    
+    newsList.value = newsData.slice(0, 4);
+    highlightedNews.value = highlightedData;
+    homeStats.value = statsData;
   } catch (error) {
-    console.error("Error al obtener las noticias:", error);
+    console.error("Error al obtener datos:", error);
   } finally {
-      // Simular un pequeño retraso para apreciar el skeleton (opcional, se puede quitar)
-      // await new Promise(resolve => setTimeout(resolve, 1000));
       isLoading.value = false;
   }
 
@@ -93,22 +101,28 @@ onMounted(async () => {
           <div class="px-8 py-6 text-center text-primaryLocal text-xl lg:text-2xl font-bold">LO DESTACADO</div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <!-- Noticia destacada -->
-            <div class="space-y-2 text-center px-3">
+            <div class="space-y-2 text-center px-3" v-if="highlightedNews">
               <h3 class="text-lg lg:text-xl font-bold text-primaryLocal">NOTICIA</h3>
               <p class="text-sm text-primaryLocal uppercase">
-                El proceso de conciliación en Perú
+                {{ highlightedNews.title }}
               </p>
-              <a href="https://estudiojuridicocabrera.com/noticias/el-proceso-de-conciliacin-en-per-una-alternativa-efectiva-para-resolver-conflictos/" class="text-sm text-primaryLocal font-semibold hover:underline">
+              <a :href="`/noticias/${highlightedNews.newsName}/`" class="text-sm text-primaryLocal font-semibold hover:underline">
                 Leer más
               </a>
             </div>
-            <!-- Reconocimientos (no se modifica) -->
+            <!-- Fallback visual si no hay destacada, o ocultar -->
+            <div class="space-y-2 text-center px-3" v-else>
+               <!-- Opcional: Mostrar esqueleto o mensaje, o simplemente nada -->
+               <h3 class="text-lg lg:text-xl font-bold text-primaryLocal">NOTICIA</h3>
+               <p class="text-sm text-primaryLocal uppercase">Cargando...</p>
+            </div>
+
+            <!-- Reconocimientos -->
             <div class="space-y-4 text-center px-3">
               <h3 class="text-xl font-bold text-primaryLocal">RECONOCIMIENTO</h3>
               <p class="text-sm text-primaryLocal uppercase">
-                + DE 4000 CASOS GESTIONADOS
+                {{ homeStats ? homeStats.casesManaged : '+ DE 4000 CASOS GESTIONADOS' }}
               </p>
-
             </div>
           </div>
         </div>

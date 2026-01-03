@@ -5,14 +5,30 @@ import ScriptAnimation from "../components/widgets/ScriptAnimation.vue";
 import MainHeader from "../components/partials/MainHeader.astro";
 import ScriptWhatsApp from "../components/widgets/ScriptWhatsApp.vue";
 // import ScriptTawkto from "../components/ScriptTawkto.vue";
+import { SeoMetadataService } from "../services/SeoMetadataService";
+import { SeoSchemaService } from "../services/SeoSchemaService";
+import SchemaOrg from "../components/common/SchemaOrg.astro";
 
 interface Props {
     title: string;
     description: string;
     image?: string;
 }
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const {title, description, image = '/blog-placeholder-1.webp'} = Astro.props;
+
+const {title: defaultTitle, description: defaultDescription, image = '/blog-placeholder-1.webp'} = Astro.props;
+const currentPath = Astro.url.pathname;
+
+// Fetch dynamic metadata and schema
+const metadata = await SeoMetadataService.getMetadata(currentPath);
+const schemaData = await SeoSchemaService.getSchema('LegalService'); // Default to LegalService for main pages
+
+// Resolve final values
+const title = metadata?.title || defaultTitle;
+const description = metadata?.description || defaultDescription;
+const robots = metadata?.robots || "index, follow";
+const canonicalURL = metadata?.canonicalUrl || new URL(currentPath, Astro.site).href;
+const finalImage = metadata?.ogImage || image;
+
 ---
 <!doctype html>
 <html lang="es">
@@ -30,7 +46,7 @@ const {title, description, image = '/blog-placeholder-1.webp'} = Astro.props;
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL}/>
     <!--Robots-->
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content={robots}>
 
     <!-- Primary Meta Tags -->
     <title>{title}</title>
@@ -42,20 +58,24 @@ const {title, description, image = '/blog-placeholder-1.webp'} = Astro.props;
     <meta property="og:url" content={Astro.url}/>
     <meta property="og:title" content={title}/>
     <meta property="og:description" content={description}/>
-    <meta property="og:image" content={new URL(image, Astro.url)}/>
+    <meta property="og:image" content={new URL(finalImage, Astro.url)}/>
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image"/>
     <meta property="twitter:url" content={Astro.url}/>
     <meta property="twitter:title" content={title}/>
     <meta property="twitter:description" content={description}/>
-    <meta property="twitter:image" content={new URL(image, Astro.url)}/>
+    <meta property="twitter:image" content={new URL(finalImage, Astro.url)}/>
     <!--    Font externo-->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Structured Data -->
+    <SchemaOrg type="LegalService" data={schemaData} />
 </head>
 
 <body class="">

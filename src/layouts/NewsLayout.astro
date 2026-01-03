@@ -5,6 +5,9 @@ import Header from "../components/partials/Header.astro";
 import ScriptAnimation from "../components/widgets/ScriptAnimation.vue";
 import ScriptWhatsApp from "../components/widgets/ScriptWhatsApp.vue";
 // import ScriptTawkto from "../components/ScriptTawkto.vue";
+import { SeoMetadataService } from "../services/SeoMetadataService";
+import { SeoSchemaService } from "../services/SeoSchemaService";
+import SchemaOrg from "../components/common/SchemaOrg.astro";
 
 interface Props {
     title: string;
@@ -15,46 +18,55 @@ interface Props {
     robotsTag?: string;
     tags?: string[];
     categories?: string[];
+    updatedDate?: Date;
 }
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description, image = '/blog-placeholder-1.webp', authorName = 'Autor desconocido', pubDate = 'Fecha no disponible',robotsTag = 'index, follow', tags = [], categories = [] } = Astro.props;
+
+const { 
+    title: defaultTitle, 
+    description: defaultDescription, 
+    image = '/blog-placeholder-1.webp', 
+    authorName = 'Autor desconocido', 
+    pubDate = 'Fecha no disponible',
+    robotsTag: defaultRobots = 'index, follow', 
+    tags = [], 
+    categories = [],
+    updatedDate
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+
+// Fetch dynamic metadata
+const metadata = await SeoMetadataService.getMetadata(currentPath);
+// For articles, we might fetch specific schema enhancements or just use local data
+const schemaOverride = await SeoSchemaService.getSchema('Article', currentPath.split('/').pop());
+
+// Resolve final values
+const title = metadata?.title || defaultTitle;
+const description = metadata?.description || defaultDescription;
+const robots = metadata?.robots || defaultRobots;
+const canonicalURL = metadata?.canonicalUrl || new URL(currentPath, Astro.site).href;
+const finalImage = metadata?.ogImage || image;
+
 const keywords = [...tags, ...categories].join(", ");
 const pubDateString = pubDate instanceof Date ? pubDate.toISOString() : pubDate || 'Fecha no disponible';
 
-// Generar el JSON-LD como una cadena de texto
-const jsonLd = `
-{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "${title}",
-    "description": "${description}",
-    "author": {
-        "@type": "Person",
-        "name": "${authorName}"
-    },
-    "publisher": {
-        "@type": "Organization",
-        "name": "Nombre del sitio",
-        "logo": {
-            "@type": "ImageObject",
-            "url": "/favicon.svg"
-        }
-    },
-    "datePublished": "${pubDateString}",
-    "dateModified": "${pubDateString}",
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "${canonicalURL.href}"
-    },
-    "image": "${image}"
-}
-`;
+// Prepare data for SchemaOrg component
+const articleData = {
+    title,
+    description,
+    image: finalImage,
+    authorName,
+    pubDate,
+    updatedDate,
+    ...(schemaOverride || {}) // Allow backend to override specific fields if needed
+};
 ---
 
 <!doctype html>
 <head>
-    <!-- Incluir JSON-LD   -->
-    <script is:inline type="application/ld+json" set:html={jsonLd}></script>
+    <!-- Incluir JSON-LD via Componente Centralizado -->
+    <SchemaOrg type="Article" data={articleData} />
+    
     <meta name="keywords" content={keywords}/>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -62,7 +74,7 @@ const jsonLd = `
     <meta name="generator" content={Astro.generator}/>
 
     <!-- URL canónica -->
-    <link rel="canonical" href={canonicalURL.href}/>
+    <link rel="canonical" href={canonicalURL}/>
 
     <!-- Metaetiquetas principales -->
     <title>{title}</title>
@@ -70,29 +82,30 @@ const jsonLd = `
     <meta name="description" content={description}/>
 
     <!-- Control de robots -->
-    <meta name="robots" content={robotsTag} />
+    <meta name="robots" content={robots} />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article"/>
-    <meta property="og:url" content={canonicalURL.href}/>
+    <meta property="og:url" content={canonicalURL}/>
     <meta property="og:title" content={title}/>
     <meta property="og:description" content={description}/>
-    <meta property="og:image" content={image}/>
+    <meta property="og:image" content={finalImage}/>
 
     <meta property="article:author" content={authorName}/>
     <meta property="article:published_time" content={pubDateString}/>
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image"/>
-    <meta property="twitter:url" content={canonicalURL.href}/>
+    <meta property="twitter:url" content={canonicalURL}/>
     <meta property="twitter:title" content={title}/>
     <meta property="twitter:description" content={description}/>
-    <meta property="twitter:image" content={image}/>
+    <meta property="twitter:image" content={finalImage}/>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#ffffff">
 </head>
 
 <body>

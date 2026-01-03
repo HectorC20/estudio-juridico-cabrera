@@ -1,0 +1,99 @@
+---
+interface Props {
+  type: 'LegalService' | 'Article' | 'Website' | 'Organization';
+  data?: any;
+}
+
+const { type, data: rawData } = Astro.props;
+const data = rawData || {};
+
+let schema: any = {};
+
+const BASE_URL = Astro.site || "https://estudiojuridicocabrera.com";
+
+if (type === 'LegalService' || type === 'Organization') {
+  schema = {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    "name": "Estudio Jurídico Cabrera",
+    "image": `${BASE_URL}/logo.png`, // Asegúrate de tener un logo o usa una imagen representativa
+    "@id": `${BASE_URL}/#organization`,
+    "url": BASE_URL,
+    "telephone": data.telephone || "+51 965 860 535",
+    "email": data.email || "contacto@estudiojuridicocabrera.com",
+    "priceRange": data.priceRange || "S/",
+    "address": data.address || {
+      "@type": "PostalAddress",
+      "addressLocality": "Tumbes",
+      "addressRegion": "Tumbes",
+      "addressCountry": "PE"
+    },
+    // Coordenadas aproximadas de Tumbes centro, ajustar si se tiene dirección exacta
+    "geo": data.geo || {
+      "@type": "GeoCoordinates",
+      "latitude": -3.5669,
+      "longitude": -80.4515
+    },
+    "openingHoursSpecification": data.openingHoursSpecification || {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:00",
+      "closes": "18:00"
+    },
+    "sameAs": data.sameAs || [
+      "https://www.facebook.com/EstudioJuridicoCabrera",
+      // Agregar otras redes sociales si existen
+    ]
+  };
+} else if (type === 'Article') {
+  schema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": new URL(Astro.url.pathname, BASE_URL).toString()
+    },
+    "headline": data.title,
+    "description": data.description,
+    "image": data.image ? [data.image] : [],
+    "author": {
+      "@type": "Person",
+      "name": data.authorName || "Estudio Jurídico Cabrera",
+      "url": data.authorUrl
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Estudio Jurídico Cabrera",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${BASE_URL}/logo.png`
+      }
+    },
+    "datePublished": data.pubDate ? new Date(data.pubDate).toISOString() : undefined,
+    "dateModified": data.updatedDate ? new Date(data.updatedDate).toISOString() : undefined
+  };
+} else if (type === 'Website') {
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Estudio Jurídico Cabrera",
+        "url": BASE_URL,
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": `${BASE_URL}/search?q={search_term_string}`
+            },
+            "query-input": "required name=search_term_string"
+        }
+    }
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

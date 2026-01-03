@@ -18,11 +18,11 @@ const uniquePosts = await getRelatedNews(slugActual);
     }
 
     .section__NewsTape {
-        @apply flex flex-col my-0 md:mx-0 lg:mx-0 rounded-2xl py-0 lg:px-4 w-full lg:max-w-[24rem] xl:max-w-[28rem];
+        @apply flex flex-col my-0 md:mx-0 lg:mx-0 rounded-2xl py-0 lg:px-4 w-full lg:max-w-[22rem] xl:max-w-[24rem];
     }
 
     h4 {
-        @apply mb-4 text-secondaryLocal text-2xl lg:text-2xl font-bold text-center uppercase tracking-wide;
+        @apply mb-2 text-secondaryLocal text-xl lg:text-xl font-bold text-center uppercase tracking-wide;
         background: linear-gradient(90deg, #25439f, #619cdc, #25439f);
         background-size: 200%;
         background-clip: text;
@@ -52,7 +52,7 @@ const uniquePosts = await getRelatedNews(slugActual);
         }
 
         a {
-            @apply flex flex-col lg:flex-row items-center lg:items-start gap-4 py-4 border-b border-gray-100;
+            @apply flex flex-col lg:flex-row items-center lg:items-start gap-3 py-3 border-b border-gray-100;
         }
 
         @apply flex flex-col sm:grid sm:grid-cols-2 sm:gap-6 lg:flex lg:flex-col lg:gap-0;
@@ -68,10 +68,10 @@ const uniquePosts = await getRelatedNews(slugActual);
                         <img
                                 src={post.heroImage || "/ruta/a/imagen/por/defecto.jpg"}
                                 alt={post.title}
-                                class="w-full h-48 sm:h-40 lg:w-28 lg:h-28 xl:w-32 xl:h-32 rounded-xl object-cover flex-shrink-0 transition-all duration-300"
+                                class="w-full h-40 sm:h-36 lg:w-24 lg:h-24 rounded-xl object-cover flex-shrink-0 transition-all duration-300"
                         />
                         <h5>
-                            {post.title.length > 70 ? post.title.slice(0, 70) + "..." : post.title}
+                            {post.title.length > 60 ? post.title.slice(0, 60) + "..." : post.title}
                         </h5>
                     </a>
                 </li>

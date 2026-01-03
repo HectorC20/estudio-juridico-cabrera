@@ -2,6 +2,7 @@
 import '@/styles/noticias.css';
 import FormattedDate from '@/components/common/FormattedDate.astro';
 import NewsTape from "@/components/news/NewsTape.astro";
+import NewsCategories from "@/components/news/NewsCategories.astro";
 import SpecialtiesTape from "@/components/specialties/SpecialtiesTape.astro";
 import NewsLayout from "./NewsLayout.astro";
 import { NoticiasPostModel } from '@/models/NoticiasPostProps';
@@ -100,7 +101,10 @@ const slugActual = Astro.url.pathname.split("/").filter(Boolean).pop();
                     </div>
                 </div>
                
-                <NewsTape slugActual={slugActual}/>
+                <div class="sidebar-column">
+                    <NewsTape slugActual={slugActual}/>
+                    <NewsCategories />
+                </div>
             </div>
             
             <div class="tags-container">

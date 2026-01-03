@@ -83,7 +83,8 @@ export class NewsService {
 
     static async getByCategory(category: string): Promise<NewsSummary[]> {
         try {
-            const response = await fetch(`${NEWS_ENDPOINT}${_urlCategories}${category}`);
+            const encodedCategory = encodeURIComponent(category);
+            const response = await fetch(`${NEWS_ENDPOINT}${_urlCategories}${encodedCategory}`);
             if (!response.ok) throw new Error(`Failed to fetch news for category ${category}`);
             const data = await response.json();
             return data.map((item: any) => new NewsSummary(item));

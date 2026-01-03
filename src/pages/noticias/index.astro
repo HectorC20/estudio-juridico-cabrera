@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import FormattedDate from "@/components/common/FormattedDate.astro";
 import SearchNotice from "@/components/news/SearchNotice.astro";
+import NewsCategories from "@/components/news/NewsCategories.astro";
 import { NewsService } from "@/services/NewsService";
 import type { NewsSummary } from "@/models/NewsSummary";
 import "@/styles/noticiasIndex.css";
@@ -40,9 +41,9 @@ let filteredNews: NewsSummary[] = shuffledNews;
 <Layout title="Noticias - Estudio Jurídico Cabrera" description="Manténgase al día con las últimas noticias legales, actualizaciones del sector y novedades de Estudio Jurídico Cabrera para estar siempre informado sobre sus derechos">
 
     <main id="notice">
-        <section>
+        <section class="flex-col">
 
-            <div class="hero-image">
+            <div class="hero-image relative w-full h-[33rem]">
                 <div class="hero-cont">
                     <h1>NOTICIAS</h1>
                     <h2>Infórmate sobre las últimas novedades legales y actualizaciones del Estudio Jurídico Cabrera.
@@ -55,8 +56,10 @@ let filteredNews: NewsSummary[] = shuffledNews;
                 <SearchNotice/>
             </div>
 
-            <div class="flex flex-col">
-                <ul id="newsList">
+            <div class="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto px-4 mt-8">
+                
+                <div class="w-full lg:w-3/4">
+                    <ul id="newsList">
                     {
                         shuffledNews.map((post: NewsSummary) => (
                                 <li class="rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105 min-h-[22em]">
@@ -74,7 +77,12 @@ let filteredNews: NewsSummary[] = shuffledNews;
                                 </li>
                         ))
                     }
-                </ul>
+                    </ul>
+                </div>
+
+                <div class="w-full lg:w-1/4">
+                     <NewsCategories />
+                </div>
             </div>
         </section>
     </main>

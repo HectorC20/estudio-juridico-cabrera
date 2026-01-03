@@ -166,6 +166,10 @@ p {
     @apply flex-1 w-full min-w-0;
 }
 
+.sidebar-column {
+    @apply w-full lg:w-auto flex flex-col gap-8 flex-shrink-0;
+}
+
 /* Estilos para información del autor */
 .author-info-container {
     @apply mb-8 flex items-center p-0 ;

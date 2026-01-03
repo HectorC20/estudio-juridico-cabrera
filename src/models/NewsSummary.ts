@@ -7,6 +7,7 @@ export class NewsSummary {
     updatedDate?: Date;
     status: string;
     description?: string;
+    categories: string[];
 
     constructor(data: Partial<NewsSummary> | any) {
         this.newsName = data.newsName || data.slug || "";
@@ -17,5 +18,6 @@ export class NewsSummary {
         this.updatedDate = data.updatedDate ? new Date(data.updatedDate) : undefined;
         this.status = data.status || "borrador";
         this.description = data.description;
+        this.categories = data.categories || [];
     }
 }

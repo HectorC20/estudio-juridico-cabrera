@@ -1,0 +1,155 @@
+---
+import { NewsService } from "@/services/NewsService";
+
+interface Props {
+    activeCategory?: string;
+}
+
+const { activeCategory } = Astro.props;
+const rawCategories = await NewsService.getCategories();
+
+// Filter duplicates, remove empty strings, and sort alphabetically
+const categories = [...new Set(rawCategories)]
+    .filter(c => c && c.trim() !== "")
+    .sort((a, b) => a.localeCompare(b));
+
+const INITIAL_LIMIT = 6;
+const hasMore = categories.length > INITIAL_LIMIT;
+const initialCategories = categories.slice(0, INITIAL_LIMIT);
+const hiddenCategories = categories.slice(INITIAL_LIMIT);
+---
+
+<style>
+    .section__Categories {
+        @apply flex flex-col w-full mt-8 lg:mt-0 rounded-2xl py-0 lg:px-0 w-full;
+    }
+
+    h4 {
+        @apply mb-4 text-secondaryLocal text-xl font-bold text-left uppercase tracking-wide border-b-2 border-gray-100 pb-2;
+    }
+
+    .list__Categories {
+        @apply flex flex-col gap-1;
+        
+        li {
+            @apply transition-all duration-300;
+        }
+
+        a {
+            @apply flex items-center justify-between px-3 py-2.5 rounded-lg text-gray-600 transition-all duration-200 hover:bg-gray-50 hover:text-secondaryLocal;
+        }
+
+        a.active {
+            @apply bg-blue-50 text-secondaryLocal font-semibold border-l-4 border-secondaryLocal pl-2;
+        }
+
+        a:hover .category-name {
+            @apply translate-x-1;
+        }
+
+        span.category-name {
+            @apply text-sm uppercase tracking-wide transition-transform duration-200;
+        }
+        
+        .icon-chevron {
+            @apply h-4 w-4 text-gray-400 transition-transform duration-200;
+        }
+
+        a:hover .icon-chevron {
+            @apply text-primaryLocal translate-x-1;
+        }
+    }
+
+    .toggle-btn {
+        @apply mt-3 text-sm font-semibold text-secondaryLocal hover:text-secondaryLocal cursor-pointer flex items-center gap-1 transition-colors duration-200;
+    }
+
+    .hidden-cats {
+        display: none;
+    }
+    
+    .hidden-cats.show {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<div class="section__Categories">
+    <h4>Categorías</h4>
+    <ul class="list__Categories">
+        {categories.length > 0 ? (
+            <>
+                {initialCategories.map((category) => {
+                    const slug = String(category).toLowerCase().replace(/ /g, '-');
+                    const isActive = activeCategory && activeCategory.toLowerCase() === category.toLowerCase();
+                    return (
+                    <li>
+                        <a href={`/noticias/categoria/${slug}`} class={isActive ? 'active' : ''}>
+                            <span class="category-name">{category}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </li>
+                )})}
+                
+                {hasMore && (
+                    <div id="moreCategories" class="hidden-cats">
+                        {hiddenCategories.map((category) => {
+                            const slug = String(category).toLowerCase().replace(/ /g, '-');
+                             const isActive = activeCategory && activeCategory.toLowerCase() === category.toLowerCase();
+                            return (
+                            <li>
+                                <a href={`/noticias/categoria/${slug}`} class={isActive ? 'active' : ''}>
+                                    <span class="category-name">{category}</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </li>
+                        )})}
+                    </div>
+                    
+                    <button id="toggleCategoriesBtn" class="toggle-btn">
+                        <span id="toggleText">Ver todas las categorías</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                )}
+            </>
+        ) : (
+            <li class="text-left text-gray-500 italic py-2 text-sm">No hay categorías disponibles</li>
+        )}
+    </ul>
+</div>
+
+<script>
+    const toggleBtn = document.getElementById('toggleCategoriesBtn');
+    const moreCategories = document.getElementById('moreCategories');
+    const toggleText = document.getElementById('toggleText');
+    const icon = toggleBtn?.querySelector('svg');
+
+    if (toggleBtn && moreCategories && toggleText && icon) {
+        toggleBtn.addEventListener('click', () => {
+            const isHidden = !moreCategories.classList.contains('show');
+            
+            if (isHidden) {
+                moreCategories.classList.add('show');
+                toggleText.textContent = 'Ver menos';
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                moreCategories.classList.remove('show');
+                toggleText.textContent = 'Ver todas las categorías';
+                icon.style.transform = 'rotate(0deg)';
+            }
+        });
+    }
+</script>

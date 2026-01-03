@@ -98,22 +98,50 @@ Debe devolver los contadores y textos estadísticos.
 
 Debe devolver una lista de los casos de éxito más relevantes para mostrar en la página principal.
 
+### 4. Categorías de Noticias
+**Endpoint**: `GET /api/v1/news/categories`
+
+Debe devolver una lista de cadenas de texto (strings) con todas las categorías disponibles en el sistema.
+
+**Respuesta Exitosa (200 OK):**
+```json
+[
+  "Derecho Penal",
+  "Derecho Civil",
+  "Conciliaciones",
+  "Noticias Legales",
+  "Derecho Laboral"
+]
+```
+
+**Endpoint**: `GET /api/v1/news/categories/:category`
+
+Debe devolver una lista de objetos de noticias (`NewsSummary`) que pertenezcan a la categoría especificada.
+El parámetro `:category` debe ser el nombre exacto de la categoría. Se recomienda enviarlo codificado (URL encoded) si contiene espacios o caracteres especiales.
+
+**Parámetros:**
+- `category` (path, string, requerido): El nombre de la categoría a filtrar (ej. "Derecho Penal" o "Derecho%20Penal").
+
 **Respuesta Exitosa (200 OK):**
 ```json
 [
   {
-    "slug": "resolucion-conflicto-societario",
-    "title": "Resolución de Conflicto Societario",
-    "category": "Corporativo",
-    "image": "https://url-imagen.com/caso1.jpg",
-    "summary": "Logramos una negociación exitosa entre accionistas..."
+    "slug": "nueva-ley-de-conciliacion",
+    "newsName": "nueva-ley-de-conciliacion",
+    "title": "Nueva Ley de Conciliación en Perú",
+    "heroImage": "https://url-imagen.com/img.jpg",
+    "pubDate": "2024-03-25T12:00:00Z",
+    "description": "Análisis de los cambios recientes...",
+    "categories": ["Conciliaciones", "Noticias Legales"]
   },
   {
-    "slug": "recuperacion-propiedad",
-    "title": "Recuperación de Propiedad",
-    "category": "Civil",
-    "image": "https://url-imagen.com/caso2.jpg",
-    "summary": "Sentencia favorable en tiempo récord..."
+    "slug": "importancia-del-arbitraje",
+    "newsName": "importancia-del-arbitraje",
+    "title": "Importancia del Arbitraje",
+    "heroImage": "https://url-imagen.com/arbitraje.jpg",
+    "pubDate": "2024-03-20T10:00:00Z",
+    "description": "Por qué elegir el arbitraje...",
+    "categories": ["Conciliaciones"]
   }
 ]
 ```

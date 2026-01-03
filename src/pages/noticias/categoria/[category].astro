@@ -1,0 +1,108 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import FormattedDate from "@/components/common/FormattedDate.astro";
+import SearchNotice from "@/components/news/SearchNotice.astro";
+import NewsCategories from "@/components/news/NewsCategories.astro";
+import { NewsService } from "@/services/NewsService";
+import type { NewsSummary } from "@/models/NewsSummary";
+import "@/styles/noticiasIndex.css";
+
+export async function getStaticPaths() {
+    const categories = await NewsService.getCategories();
+    return categories.map((category) => ({
+        params: { category: category.toLowerCase().replace(/ /g, '-') },
+        props: { categoryName: category },
+    }));
+}
+
+const { category } = Astro.params;
+const { categoryName } = Astro.props;
+
+let newsList: NewsSummary[] = [];
+let categoryDisplay = categoryName || category?.replace(/-/g, ' ');
+
+// Capitalize first letter of each word for display if categoryName wasn't passed
+if (!categoryName && categoryDisplay) {
+    categoryDisplay = categoryDisplay.split(' ')
+        .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}
+
+try {
+    // We need to fetch all news and filter manually or use a specific endpoint if available
+    // Assuming getByCategory expects the original category string (with spaces/accents)
+    // If the API expects the slugified version, we pass 'category' directly.
+    // Based on typical implementation, APIs often expect the exact category name.
+    // Let's try to find the exact match from the categories list first if we don't have categoryName
+    
+    let targetCategory = categoryName;
+    if (!targetCategory) {
+        const allCategories = await NewsService.getCategories();
+        targetCategory = allCategories.find(c => c.toLowerCase().replace(/ /g, '-') === category) || categoryDisplay;
+    }
+
+    if (targetCategory) {
+         newsList = await NewsService.getByCategory(targetCategory);
+    }
+} catch (error) {
+    console.error(`Error al obtener noticias para la categoría ${category}:`, error);
+    newsList = [];
+}
+---
+
+<Layout title={`Noticias: ${categoryDisplay} - Estudio Jurídico Cabrera`} description={`Noticias y artículos sobre ${categoryDisplay} del Estudio Jurídico Cabrera.`}>
+
+    <main id="notice">
+        <section class="flex-col">
+
+            <div class="hero-image relative w-full h-[33rem]">
+                <div class="hero-cont">
+                    <h1>NOTICIAS: {categoryDisplay?.toUpperCase()}</h1>
+                    <h2>Explora nuestros artículos y novedades relacionados con {categoryDisplay}.</h2>
+                </div>
+                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1729025386/noticias_sa4pep.jpg"
+                     alt="Noticias de ESTUDIO " class=""/>
+
+                <SearchNotice/>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto px-4 mt-8">
+                
+                <div class="w-full lg:w-3/4">
+                    <ul id="newsList">
+                    {
+                        newsList.length > 0 ? (
+                            newsList.map((post: NewsSummary) => (
+                                    <li class="rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105 min-h-[22em]">
+                                        <a href={`/noticias/${post.newsName}/`} class="block">
+                                            <img src={post.heroImage || 'https://via.placeholder.com/400x200'} alt={post.newsName} class="w-full min-h-[12em] object-cover"/>
+                                            <div class="text-overlay">
+                                                <h4 class="title text-lg 2xl:text-xl font-semibold text-secondaryLocal">{post.title}</h4>
+                                                <p class="date 2xl:text-xl text-secondaryLocal">
+                                                    <FormattedDate date={new Date(post.pubDate || new Date())}/>
+                                                </p>
+                                                <div class="more__des">Leer Más</div>
+                                                <div class="h-1 w-full bg-tertiaryLocal absolute bottom-0 left-0 rounded-b-md"></div>
+                                            </div>
+                                        </a>
+                                    </li>
+                            ))
+                        ) : (
+                            <div class="col-span-1 md:col-span-2 text-center py-12">
+                                <p class="text-xl text-gray-500">No se encontraron noticias en esta categoría.</p>
+                                <a href="/noticias" class="inline-block mt-4 px-6 py-2 bg-secondaryLocal text-white rounded-lg hover:bg-tertiaryLocal transition-colors">
+                                    Ver todas las noticias
+                                </a>
+                            </div>
+                        )
+                    }
+                    </ul>
+                </div>
+
+                <div class="w-full lg:w-1/4">
+                     <NewsCategories activeCategory={categoryDisplay} />
+                </div>
+            </div>
+        </section>
+    </main>
+</Layout>

@@ -3,7 +3,6 @@ import { NewsSummary } from "./NewsSummary";
 export class News extends NewsSummary {
     id?: string;
     readingTime?: number;
-    categories?: string[];
     tags?: string[];
     authorId?: string;
     content: string;
@@ -12,7 +11,6 @@ export class News extends NewsSummary {
         super(data);
         this.id = data.id;
         this.readingTime = data.readingTime;
-        this.categories = data.categories || [];
         this.tags = data.tags || [];
         // Intentar obtener authorId de varias fuentes posibles
         this.authorId = data.authorId || data.id_author || (typeof data.author === 'object' ? data.author.id : data.author);

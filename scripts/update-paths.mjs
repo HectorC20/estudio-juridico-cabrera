@@ -24,11 +24,9 @@ try {
     const isPathMainEnabled = process.env.PATH_MAIN === 'true';
 
     if (!isPathMainEnabled) {
-        console.log('ℹ️ PATH_MAIN no está habilitado (o no es "true"). Se omitirá la actualización de rutas cPanel (modo automático).');
         process.exit(0);
     }
 
-    console.log('🔄 Iniciando actualización de rutas para cPanel (PATH_MAIN=true)...');
 
     // 1. Leer consts.ts
     if (!fs.existsSync(constantsPath)) {
@@ -43,9 +41,6 @@ try {
         throw new Error('No se pudieron extraer CPANEL_CLIENT_PATH o CPANEL_SERVER_PATH de consts.ts');
     }
 
-    console.log(`📍 Rutas detectadas:`);
-    console.log(`   - Client: ${clientPath}`);
-    console.log(`   - Server: ${serverPath}`);
 
     // 2. Leer y modificar entry.mjs
     if (!fs.existsSync(entryPath)) {
@@ -72,7 +67,6 @@ try {
 
     // 3. Guardar cambios
     fs.writeFileSync(entryPath, entryContent, 'utf-8');
-    console.log('✅ entry.mjs actualizado correctamente con rutas de cPanel.');
 
 } catch (error) {
     console.error('❌ Error actualizando rutas:', error.message);

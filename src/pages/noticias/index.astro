@@ -58,7 +58,7 @@ let filteredNews: NewsSummary[] = shuffledNews;
             <div class="flex flex-col">
                 <ul id="newsList">
                     {
-                        filteredNews.map((post: NewsSummary) => (
+                        shuffledNews.map((post: NewsSummary) => (
                                 <li class="rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105 min-h-[22em]">
                                     <a href={`/noticias/${post.newsName}/`} class="block">
                                         <img src={post.heroImage || 'https://via.placeholder.com/400x200'} alt={post.newsName} class="w-full min-h-[12em] object-cover"/>
@@ -78,4 +78,51 @@ let filteredNews: NewsSummary[] = shuffledNews;
             </div>
         </section>
     </main>
+
+    <script define:vars={{ initialNews: shuffledNews }}>
+        import { NewsFilterService } from "@/services/NewsFilterService";
+
+        const newsListContainer = document.getElementById('newsList');
+
+        document.addEventListener('newsSearchQuery', (event) => {
+            const query = event.detail;
+            const filtered = NewsFilterService.filterByTitle(initialNews, query);
+            renderNews(filtered);
+        });
+
+        function renderNews(news) {
+            if (!newsListContainer) return;
+            
+            if (news.length === 0) {
+                newsListContainer.innerHTML = '<li class="text-center w-full p-4 text-gray-500">No se encontraron noticias.</li>';
+                return;
+            }
+
+            const html = news.map(post => {
+                // Reconstruir la URL de la imagen y fecha formateada manualmente o usando librerías si están disponibles en el cliente
+                // Para simplificar y evitar problemas de importación de FormattedDate (componente Astro), usamos JS estándar.
+                
+                const dateObj = new Date(post.pubDate || new Date());
+                const formattedDate = dateObj.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+
+                return `
+                <li class="rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105 min-h-[22em]">
+                    <a href="/noticias/${post.newsName}/" class="block">
+                        <img src="${post.heroImage || 'https://via.placeholder.com/400x200'}" alt="${post.newsName}" class="w-full min-h-[12em] object-cover"/>
+                        <div class="text-overlay">
+                            <h4 class="title text-lg 2xl:text-xl font-semibold text-secondaryLocal">${post.title}</h4>
+                            <p class="date 2xl:text-xl text-secondaryLocal">
+                                ${formattedDate}
+                            </p>
+                            <div class="more__des">Leer Más</div>
+                            <div class="h-1 w-full bg-tertiaryLocal absolute bottom-0 left-0 rounded-b-md"></div>
+                        </div>
+                    </a>
+                </li>
+                `;
+            }).join('');
+
+            newsListContainer.innerHTML = html;
+        }
+    </script>
 </Layout>

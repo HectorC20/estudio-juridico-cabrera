@@ -7,11 +7,11 @@
 }
 
 .header-container {
-    @apply xl:container mx-auto hidden mt-10 flex-wrap lg:px-4 xl:px-5 py-2 flex-col md:flex-row items-center justify-between relative lg:flex ;
+    @apply xl:container mx-auto hidden mt-10 flex-wrap lg:px-16 xl:px-16 py-2 flex-col md:flex-row items-center justify-between relative lg:flex max-w-[1400px] !important;
 }
 
 .section-nav {
-    @apply flex-1 flex items-center justify-end -mr-4 lg:pr-0;
+    @apply flex-1 flex items-center justify-end -mr-4 lg:pr-0 gap-6 !important;
 }
 
 .section-nav a {
@@ -89,7 +89,8 @@
     @apply h-[12vh] 2xl:h-[10vh] pb-1.5 px-1.5 rounded-xl absolute bg-secondaryLocal shadow-lg shadow-secondaryLocal/30;
 }
 
-#especialidades-menu {
+#especialidades-menu,
+#especialidades-menu-home {
 
     background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
     @apply  shadow-xl shadow-secondaryLocal/30 bg-secondaryLocal w-[100%] absolute z-10 left-[50%] transform translate-x-[-50%]  !important;
@@ -120,7 +121,7 @@
 }
 
 .cont-header-container {
-    @apply container ml-12 lg:ml-auto flex gap-3 mt-2 lg:mt-0 md:gap-0 justify-center lg:justify-between mx-auto lg:px-4 xl:px-6;
+    @apply container ml-16 lg:ml-auto flex gap-3 mt-2 lg:mt-0 md:gap-0 justify-center lg:justify-between mx-auto lg:px-16 xl:px-16;
 }
 
 .link, .phone-number, .social-link {
@@ -170,6 +171,22 @@
         transform: translateX(0);
         opacity: 1;
     }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.section-header.is-sticky,
+.section-header-other.is-sticky {
+    @apply fixed top-0 w-full z-50 bg-secondaryLocal bg-texture shadow-md !important;
+    animation: slideDown 0.3s ease-out;
+    padding-bottom: 0.5rem; /* Ajuste visual similar a section-header-other */
 }
 
 /* Estilo base sin animación */

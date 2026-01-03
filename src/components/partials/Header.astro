@@ -5,6 +5,7 @@ import { getCollection } from "astro:content";
 const postsClient = (await getCollection('especialidades')).sort((a, b) =>
     a.data.title.localeCompare(b.data.title, 'es')
 );
+const _urlSpecialities='/especialidades/';
 ---
 
 <header class="section-header-other">
@@ -91,49 +92,45 @@ const postsClient = (await getCollection('especialidades')).sort((a, b) =>
     <div class="header-container">
         <a href="/" class="-mt-[10vh]">
             <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728397864/logo-horizontal-2-transparente-300x79_ymczkz.png"
-                 alt="logo telefono"
-                 class="edit-logo z-30"/>
+                 alt="logo"
+                 class="h-[12vh] 2xl:h-[10vh] pb-1.5 px-1.5  absolute "/>
+            <!-- Usa logoEx como fuente de la imagen -->
         </a>
         <nav class="section-nav">
-            <a href="/nosotros/">
+            <a href="/nosotros">
                 <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435593/nosotros_a07ra2.svg" alt="imagen de nosotros"
                      class="h-[5vh]">
                 <button type="button">NOSOTROS</button>
             </a>
             <div class="relative">
-                <a href="/especialidades/" id="especialidades-btn" class="flex items-center gap-1">
+                <a href="/especialidades" id="especialidades-btn-home" class="flex items-center gap-1">
                     <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435592/especialidades_ii5mme.svg"
                          alt="imagen de especialidades" class="h-[5vh] ">
                     <button type="button" class="">ESPECIALIDADES</button>
                 </a>
             </div>
-
-            <a href="/clientes/">
+            <a href="/clientes">
                 <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728440797/clientes_gs7lsg.svg"
                      alt="p" class="h-[5vh]">
                 <button type="button">CLIENTES</button>
             </a>
-
-            <a href="/contactenos/">
-                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435592/contactenos_lklald.svg"
-                     alt="icon de contactenos escritorio" class="h-[5vh]">
-                <button type="button">CONTÁCTENOS</button>
-            </a>
-
-            <a href="/brochure/">
+            <a href="/brochure">
                 <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435591/brochure_nur47r.svg" alt="brochure icono"
                      class="h-[5vh]">
                 <button type="button">BROCHURE</button>
             </a>
+            <a href="/contactenos" class="ml-4">
+                 <button type="button" class="btn bg-primaryLocal text-secondaryLocal px-6 py-2 rounded font-bold hover:bg-opacity-90 transition-all">CONTÁCTENOS</button>
+            </a>
         </nav>
     </div>
 
-    <div id="especialidades-menu"
-         class="hidden absolute top-full bg-white shadow-lg ">
+    <div id="especialidades-menu-home"
+         class="hidden absolute top-full shadow-lg ">
         <ul class="grid grid-cols-4 gap-3 pl-[4%] py-12 ">
             {postsClient.map((post) => (
                     <li >
-                        <a href={`/especialidades/${post.slug}/`} class="font-asa">{post.data.title}</a>
+                        <a href={`${_urlSpecialities}${post.slug}/`} class="font-asa">{post.data.title}</a>
                     </li>
             ))}
         </ul>
@@ -141,10 +138,11 @@ const postsClient = (await getCollection('especialidades')).sort((a, b) =>
 
 </header>
 
+<script src="@/scripts/stickyHeader.js"></script>
 
 <script>
-    const especialidadesBtn = document.getElementById('especialidades-btn');
-    const especialidadesMenu = document.getElementById('especialidades-menu');
+    const especialidadesBtn = document.getElementById('especialidades-btn-home');
+    const especialidadesMenu = document.getElementById('especialidades-menu-home');
 
     if (especialidadesBtn && especialidadesMenu) {
         especialidadesBtn.addEventListener('mouseenter', () => {
@@ -158,7 +156,5 @@ const postsClient = (await getCollection('especialidades')).sort((a, b) =>
         especialidadesMenu.addEventListener('mouseenter', () => {
             especialidadesMenu.classList.remove('hidden');
         });
-    } else {
-        // console.error('El botón o el menú de especialidades no existen en el DOM.');
     }
 </script>

@@ -26,3 +26,11 @@
 .description-nosotros {
     @apply text-xl px-6 sm:text-base lg:text-xl xl:text-3xl 2xl:text-4xl text-gray-700 max-w-[550px] mx-auto lg:mx-0 leading-relaxed;
 }
+
+.button-container-nosotros {
+    @apply w-52 2xl:w-[18.5rem] mx-auto lg:mx-0 flex text-center justify-center lg:justify-start;
+}
+
+.button-nosotros {
+    @apply btn bg-secondaryLocal text-primaryLocal text-xl hover:bg-tertiaryLocal 2xl:text-2xl ml-0 lg:ml-6 px-8 py-3 rounded transition-colors duration-300;
+}

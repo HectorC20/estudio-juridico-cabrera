@@ -58,7 +58,7 @@ const articleData = {
     authorName,
     pubDate,
     updatedDate,
-    ...(schemaOverride || {}) // Allow backend to override specific fields if needed
+    ...schemaOverride // Allow backend to override specific fields if needed
 };
 ---
 

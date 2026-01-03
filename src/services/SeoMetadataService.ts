@@ -1,13 +1,5 @@
+import type { PageMetadata } from "@/models/PageMetadata";
 import { API_BASE_URL } from "@/shared/consts";
-
-export interface PageMetadata {
-    title: string;
-    description: string;
-    keywords?: string[];
-    ogImage?: string;
-    robots?: string;
-    canonicalUrl?: string;
-}
 
 const METADATA_ENDPOINT = `${API_BASE_URL}/seo/metadata`;
 

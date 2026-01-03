@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import 'dotenv/config';
 
 // Obtener __dirname en ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -19,7 +20,15 @@ function extractConstant(content, name) {
 }
 
 try {
-    console.log('🔄 Iniciando actualización de rutas para cPanel...');
+    // Verificar si PATH_MAIN está habilitado en .env
+    const isPathMainEnabled = process.env.PATH_MAIN === 'true';
+
+    if (!isPathMainEnabled) {
+        console.log('ℹ️ PATH_MAIN no está habilitado (o no es "true"). Se omitirá la actualización de rutas cPanel (modo automático).');
+        process.exit(0);
+    }
+
+    console.log('🔄 Iniciando actualización de rutas para cPanel (PATH_MAIN=true)...');
 
     // 1. Leer consts.ts
     if (!fs.existsSync(constantsPath)) {

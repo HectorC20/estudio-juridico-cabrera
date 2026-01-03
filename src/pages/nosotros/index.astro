@@ -92,13 +92,13 @@ const postsAssociate = (await getCollection('alianzas')).sort(
             <div id="swiper-pagination-associate" class="swiper-pagination"></div>
         </div>
     </section>
-    
+
     <script>
         import Swiper from 'swiper/bundle';
         import 'swiper/css/bundle';
         
-        document.addEventListener('astro:page-load', () => {
-            const swiperAssociate = new Swiper("#swiper-associate", {
+        const initSwiper = () => {
+            new Swiper("#swiper-associate", {
                 slidesPerView: 1,
                 spaceBetween: 10,
                 loop: true,
@@ -129,6 +129,12 @@ const postsAssociate = (await getCollection('alianzas')).sort(
                     },
                 },
             });
-        });
+        };
+
+        // Inicializar inmediatamente
+        initSwiper();
+        
+        // Soporte para futuras navegaciones si se activan View Transitions
+        document.addEventListener('astro:page-load', initSwiper);
     </script>
 </Layout>

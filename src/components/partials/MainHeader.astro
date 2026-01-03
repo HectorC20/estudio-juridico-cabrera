@@ -62,7 +62,8 @@ import '@/styles/partials/header.css';
                     <!-- Sidebar content here -->
                     <li><a href="/"><img
                             src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728398825/home_tf4fcc.svg"
-                            alt="Inicio" class="icon-menu-mobile"> INICIO</a></li>
+                            alt="Inicio" class="icon-menu-mobile"> INICIO</a>
+                    </li>
                     <li><a href="/nosotros"><img
                             src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435593/nosotros_a07ra2.svg"
                             alt="Nosotros icono para telefono" class="icon-menu-mobile">NOSOTROS</a></li>
@@ -108,17 +109,15 @@ import '@/styles/partials/header.css';
                      alt="p" class="h-[5vh]">
                 <button type="button">CLIENTES</button>
             </a>
-            <a href="/contactenos">
-                <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435592/contactenos_lklald.svg"
-                     alt="p" class="h-[5vh]">
-                <button type="button">CONTÁCTENOS</button>
-            </a>
-
             <a href="/brochure">
                 <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728435591/brochure_nur47r.svg" alt="p"
                      class="h-[5vh]">
                 <button type="button">BROCHURE</button>
             </a>
+            <a href="/contactenos" class="ml-4">
+                 <button type="button" class="btn bg-primaryLocal text-secondaryLocal px-6 py-2 rounded font-bold hover:bg-opacity-90 transition-all">CONTÁCTENOS</button>
+            </a>
         </nav>
     </div>
 </header>
+<script src="@/scripts/stickyHeader.js"></script>

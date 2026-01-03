@@ -7,6 +7,7 @@ import { getCollection } from "astro:content";
 const postsClient = (await getCollection('especialidades')).sort((a, b) =>
     a.data.title.localeCompare(b.data.title, 'es')
 );
+const _urlSpecialities = '/especialidades/';
 ---
 
 <Layout title="Especialidades- Estudio Jurídico Cabrera" description="Conozca nuestras especialidades legales y cómo podemos ayudarle a resolver sus desafíos jurídicos en áreas clave como derecho corporativo, familiar, penal y más">
@@ -23,7 +24,7 @@ const postsClient = (await getCollection('especialidades')).sort((a, b) =>
                                 <p class="text-primaryLocal mb-4">
                                     {post.data.description}
                                 </p>
-                                <a href={`/especialidades/${post.slug}/`} class="text-primaryLocal font-bold hover:underline">Leer más &rarr;</a>
+                                <a href={`${_urlSpecialities}${post.slug}/`} class="text-primaryLocal font-bold hover:underline">Leer más &rarr;</a>
                             </div>
                     ))}
                 </div>

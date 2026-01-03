@@ -1,25 +1,13 @@
 ---
-import NoticiasPost from '../../layouts/NoticiasPost.astro';
-import MarkdownContent from "../../components/MarkdownContent.astro";
-import {API_BASE_URL} from "../../consts";
-interface NewsPost {
-    newsName: string;
-    id_author: string;
-    title: string;
-    description: string;
-    pubDate: string;
-    updatedDate?: string;
-    heroImage?: string;
-    categories: string[];
-    tags?: string[];
-    readingTime: number;
-}
+import NoticiasPost from "@/layouts/NoticiasPost.astro";
+import MarkdownContent from "@/components/common/MarkdownContent.astro";
+import { NewsService } from "@/services/NewsService";
+import { AuthorService } from "@/services/AuthorService";
+import { News } from "@/models/News";
 
 export async function getStaticPaths() {
-    const apiUrl = `${API_BASE_URL}/news/newsList`;
-    const response = await fetch(apiUrl);
-    const newsList: NewsPost[] = await response.json();
-    return newsList.map((post: NewsPost) => ({
+    const newsList = await NewsService.getNewsList();
+    return newsList.map((post: any) => ({
         params: { slug: post.newsName },
         props: post,
     }));
@@ -27,19 +15,17 @@ export async function getStaticPaths() {
 
 // Obtener el slug de la URL
 const { slug } = Astro.params;
-const postApiUrl = `${API_BASE_URL}/news/newsSlug?slug=${slug}`;
-const postResponse = await fetch(postApiUrl);
-const post = await postResponse.json();
 
-if (post.error) {
+const post: News | null = await NewsService.getBySlug(slug as string);
+
+if (!post) {
     return new Response(null, {
         status: 404,
         statusText: 'Not Found',
     });
 }
 
-const { data, content } = post;
-const id_author = data.id_author;
+const { authorId, content } = post;
 
 // Datos por defecto del autor en caso de error o ausencia
 let authorData = {
@@ -48,30 +34,35 @@ let authorData = {
     profileImage: "https://via.placeholder.com/50"
 };
 
-if (id_author) {
-    const authorApiUrl = `${API_BASE_URL}/author/author?id=${id_author}`;
-    try {
-        const authorResponse = await fetch(authorApiUrl);
-
-        if (authorResponse.ok) {
-            const authorResponseData = await authorResponse.json();
-            authorData = authorResponseData.data;
-        } else {
-            console.log(" Error al obtener datos del autor:", authorResponse.status);
-        }
-    } catch (error) {
-        console.error("Error en la API del autor:", error);
+if (authorId) {
+    const authorResponseData = await AuthorService.getById(authorId);
+    if (authorResponseData) {
+        authorData = {
+            name: authorResponseData.name || "Autor Desconocido",
+            lastname: authorResponseData.lastname || " ?? ??",
+            profileImage: authorResponseData.profileImage || "https://via.placeholder.com/50"
+        };
     }
 } else {
-    console.error(" id_author es undefined, no se pudo buscar el autor.");
+    console.error(" authorId es undefined, no se pudo buscar el autor.");
 }
 
 const postWithAuthor = {
-    ...data,
+    ...post,
     author: authorData,
 };
 ---
 
-<NoticiasPost {...postWithAuthor}>
+<NoticiasPost 
+    title={postWithAuthor.title}
+    description={postWithAuthor.description || ''}
+    pubDate={new Date(postWithAuthor.pubDate || new Date())}
+    updatedDate={postWithAuthor.updatedDate ? new Date(postWithAuthor.updatedDate) : undefined}
+    heroImage={postWithAuthor.heroImage}
+    readingTime={postWithAuthor.readingTime || 0}
+    categories={postWithAuthor.categories || []}
+    tags={postWithAuthor.tags || []}
+    author={postWithAuthor.author as any}
+>
     <MarkdownContent content={content} />
 </NoticiasPost>

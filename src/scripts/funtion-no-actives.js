@@ -1,6 +1,8 @@
 export function initializeAnimations() {
     // Verifica si la animación debe ejecutarse (solo si no está marcada en sessionStorage o es una recarga)
-    const isReload = performance.navigation.type === performance.navigation.TYPE_RELOAD;
+    // performance.navigation.type is deprecated. Use performance.getEntriesByType("navigation")[0].type instead
+    const navEntry = performance.getEntriesByType("navigation")[0];
+    const isReload = navEntry && navEntry.type === 'reload';
 
     if (!sessionStorage.getItem('headerAnimated') || isReload) {
         const elementsFromLeft = document.querySelectorAll('.animate-from-left');

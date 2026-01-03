@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import SpecialtiesPost from "../../layouts/SpecialtiesPost.astro";
-import MarkdownContent from "../../components/MarkdownContent.astro";
+import SpecialtiesPost from "@/layouts/SpecialtiesPost.astro";
+import MarkdownContent from '@/components/common/MarkdownContent.astro';
 export const prerender = true;
 export async function getStaticPaths() {
     const posts = await getCollection('especialidades');

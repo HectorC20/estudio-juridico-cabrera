@@ -2,8 +2,9 @@
 import Footer from "../components/partials/Footer.astro";
 import NavBar from "../components/partials/Navbar.astro";
 import Header from "../components/partials/Header.astro";
-import ScriptAnimation from "../components/ScriptAnimation.vue";
-import ScriptTawkto from "../components/ScriptTawkto.vue";
+import ScriptAnimation from "../components/widgets/ScriptAnimation.vue";
+import ScriptWhatsApp from "../components/widgets/ScriptWhatsApp.vue";
+// import ScriptTawkto from "../components/ScriptTawkto.vue";
 
 interface Props {
     title: string;
@@ -53,7 +54,7 @@ const jsonLd = `
 <!doctype html>
 <head>
     <!-- Incluir JSON-LD   -->
-    <script type="application/ld+json" set:html={jsonLd}></script>
+    <script is:inline type="application/ld+json" set:html={jsonLd}></script>
     <meta name="keywords" content={keywords}/>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -102,6 +103,7 @@ const jsonLd = `
 </div>
 <Footer/>
 <ScriptAnimation client:only="vue"/>
-<ScriptTawkto client:only="vue"/>
+<ScriptWhatsApp client:only="vue"/>
+<!-- <ScriptTawkto client:only="vue"/> -->
 
 </body>

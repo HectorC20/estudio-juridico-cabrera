@@ -2,7 +2,7 @@
 export let isLoading = true;
 ---
 
-<div class={`loading-screen ${isLoading ? '' : 'hidden'}`}>
+<div id="loading-screen" class={`loading-screen ${isLoading ? '' : 'hidden'}`}>
     <div class="content-wrapper">
         <div class="image-container relative">
             <!-- Imagen para teléfonos -->
@@ -22,6 +22,45 @@ export let isLoading = true;
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const loader = document.getElementById('loading-screen');
+        const mainContent = document.getElementById('main-content');
+        const hasVisited = sessionStorage.getItem('hasVisited');
+
+        // Función para mostrar el contenido principal
+        const showContent = () => {
+            if (loader) {
+                loader.classList.add('hidden');
+                setTimeout(() => loader.style.display = 'none', 500);
+            }
+            if (mainContent) {
+                mainContent.classList.remove('hidden');
+                // Disparar evento para inicializaciones dependientes (ej. animaciones)
+                window.dispatchEvent(new Event('main-content-visible'));
+            }
+        };
+
+        if (hasVisited) {
+            // Si ya visitó, mostrar contenido inmediatamente sin loader
+            if (loader) loader.style.display = 'none';
+            if (mainContent) mainContent.classList.remove('hidden');
+        } else {
+            // Si es primera vez, marcar como visitado y ejecutar animación
+            sessionStorage.setItem('hasVisited', 'true');
+            
+            // Esperar a que toda la página cargue (imágenes, recursos)
+            window.addEventListener('load', () => {
+                const minDisplayTime = 3000; // 3 segundos mínimo
+                
+                setTimeout(() => {
+                    showContent();
+                }, minDisplayTime);
+            });
+        }
+    });
+</script>
 
 <style>
     @keyframes border-loading {

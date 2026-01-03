@@ -1,13 +1,13 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import '../styles/noticias.css';
-import FormattedDate from '../components/FormattedDate.astro';
+import FormattedDate from '../components/common/FormattedDate.astro';
 import Layout from "./Layout.astro";
-import NewsTape from "../components/NewsTape.astro";
-import SpecialtiesTape from "../components/SpecialtiesTape.astro";
+import NewsTape from "../components/news/NewsTape.astro";
+import SpecialtiesTape from "../components/specialties/SpecialtiesTape.astro";
 
 type Props = CollectionEntry<'especialidades'>['data'];
-const { id, alt, title, description,pubDate, updatedDate, src } = Astro.props;
+const { alt, title, description,pubDate, updatedDate, src } = Astro.props;
 const currentURL = Astro.url.href;
 ---
 <html lang="en">

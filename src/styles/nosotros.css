@@ -1,0 +1,105 @@
+.nosotros-page-section {
+    @apply relative pt-12;
+}
+
+.nosotros-page-container {
+    @apply container max-w-[1800px] pb-10 mx-auto;
+}
+
+.nosotros-page-image-container {
+    @apply flex justify-center px-5 md:px-0;
+}
+
+.nosotros-page-image {
+    border-top-right-radius: 1.25rem;
+    border-bottom-right-radius: 1.25rem;
+    @apply object-cover shadow-xl shadow-tertiaryLocal/20 -mt-1;
+}
+
+.nosotros-page-title {
+    @apply sm:text-3xl text-2xl xl:text-4xl text-center font-black font-['Assistant'] px-5 text-tertiaryLocal py-1.5;
+}
+
+.nosotros-page-description {
+    @apply text-center text-lg xl:text-2xl px-5 lg:px-24;
+}
+
+.nosotros-page-grid-section {
+    @apply my-12;
+}
+
+.nosotros-page-grid {
+    @apply grid gap-12 sm:mx-16 md:grid-cols-2 xl:gap-8 justify-around pt-6;
+}
+
+.nosotros-page-mission,
+.nosotros-page-vision {
+    @apply flex flex-col justify-start text-center px-4;
+}
+
+.nosotros-page-icon {
+    @apply w-auto mx-auto mb-4;
+    width: 320px;
+    height: auto;
+}
+
+.nosotros-page-subtitle {
+    @apply w-40 h-12 text-2xl mx-auto sm:text-3xl lg:text-4xl font-medium mb-4 text-tertiaryLocal;
+}
+
+.nosotros-page-text {
+    @apply mx-4 lg:mx-12 text-xl;
+}
+
+.nosotros-page-hero-image {
+    position: relative; /* Mantén posición relativa para posicionar hijos */
+    width: 100%;
+    height: 25em; /* Altura fija de la sección */
+    overflow: hidden;
+}
+
+.nosotros-page-hero-image img {
+    width: 100%;
+    height: 100%; /* Asegúrate de que la imagen cubra todo el contenedor */
+    object-fit: cover !important;
+}
+
+.nosotros-page-hero-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 33em; /* Igual altura que el contenedor */
+    background: linear-gradient(150deg, hsla(196, 20%, 19%, 0.6) 0%, hsla(197, 40%, 34%, 0.3) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.nosotros-page-hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 70%;
+    text-align: center;
+    z-index: 2;
+}
+
+.nosotros-page-hero-content h1, 
+.nosotros-page-hero-content h2 {
+    text-shadow: 2px 2px 4px rgba(15, 24, 37, 0.4);
+    font-family: "Archivo Black", sans-serif;
+    @apply text-primaryLocal;
+}
+
+.nosotros-page-hero-content h1 {
+    font-size: 2rem;
+    @apply sm:text-3xl md:text-5xl lg:text-6xl;
+}
+
+.nosotros-page-hero-content h2 {
+    font-size: 1rem;
+    @apply sm:text-lg md:text-xl lg:text-2xl;
+}

@@ -1,17 +1,11 @@
 ---
-import CardClient from "../CardClient.astro";
-import '../../styles/sectionAlliances.css';
-import {getCollection} from "astro:content";
+import CardClient from "../cards/CardClient.astro";
+import '@/styles/components/home/sectionAlliances.css';
 import "swiper/swiper-bundle.css";
-import SectionPages from "../SectionPages.astro";
+import SectionPages from "../common/SectionPages.astro";
+import { getClients, createClientFromPost } from "./SectionAlliances.component";
 
-const postsClient = (await getCollection('clientes')).sort(
-    (a, b) => {
-        const aPubDate = a.data.pubDate ? a.data.pubDate.valueOf() : 0; // Si pubDate es null o undefined, usa 0
-        const bPubDate = b.data.pubDate ? b.data.pubDate.valueOf() : 0; // Lo mismo para b
-        return bPubDate - aPubDate;
-    }
-);
+const postsClient = await getClients();
 
 ---
 
@@ -24,10 +18,7 @@ const postsClient = (await getCollection('clientes')).sort(
                 {postsClient.map((post) => (
                         <div class="swiper-slide">
                             <CardClient
-                                    src={post.data.src || 'https://res.cloudinary.com/dixzojb4s/image/upload/v1729437484/cliente3_sjbzeo.jpg'}
-                                    alt={post.data.alt || 'imagen del cliente'}
-                                    nombre={post.data.nombre || 'Nombre desconocido'}
-                            pubDate={post.data.pubDate || new Date()}
+                                client={createClientFromPost(post)}
                             />
 
                         </div>

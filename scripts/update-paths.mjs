@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Rutas de archivos
-const constantsPath = path.join(__dirname, '../src/constants.ts');
+const constantsPath = path.join(__dirname, '../src/shared/consts.ts');
 const entryPath = path.join(__dirname, '../dist/server/entry.mjs');
 
 // Función para extraer valores de constantes del archivo TS usando Regex
@@ -21,7 +21,7 @@ function extractConstant(content, name) {
 try {
     console.log('🔄 Iniciando actualización de rutas para cPanel...');
 
-    // 1. Leer constants.ts
+    // 1. Leer consts.ts
     if (!fs.existsSync(constantsPath)) {
         throw new Error(`No se encontró el archivo de constantes en: ${constantsPath}`);
     }
@@ -31,7 +31,7 @@ try {
     const serverPath = extractConstant(constantsContent, 'CPANEL_SERVER_PATH');
 
     if (!clientPath || !serverPath) {
-        throw new Error('No se pudieron extraer CPANEL_CLIENT_PATH o CPANEL_SERVER_PATH de constants.ts');
+        throw new Error('No se pudieron extraer CPANEL_CLIENT_PATH o CPANEL_SERVER_PATH de consts.ts');
     }
 
     console.log(`📍 Rutas detectadas:`);
@@ -40,6 +40,9 @@ try {
 
     // 2. Leer y modificar entry.mjs
     if (!fs.existsSync(entryPath)) {
+        // No lanzamos error si no existe entry.mjs para no romper el flujo si se ejecuta en un momento indebido,
+        // pero avisamos. O mejor, mantenemos el comportamiento de lanzar error si es un script post-build crítico.
+        // Asumo que si se llama a este script es porque se espera que exista el build.
         throw new Error(`No se encontró el archivo entry.mjs en: ${entryPath}. Asegúrate de haber ejecutado el build primero.`);
     }
 

@@ -1,9 +1,10 @@
 ---
 import Footer from "../components/partials/Footer.astro";
 import NavBar from "../components/partials/Navbar.astro";
-import ScriptAnimation from "../components/ScriptAnimation.vue";
+import ScriptAnimation from "../components/widgets/ScriptAnimation.vue";
 import MainHeader from "../components/partials/MainHeader.astro";
-import ScriptTawkto from "../components/ScriptTawkto.vue";
+import ScriptWhatsApp from "../components/widgets/ScriptWhatsApp.vue";
+// import ScriptTawkto from "../components/ScriptTawkto.vue";
 
 interface Props {
     title: string;
@@ -65,7 +66,8 @@ const {title, description, image = '/blog-placeholder-1.webp'} = Astro.props;
 </div>
 <Footer/>
 <ScriptAnimation client:only="vue"/>
-<ScriptTawkto client:only="vue"/>
+<ScriptWhatsApp client:only="vue"/>
+<!-- <ScriptTawkto client:only="vue"/> -->
 
 </body>
 </html>

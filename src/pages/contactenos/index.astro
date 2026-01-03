@@ -1,7 +1,7 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import '../../styles/contactenos.css'
-import SocialLinks from "../../components/SocialLinks.astro";
+import Layout from "@/layouts/Layout.astro";
+import '@/styles/contactenos.css'
+import SocialLinks from "@/components/common/SocialLinks.astro";
 ---
 <Layout title="Contáctenos - Estudio Jurídico Cabrera" description="Póngase en contacto con nosotros para recibir asesoría legal personalizada. Estamos aquí para ayudarlo con sus necesidades jurídicas, ¡su caso es nuestra prioridad!">
     <section class="section__contact-us ">
@@ -13,7 +13,8 @@ import SocialLinks from "../../components/SocialLinks.astro";
             <div class="w-full sm:w-auto">
                 <h1 class="text-2xl">Información de contacto</h1>
                 <ul class="font-['Assistant'] pl-3 mt-2 text-xl break-words">
-                    <li class="my-2"><a href="tel:+51965860535">Número telefónico: +51 965 860 535</a> | <a href="tel:+51919198108">+51 919 198 108</a> </li>
+                    <li class="my-2"><a href="tel:+51965860535">Número telefónico: +51 965 860 535</a> 
+                    <!-- | <a href="tel:+51919198108">+51 919 198 108</a> </li> -->
                     <li class="my-2"><a href="https://wa.link/5iwy3c" target="_blank" class="underline break-all">Whatsapp:
                         Link de
                         whatsapp</a>
@@ -28,12 +29,10 @@ import SocialLinks from "../../components/SocialLinks.astro";
     </section>
     <section class="text-gray-600 body-font relative">
         <div class="absolute inset-0 bg-gray-300">
-            <iframe width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" title="map"
-                    scrolling="no"
+            <iframe width="100%" height="100%" title="map"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d509714.0586323496!2d-80.95597255000003!3d-3.5549476999999867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x90338de0a2fb0db5%3A0xb6fca0ebd0caf788!2sEstudio%20Jur%C3%ADdico%20Cabrera%20%7C%20Abogados%20en%20Tumbes!5e0!3m2!1ses!2spe!4v1729079731462!5m2!1ses!2spe"
-                    width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    style="filter: grayscale(1) contrast(1.2) opacity(0.4);"></iframe>
+                    style="border:0; filter: grayscale(1) contrast(1.2) opacity(0.4);" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
 
         <div class="container px-5 py-80 mx-auto flex">

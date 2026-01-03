@@ -1,11 +1,10 @@
 ---
+import type { Client } from "@/models/Client";
+
 export interface Props {
-    src: string;
-    alt: string;
-    nombre: string;
-    pubDate: Date;
+    client: Client;
 }
-const {src, alt, nombre, pubDate} = Astro.props;
+const { client } = Astro.props;
 ---
 <style>
     .section__card__alianzas {
@@ -17,5 +16,5 @@ const {src, alt, nombre, pubDate} = Astro.props;
     }
 </style>
 <div class="section__card__alianzas">
-    <img class="section__card__img__alianzas" src={src} alt={alt} />
+    <img class="section__card__img__alianzas" src={client.src} alt={client.alt} />
 </div>

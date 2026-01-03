@@ -3,8 +3,7 @@
 }
 
 .section-header-other {
-    background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
-    @apply absolute text-primaryLocal w-full  pb-2 lg:pb-1 xl:pb-0.5 z-20 bg-secondaryLocal shadow-lg shadow-secondaryLocal/30;
+    @apply bg-texture absolute text-primaryLocal w-full  pb-2 lg:pb-1 xl:pb-0.5 z-20 bg-secondaryLocal shadow-lg shadow-secondaryLocal/30;
 }
 
 .header-container {
@@ -74,7 +73,7 @@
 }
 
 .list-menu-mobile {
-    background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+    @apply bg-texture;
 }
 
 .menu-drawer {
@@ -148,9 +147,7 @@
 
 
 .cont-add-header {
-    background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
-    font-family: "Assistant", sans-serif;
-    @apply h-8 font-semibold  flex justify-center items-center mx-auto bg-secondaryLocal w-full absolute top-0
+    @apply bg-texture h-8 font-semibold  flex justify-center items-center mx-auto bg-secondaryLocal w-full absolute top-0;
 }
 
 @keyframes slideInFromLeft {

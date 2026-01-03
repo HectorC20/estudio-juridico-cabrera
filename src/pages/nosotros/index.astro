@@ -1,10 +1,13 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import CardClient from "../../components/CardAlliancesAbout.astro";
-import '../../styles/sectionAlliances.css';
+import Layout from "@/layouts/Layout.astro";
+import SocialLinks from "@/components/common/SocialLinks.astro";
+import CardClient from "@/components/cards/CardAlliancesAbout.astro";
+import '@/styles/components/home/sectionAlliances.css';
+import '@/styles/nosotros.css';
 
 import {getCollection} from "astro:content";
 import "swiper/swiper-bundle.css";
+import { Partner } from "@/models/Partner";
 
 const postsAssociate = (await getCollection('alianzas')).sort(
 (a, b) => {
@@ -15,118 +18,9 @@ const postsAssociate = (await getCollection('alianzas')).sort(
 );
 ---
 
-<style>
-    .section-nosotros {
-        @apply relative pt-12;
-    }
-
-    .container-nosotros {
-        @apply container max-w-[1800px] pb-10 mx-auto;
-    }
-
-    .image-container-nosotros {
-        @apply flex justify-center px-5 md:px-0;
-    }
-
-    .image-nosotros {
-        border-top-right-radius: 1.25rem;
-        border-bottom-right-radius: 1.25rem;
-        @apply object-cover shadow-xl shadow-tertiaryLocal/20 -mt-1;
-
-    }
-
-    .title-nosotros {
-        @apply sm:text-3xl text-2xl xl:text-4xl text-center font-black font-['Assistant'] px-5 text-tertiaryLocal py-1.5;
-    }
-
-    .description-nosotros {
-        @apply text-center text-lg xl:text-2xl px-5 lg:px-24;
-    }
-
-    .section-nosotros-grid {
-        @apply my-12
-    }
-
-    .grid-nosotros {
-        @apply grid  gap-12 sm:mx-16 md:grid-cols-2 xl:gap-8 justify-around pt-6;
-    }
-
-    .mission-container,
-    .vision-container {
-        @apply flex    flex-col justify-start text-center px-4;
-    }
-
-    .icon-nosotros {
-        @apply w-auto mx-auto mb-4;
-        width: 320px;
-        height: auto;
-    }
-
-    .subtitle-nosotros {
-        @apply w-40 h-12 text-2xl mx-auto sm:text-3xl lg:text-4xl  font-medium mb-4 text-tertiaryLocal;
-    }
-
-    .text-nosotros {
-        @apply mx-4 lg:mx-12 text-xl ;
-    }
-
-    .hero-image {
-        position: relative; /* Mantén posición relativa para posicionar hijos */
-        width: 100%;
-        height: 25em; /* Altura fija de la sección */
-        overflow: hidden;
-    }
-
-    .hero-image img {
-        width: 100%;
-        height: 100%; /* Asegúrate de que la imagen cubra todo el contenedor */
-        object-fit: cover !important;
-    }
-
-    .hero-image::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 33em; /* Igual altura que el contenedor */
-        background: linear-gradient(150deg, hsla(196, 20%, 19%, 0.6) 0%, hsla(197, 40%, 34%, 0.3) 100%);
-        pointer-events: none;
-        z-index: 1;
-    }
-
-    .hero-cont {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 90%;
-        max-width: 70%;
-        text-align: center;
-        z-index: 2;
-    }
-
-    .hero-cont h1, h2 {
-        text-shadow: 2px 2px 4px rgba(15, 24, 37, 0.4);
-
-        font-family: "Archivo Black", sans-serif;
-        @apply text-primaryLocal
-    }
-
-    .hero-cont h1 {
-        font-size: 2rem;
-        @apply sm:text-3xl md:text-5xl lg:text-6xl;
-    }
-
-    .hero-cont h2 {
-        font-size: 1rem;
-        @apply sm:text-lg md:text-xl lg:text-2xl;
-    }
-</style>
-
 <Layout title="Nosotros - Estudio Jurídico Cabrera" description="Conozca a nuestro equipo de expertos legales, comprometidos a brindarle soluciones jurídicas eficaces y personalizadas, basadas en más de 30 años de experiencia">
-    <div class="hero-image  relative">
-        <div class="hero-cont">
+    <div class="nosotros-page-hero-image relative">
+        <div class="nosotros-page-hero-content">
             <h1>NOSOTROS</h1>
             <h2>Conoce al Estudio Jurídico Cabrera, un equipo comprometido con la excelencia, la confianza y la defensa
                 de tus intereses legales.</h2>
@@ -136,33 +30,33 @@ const postsAssociate = (await getCollection('alianzas')).sort(
         <!-- Agregamos SocialLinks aquí para que esté dentro del mismo contenedor -->
     </div>
 
-    <section class="section-nosotros">
-        <div class="container-nosotros">
+    <section class="nosotros-page-section">
+        <div class="nosotros-page-container">
             <div class="flex lg:flex-row flex-col justify-between">
-                <div class="image-container-nosotros">
+                <div class="nosotros-page-image-container">
                     <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1743651253/fondo_juntos_pe4dek.webp"
-                         alt="Nosotros" loading="lazy" class="image-nosotros">
+                         alt="Nosotros" loading="lazy" class="nosotros-page-image">
                 </div>
                 <div class="flex flex-col my-auto gap-12">
-                    <h1 class="title-nosotros">"Tu confianza es nuestra prioridad"</h1>
-                    <p class="description-nosotros">En <strong>Estudio Jurídico Cabrera</strong>, nos comprometemos a
+                    <h1 class="nosotros-page-title">"Tu confianza es nuestra prioridad"</h1>
+                    <p class="nosotros-page-description">En <strong>Estudio Jurídico Cabrera</strong>, nos comprometemos a
                         ofrecer soluciones legales efectivas, con un enfoque personalizado y profesional. Nuestro equipo
                         de expertos está dedicado a brindarte la mejor asesoría jurídica, basándonos en la
                         transparencia, ética y experiencia.</p>
                 </div>
             </div>
-            <div class="section-nosotros-grid">
-                <div class="grid-nosotros">
-                    <div class="mission-container">
-                        <h2 class="subtitle-nosotros">Misión</h2>
-                        <p class="text-nosotros">Mantener una empresa eficiente con alto grado profesional y cultura
+            <div class="nosotros-page-grid-section">
+                <div class="nosotros-page-grid">
+                    <div class="nosotros-page-mission">
+                        <h2 class="nosotros-page-subtitle">Misión</h2>
+                        <p class="nosotros-page-text">Mantener una empresa eficiente con alto grado profesional y cultura
                             humana que la haga perdurable en el tiempo, contribuyendo al crecimiento sostenido. y
                             armónico de sus clientes y colaboradores.</p>
                     </div>
 
-                    <div class="vision-container">
-                        <h2 class="subtitle-nosotros">Visión</h2>
-                        <p class="text-nosotros">Prestar un servicio profesional, honesto, responsable y eficiente de
+                    <div class="nosotros-page-vision">
+                        <h2 class="nosotros-page-subtitle">Visión</h2>
+                        <p class="nosotros-page-text">Prestar un servicio profesional, honesto, responsable y eficiente de
                             asesoría jurídica, gestión y recuperación de cartera. Con tecnología de punta y metodologías
                             enmarcadas en la Ley, preservando la imagen y el respeto público de nuestros clientes y
                             creando una cultura de cumplimiento de contratos y obligaciones que favorezcan
@@ -181,11 +75,13 @@ const postsAssociate = (await getCollection('alianzas')).sort(
                 {postsAssociate.map((post) => (
                         <div class="swiper-slide">
                             <CardClient
-                                    src={post.data.src || 'https://res.cloudinary.com/dixzojb4s/image/upload/v1729437484/cliente3_sjbzeo.jpg'}
-                                    alt={post.data.alt || 'imagen del cliente'}
-                                    nombre={post.data.nombre || 'Nombre desconocido'}
-                                    pubDate={post.data.pubDate || new Date()}
-                                    url={post.data.url}
+                                partner={new Partner({
+                                    src: post.data.src || 'https://res.cloudinary.com/dixzojb4s/image/upload/v1729437484/cliente3_sjbzeo.jpg',
+                                    alt: post.data.alt || 'imagen del cliente',
+                                    name: post.data.nombre || 'Nombre desconocido',
+                                    pubDate: post.data.pubDate || new Date(),
+                                    url: post.data.url
+                                })}
                             />
 
                         </div>
@@ -196,10 +92,42 @@ const postsAssociate = (await getCollection('alianzas')).sort(
             <div id="swiper-pagination-associate" class="swiper-pagination"></div>
         </div>
     </section>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            import('../../scripts/swiper-carousel-alliances').then((module) => {
-                module.initializeSwiperAssociate('#swiper-associate');
+        import Swiper from 'swiper/bundle';
+        import 'swiper/css/bundle';
+        
+        document.addEventListener('astro:page-load', () => {
+            const swiperAssociate = new Swiper("#swiper-associate", {
+                slidesPerView: 1,
+                spaceBetween: 10,
+                loop: true,
+                pagination: {
+                    el: "#swiper-pagination-associate",
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: "#swiper-button-next-associate",
+                    prevEl: "#swiper-button-prev-associate",
+                },
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 40,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 50,
+                    },
+                },
             });
         });
     </script>

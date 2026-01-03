@@ -18,9 +18,7 @@
 }
 /* Contenido de la navegación */
 .nav-content {
-    background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
-
-    @apply w-full flex justify-around items-center bg-secondaryLocal rounded-full ;
+    @apply bg-texture w-full flex justify-around items-center bg-secondaryLocal rounded-full ;
 }
 
 /* Estilos para cada elemento de la barra de navegación */

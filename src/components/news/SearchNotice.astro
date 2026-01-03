@@ -1,0 +1,75 @@
+---
+const currentURL = Astro.url.href;
+---
+
+
+<style>
+    .cont__publ {
+        @apply absolute text-primaryLocal flex flex-col lg:flex-row items-center justify-center text-center rounded-2xl h-auto w-auto bg-secondaryLocal bottom-0 left-1/2 transform -translate-x-1/2 -mb-[6vh] xl:-mb-[5vh] shadow-lg shadow-secondaryLocal/30 font-semibold ;
+        /* Ajusté el margen y la altura */
+        z-index: 3;
+        padding: 1rem; /* Ajuste de padding para dar más espacio */
+        max-height: 100%; /* Asegura que no haya recortes de altura */
+        background-image: url("https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp");
+    }
+
+    .icons__publ {
+        @apply flex flex-row gap-2 xl:gap-3;
+
+        img {
+            @apply h-7 w-7 xl:h-8 xl:w-8;
+        }
+    }
+</style>
+
+<div class="cont__publ">
+    <div class="icons__publ">
+        <a href={`https://www.facebook.com/sharer/sharer.php?u=${currentURL}`} target="_blank">
+            <img alt="facebook" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/facebook_jsyy4v.svg">
+        </a>
+        <a href={`https://twitter.com/intent/tweet?url=${currentURL}&text=Check%20out%20this%20page`} target="_blank">
+            <img alt="twitter" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946785/twitter_j5muqs.svg">
+        </a>
+        <a href={`https://api.whatsapp.com/send?text=${currentURL}`} target="_blank">
+            <img alt="whatsapp" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946785/whatsapp_ssklfl.svg">
+        </a>
+        <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${currentURL}`} target="_blank">
+            <img alt="linkedin" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/linkedin_zzh7cn.svg">
+        </a>
+        <a href={`https://pinterest.com/pin/create/button/?url=${currentURL}&media=URL_DE_LA_IMAGEN&description=Descripción%20de%20tu%20página`}
+           target="_blank">
+            <img alt="pinterest" src="https://res.cloudinary.com/dixzojb4s/image/upload/v1728946784/pinterest_vl2gtg.svg">
+        </a>
+    </div>
+    <div class="form-control">
+        <input id="searchInput" type="text" placeholder="Buscar Noticia"
+               class="input text-secondaryLocal input-bordered w-[75vw] sm:w-[70vw] md:w-[50vw] lg:w-[30vw] xl:w-[25vw] mx-2 my-2 lg:my-0 "/>
+    </div>
+
+</div>
+
+<script>
+    import { NewsService } from '../../services/NewsService';
+
+    const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+
+    if (searchInput) {
+        searchInput.addEventListener('keypress', async (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const query = searchInput.value.trim();
+
+                if (query.length > 2) {
+                    try {
+                        const result = await NewsService.searchByTitle(query);
+                        document.dispatchEvent(new CustomEvent('newsSearchResults', { detail: result }));
+                    } catch (error) {
+                        console.error('Error fetching search results:', error);
+                    }
+                } else {
+                    document.dispatchEvent(new CustomEvent('newsSearchResults', { detail: [] }));
+                }
+            }
+        });
+    }
+</script>

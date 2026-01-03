@@ -2,8 +2,9 @@
 import Footer from "../components/partials/Footer.astro";
 import NavBar from "../components/partials/Navbar.astro";
 import Header from "../components/partials/Header.astro";
-import ScriptAnimation from "../components/ScriptAnimation.vue";
-import ScriptTawkto from "../components/ScriptTawkto.vue";
+import BaseHead from '../components/common/BaseHead.astro';
+import ScriptAnimation from "../components/widgets/ScriptAnimation.vue";
+// import ScriptTawkto from "../components/ScriptTawkto.vue";
 interface Props {
     title: string;
     description: string;
@@ -14,7 +15,7 @@ interface Props {
     pubDate?: string;
 }
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description, image = '/blog-placeholder-1.webp', authorName, authorProfile, pubDate, robotsTag = 'index, follow' } = Astro.props;
+const { title, description, image = '/blog-placeholder-1.webp', robotsTag = 'index, follow' } = Astro.props;
 
 ---
 <!doctype html>
@@ -69,7 +70,7 @@ const { title, description, image = '/blog-placeholder-1.webp', authorName, auth
 </div>
 <Footer/>
 <ScriptAnimation client:only="vue"/>
-<ScriptTawkto client:only="vue"/>
+<!-- <ScriptTawkto client:only="vue"/> -->
 
 </body>
 </html>

@@ -1,13 +1,12 @@
 ---
 import {getCollection} from 'astro:content';
-import CarouselBlog from "../components/CarouselBlog.vue";
-import SectionNosotros from "../components/home/SectionNosotros.astro";
-import SectionAsociados from "../components/home/SectionAsociados.astro";
-import SectionLoMejor from "../components/home/SectionLoMejor.astro";
-import SectionNoticesHome from "../components/home/SectionNoticesHome.astro";
-import SectionLogros from "../components/home/SectionLogros.astro";
-import LayoutCountry from "../layouts/LayoutCountry.astro";
-import { AstroError } from "astro/errors";
+import CarouselBlog from "@/components/news/CarouselBlog.vue";
+import SectionNosotros from "@/components/home/SectionNosotros.astro";
+import SectionAsociados from "@/components/home/SectionAsociados.astro";
+import SectionLoMejor from "@/components/home/SectionLoMejor.astro";
+import SectionNoticesHome from "@/components/home/SectionNoticesHome.astro";
+import SectionLogros from "@/components/home/SectionLogros.astro";
+import LayoutCountry from "@/layouts/LayoutCountry.astro";
 // Capturamos el 'country' desde la URL
 const {slug} = Astro.params;
 

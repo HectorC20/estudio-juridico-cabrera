@@ -1,5 +1,5 @@
 ---
-import { API_BASE_URL } from "../consts";
+import { API_BASE_URL } from "../shared/consts";
 
 const apiUrl = `${API_BASE_URL}/news/newsByTitle`;
 const currentURL = Astro.url.href;
@@ -51,27 +51,28 @@ const currentURL = Astro.url.href;
 
 </div>
 
-<script type="module">
-    const searchInput = document.getElementById('searchInput');
-    const apiUrl = document.querySelector('.cont__publ').dataset.apiUrl;
+<script>
+    import { NewsService } from '../services/NewsService';
 
-    searchInput.addEventListener('keypress', async (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            const query = searchInput.value.trim();
+    const searchInput = document.getElementById('searchInput') as HTMLInputElement;
 
-            if (query.length > 2) {
-                try {
-                    const response = await fetch(`${apiUrl}?title=${query}`);
-                    const result = await response.json();
+    if (searchInput) {
+        searchInput.addEventListener('keypress', async (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const query = searchInput.value.trim();
 
-                    document.dispatchEvent(new CustomEvent('newsSearchResults', { detail: result }));
-                } catch (error) {
-                    console.error('Error fetching search results:', error);
+                if (query.length > 2) {
+                    try {
+                        const result = await NewsService.searchByTitle(query);
+                        document.dispatchEvent(new CustomEvent('newsSearchResults', { detail: result }));
+                    } catch (error) {
+                        console.error('Error fetching search results:', error);
+                    }
+                } else {
+                    document.dispatchEvent(new CustomEvent('newsSearchResults', { detail: [] }));
                 }
-            } else {
-                document.dispatchEvent(new CustomEvent('newsSearchResults', { detail: [] }));
             }
-        }
-    });
+        });
+    }
 </script>

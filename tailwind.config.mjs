@@ -21,6 +21,9 @@ export default {
 			boxShadow: {
 				secondaryLocal: '0 -7px 12px -14px rgba(secondaryLocal)',
 			},
+			backgroundImage: {
+				'texture': "url('https://res.cloudinary.com/dixzojb4s/image/upload/v1728569459/bg_for_all_nhvkrm.webp')",
+			},
 		},
 	},
 	plugins: [require('daisyui')],

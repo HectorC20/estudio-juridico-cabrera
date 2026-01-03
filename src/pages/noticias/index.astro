@@ -1,25 +1,15 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import FormattedDate from "../../components/FormattedDate.astro";
-import SearchNotice from "../../components/SearchNotice.astro";
-import { API_BASE_URL } from "../../consts";
-import "../../styles/noticiasIndex.css";
+import Layout from "@/layouts/Layout.astro";
+import FormattedDate from "@/components/common/FormattedDate.astro";
+import SearchNotice from "@/components/news/SearchNotice.astro";
+import { NewsService } from "@/services/NewsService";
+import type { NewsSummary } from "@/models/NewsSummary";
+import "@/styles/noticiasIndex.css";
 
-const apiUrl = `${API_BASE_URL}/news/newsList`;
-
-interface NewsItem {
-    newsName: string;
-    title: string;
-    pubDate: string;
-    heroImage?: string;
-}
-
-let newsList: NewsItem[] = [];
+let newsList: NewsSummary[] = [];
 
 try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
-    newsList = (await response.json()) as NewsItem[];
+    newsList = await NewsService.getNewsList();
 } catch (error) {
     console.error("Error al obtener las noticias:", error);
     newsList = [];
@@ -39,12 +29,12 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 const shuffledNews = shuffleArray(newsList);
 
 // Si deseas aplicar el filtro de búsqueda, usa shuffledNews en lugar de sortedNews
-let filteredNews: NewsItem[] = shuffledNews;
+let filteredNews: NewsSummary[] = shuffledNews;
 
-const handleSearchResults = (event: Event) => {
-    const detail = (event as CustomEvent).detail as NewsItem[];
-    filteredNews = detail.length > 0 ? detail : shuffledNews;
-};
+// const handleSearchResults = (event: Event) => {
+//     const detail = (event as CustomEvent).detail as NewsSummary[];
+//     filteredNews = detail.length > 0 ? detail : shuffledNews;
+// };
 ---
 
 <Layout title="Noticias - Estudio Jurídico Cabrera" description="Manténgase al día con las últimas noticias legales, actualizaciones del sector y novedades de Estudio Jurídico Cabrera para estar siempre informado sobre sus derechos">
@@ -68,14 +58,14 @@ const handleSearchResults = (event: Event) => {
             <div class="flex flex-col">
                 <ul id="newsList">
                     {
-                        filteredNews.map((post: NewsItem) => (
+                        filteredNews.map((post: NewsSummary) => (
                                 <li class="rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105 min-h-[22em]">
                                     <a href={`/noticias/${post.newsName}/`} class="block">
                                         <img src={post.heroImage || 'https://via.placeholder.com/400x200'} alt={post.newsName} class="w-full min-h-[12em] object-cover"/>
                                         <div class="text-overlay">
                                             <h4 class="title text-lg 2xl:text-xl font-semibold text-secondaryLocal">{post.title}</h4>
                                             <p class="date 2xl:text-xl text-secondaryLocal">
-                                                <FormattedDate date={new Date(post.pubDate)}/>
+                                                <FormattedDate date={new Date(post.pubDate || new Date())}/>
                                             </p>
                                             <div class="more__des">Leer Más</div>
                                             <div class="h-1 w-full bg-tertiaryLocal absolute bottom-0 left-0 rounded-b-md"></div>

@@ -1,0 +1,15 @@
+---
+import type { Client } from "@/models/Client";
+
+export interface Props {
+    client: Client;
+}
+const { client } = Astro.props;
+---
+<div class="section__card">
+    <img class="section__card__img" src={client.src} alt={client.alt}/>
+    <div class="section__card__content">
+        <h3 class="section__card__title">{client.name}</h3>
+        <p class="section__card__desc hidden">{client.pubDate ? client.pubDate.toLocaleDateString() : ''}</p>
+    </div>
+</div>

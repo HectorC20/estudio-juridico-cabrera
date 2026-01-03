@@ -1,0 +1,25 @@
+#swiper-associate {
+    @apply min-h-[10em];
+}
+
+.section__title__asociados {
+    font-family: "Archivo Black", sans-serif;
+    @apply font-bold text-center text-secondaryLocal mb-8 pt-8 text-5xl 2xl:text-5xl;
+}
+
+#swiper-associate .swiper-wrapper {
+    transition-timing-function: linear; /* Movimiento constante y sin aceleraciones */
+}
+
+#swiper-associate .swiper-slide {
+    transform: scale(1); /* Mantiene el tamaño de las diapositivas constante */
+    transition: transform 1.8s linear, opacity 1.8s linear;
+}
+
+#swiper-associate .swiper-slide-active {
+    opacity: 1;
+}
+
+#swiper-associate .swiper-slide:not(.swiper-slide-active) {
+    opacity: 0.9;
+}

@@ -12,10 +12,16 @@ export default defineConfig({
   site: 'https://estudiojuridicocabrera.com',
   output: 'server',
   adapter: node({ mode: 'standalone' }),
+  vite: {
+    server: {
+      
+    },
+  },
   integrations: [vue(), tailwind(), mdx(), sitemap({ entryLimit: 9999 })],
-  trailingSlash: 'always', // 👈 Esta línea fuerza la barra final en todas las rutas
+  trailingSlash: 'ignore',
   base: process.env.BASE || '/',
   devOptions: {
     port: 4325,
   },
 });
+

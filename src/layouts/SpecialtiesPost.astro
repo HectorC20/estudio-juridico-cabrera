@@ -9,16 +9,19 @@ import SpecialtiesTape from "../components/specialties/SpecialtiesTape.astro";
 type Props = CollectionEntry<'especialidades'>['data'];
 const { alt, title, description,pubDate, updatedDate, src } = Astro.props;
 const currentURL = Astro.url.href;
+const slugActual = Astro.url.pathname.split("/").filter(Boolean).pop();
 ---
-<html lang="en">
+
 <Layout title={title} description={description}>
-    <main class="py-[2rem] xl:py-[4rem]">
-        <article>
-            <div class="hero-image relative">
+    <main class="news-main-container">
+        <article class="news-article">
+            <div class="hero-image">
                 {src && <img src={src} alt={alt} />}
-                <h1 class="center__title">{title}</h1>
+                <h1 class="notice__title">{title}</h1>
                 <div class="cont__publ">
-                    <FormattedDate date={pubDate} />
+                    <div class="pub-date">
+                        <FormattedDate date={pubDate} />
+                    </div>
 
                     <div class="icons__publ">
                         <a href={`https://www.facebook.com/sharer/sharer.php?u=${currentURL}`} target="_blank">
@@ -39,10 +42,11 @@ const currentURL = Astro.url.href;
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col lg:flex-row gap-6">
-                <div class="prose">
-                    <div class="title">
-                        <div class="date">
+
+            <div class="content-wrapper">
+                <div class="news-content-column">
+                    <div class="title-divider">
+                        <div class="date-updated">
                             {updatedDate && (
                                     <div class="last-updated-on">
                                         Last updated on
@@ -50,27 +54,18 @@ const currentURL = Astro.url.href;
                                     </div>
                             )}
                         </div>
-                        <hr />
+                        <hr class="divider-line" />
                     </div>
-                    <slot />
+                    <div class="prose markdown-content">
+                        <slot />
+                    </div>
                 </div>
-                <NewsTape />
+                <NewsTape slugActual={slugActual} />
             </div>
         </article>
-        <SpecialtiesTape/>
+        
+        <div class="w-full mt-12 bg-white">
+            <SpecialtiesTape/>
+        </div>
     </main>
 </Layout>
-</html>
-
-<style>
-    .center__title {
-        position: absolute;
-        top: 18vw;
-        left: 50%;
-        transform: translateX(-50%);
-        text-shadow: 2px 2px 4px rgba(15, 24, 37, 0.4);
-        font-family: "Archivo Black", sans-serif;
-        z-index: 3;
-        @apply px-4 text-center xl:top-[18vh] text-primaryLocal text-4xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl;
-    }
-</style>

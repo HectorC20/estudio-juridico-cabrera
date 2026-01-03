@@ -5,6 +5,8 @@ import { NewsService } from "@/services/NewsService";
 import { AuthorService } from "@/services/AuthorService";
 import { News } from "@/models/News";
 
+import { Author } from "@/models/Author";
+
 export async function getStaticPaths() {
     const newsList = await NewsService.getNewsList();
     return newsList.map((post: any) => ({
@@ -16,7 +18,17 @@ export async function getStaticPaths() {
 // Obtener el slug de la URL
 const { slug } = Astro.params;
 
-const post: News | null = await NewsService.getBySlug(slug as string);
+// Intentar obtener la noticia de las props (generación estática) o buscarla por slug
+let post: News | null = Astro.props as News;
+
+// Si el post viene de getStaticPaths (NewsSummary), puede faltar contenido o authorId.
+// Verificamos si faltan datos críticos y, si es así, obtenemos la noticia completa.
+if (!post || Object.keys(post).length === 0 || !post.content || (!post.authorId && !(post as any).author)) {
+    const fullPost = await NewsService.getBySlug(slug as string);
+    if (fullPost) {
+        post = fullPost;
+    }
+}
 
 if (!post) {
     return new Response(null, {
@@ -28,28 +40,36 @@ if (!post) {
 const { authorId, content } = post;
 
 // Datos por defecto del autor en caso de error o ausencia
-let authorData = {
-    name: "Autor Desconocido",
-    lastname: " ?? ??",
+let authorInstance = new Author({
+    id: "unknown",
+    name: "Autor",
+    lastname: "Desconocido",
     profileImage: "https://via.placeholder.com/50"
-};
+});
 
+// Intentar cargar el autor si existe un ID
 if (authorId) {
-    const authorResponseData = await AuthorService.getById(authorId);
-    if (authorResponseData) {
-        authorData = {
-            name: authorResponseData.name || "Autor Desconocido",
-            lastname: authorResponseData.lastname || " ?? ??",
-            profileImage: authorResponseData.profileImage || "https://via.placeholder.com/50"
-        };
+    try {
+        const authorResponseData = await AuthorService.getById(authorId);
+        if (authorResponseData) {
+            authorInstance = authorResponseData;
+        }
+    } catch (error) {
+        console.error(`Error al cargar autor ${authorId}:`, error);
     }
 } else {
-    console.error(" authorId es undefined, no se pudo buscar el autor.");
+    // Si no hay authorId, verificar si el objeto post ya tiene un autor completo (aunque NewsService suele devolver solo ID)
+    const postAny = post as any;
+    if (postAny.author && typeof postAny.author === 'object' && postAny.author.name) {
+        authorInstance = new Author(postAny.author);
+    } else {
+         console.warn(`Noticia ${slug} sin authorId.`);
+    }
 }
 
 const postWithAuthor = {
     ...post,
-    author: authorData,
+    author: authorInstance,
 };
 ---
 
@@ -62,7 +82,7 @@ const postWithAuthor = {
     readingTime={postWithAuthor.readingTime || 0}
     categories={postWithAuthor.categories || []}
     tags={postWithAuthor.tags || []}
-    author={postWithAuthor.author as any}
+    author={postWithAuthor.author}
 >
     <MarkdownContent content={content} />
 </NoticiasPost>

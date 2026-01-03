@@ -26,10 +26,12 @@
 
 .notice__title {
     position: absolute;
+    width: 100%;
+    justify-content: center;
     text-shadow: 2px 2px 4px rgba(15, 24, 37, 0.4);
     font-family: "Archivo Black", sans-serif;
     z-index: 3;
-    @apply px-4 text-center flex text-primaryLocal text-4xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl top-[18vw] xl:top-[8vw];
+    @apply px-4 text-center flex text-primaryLocal text-4xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl top-[18vw] xl:top-[12vw];
 }
 
 .prose {
@@ -59,7 +61,7 @@ p {
 }
 
 .prose {
-    @apply w-[80vw] lg:w-[70vw] xl:w-[75vw] ml-[10vw] ;
+    @apply w-full;
 }
 
 .cont__publ {
@@ -96,7 +98,7 @@ p {
 }
 
 .prose ul li {
-    @apply mb-2 font-semibold text-justify leading-relaxed text-lg 2xl:text-2xl;
+    @apply mb-3 text-justify leading-8 text-lg text-gray-700;
 }
 
 .prose ol {
@@ -104,11 +106,24 @@ p {
 }
 
 .prose ol li {
-    @apply mb-2 text-justify font-semibold leading-relaxed text-lg 2xl:text-2xl !important;
+    @apply mb-3 text-justify leading-8 text-lg text-gray-700 !important;
+}
+
+.prose ul li a {
+    @apply text-primaryLocal hover:underline font-medium transition-colors;
 }
 
 .prose ul li::marker, .prose ol li::marker {
-    @apply text-lg text-secondaryLocal;
+    @apply text-lg text-secondaryLocal font-bold;
+}
+
+/* Estilos para Referencias y Listas anidadas */
+.prose ul ul, .prose ol ol {
+    @apply mt-2 mb-2;
+}
+
+.prose li strong {
+    @apply text-secondaryLocal font-bold block mb-1;
 }
 
 @media (min-width: 768px) {
@@ -132,4 +147,115 @@ p {
     img {
         @apply h-8  w-8 object-cover rounded-xl !important;
     }
+}
+
+/* Estilos para el contenedor principal y artículo */
+.news-main-container {
+    @apply w-full bg-white flex flex-col items-center;
+}
+
+.news-article {
+    @apply w-full flex flex-col items-center relative;
+}
+
+.content-wrapper {
+    @apply w-full flex flex-col lg:flex-row max-w-6xl mx-auto mt-8 lg:mt-12 gap-8 lg:gap-12 px-4 sm:px-8;
+}
+
+.news-content-column {
+    @apply flex-1 w-full min-w-0;
+}
+
+/* Estilos para información del autor */
+.author-info-container {
+    @apply mb-8 flex items-center p-0 ;
+    margin-top: 2rem;
+}
+
+.author-link {
+    @apply flex items-center gap-5;
+}
+
+.author-link:hover .profile__user__news {
+    @apply ring-secondaryLocal/30;
+}
+
+.author-link:hover .author-name {
+    @apply text-tertiaryLocal;
+}
+
+.profile__user__news {
+    @apply w-16 h-16 rounded-full object-cover shadow-md border-2 border-white ring-2 ring-secondaryLocal/10 transition-all duration-300;
+}
+
+.author-name {
+    @apply text-xl font-extrabold text-secondaryLocal uppercase tracking-wide leading-none transition-colors;
+}
+
+/* Estilos para metadatos */
+.meta-info-container {
+    @apply flex flex-wrap items-center gap-4 mb-8 pb-6 border-b border-gray-100;
+}
+
+.meta-category {
+    @apply bg-secondaryLocal text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm hover:bg-tertiaryLocal transition-colors cursor-default;
+}
+
+.meta-reading-time {
+    @apply flex items-center text-gray-400 text-sm font-medium ml-auto;
+}
+
+.meta-reading-time::before {
+    content: '';
+    @apply inline-block w-1 h-1 bg-gray-300 rounded-full mr-3;
+}
+
+/* Estilos para divisor y fecha actualización */
+.title-divider {
+    @apply w-full mb-10 hidden;
+}
+
+.date-updated {
+    @apply text-xs text-gray-400 text-right mb-2 font-medium uppercase tracking-widest;
+}
+
+.divider-line {
+    @apply border-t border-gray-100;
+}
+
+/* Estilos para contenido Markdown */
+.markdown-content {
+    @apply w-full text-lg leading-8 text-gray-700 font-normal;
+}
+
+.prose h2 {
+    text-transform: uppercase;
+    @apply text-2xl lg:text-2xl font-bold leading-tight text-secondaryLocal mt-12 mb-6 pb-4 border-b-2 border-secondaryLocal/10 inline-block;
+}
+
+.prose h3 {
+    @apply text-xl lg:text-2xl font-bold text-tertiaryLocal mt-10 mb-4;
+}
+
+.prose p {
+    margin-bottom: 1.5em;
+    @apply text-lg text-gray-600 leading-8 text-justify;
+}
+
+.prose strong {
+    @apply text-secondaryLocal font-bold;
+}
+
+.prose blockquote {
+    @apply pl-6 border-l-4 border-tertiaryLocal italic text-xl text-gray-500 my-8 py-2 bg-gray-50 rounded-r-lg;
+}
+
+.prose ul li::marker {
+    @apply text-secondaryLocal;
+}
+
+
+/* Estilos para etiquetas */
+.tags-container {
+    @apply w-full max-w-[90rem] mx-auto mt-12 px-4 sm:px-8 text-sm text-gray-500 border-t border-gray-100 pt-6;
 }

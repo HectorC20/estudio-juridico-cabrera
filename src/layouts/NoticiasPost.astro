@@ -1,29 +1,17 @@
 ---
-import '../styles/noticias.css';
-import FormattedDate from '../components/common/FormattedDate.astro';
-import NewsTape from "../components/news/NewsTape.astro";
-import SpecialtiesTape from "../components/specialties/SpecialtiesTape.astro";
+import '@/styles/noticias.css';
+import FormattedDate from '@/components/common/FormattedDate.astro';
+import NewsTape from "@/components/news/NewsTape.astro";
+import SpecialtiesTape from "@/components/specialties/SpecialtiesTape.astro";
 import NewsLayout from "./NewsLayout.astro";
-import type { Author } from '../models/Author';
-
-interface Props {
-    title: string;
-    description: string;
-    pubDate: Date;
-    updatedDate?: Date;
-    heroImage?: string;
-    readingTime: number;
-    categories: string[];
-    tags?: string[];
-    author: Author;
-}
+import { NoticiasPostModel } from '@/models/NoticiasPostProps';
+type Props = NoticiasPostModel;
 
 const { title, description, pubDate, updatedDate, heroImage, readingTime, categories, tags, author } = Astro.props;
 const currentURL = Astro.url.href;
 const slugActual = Astro.url.pathname.split("/").filter(Boolean).pop();
 ---
 
-<html lang="en">
 <NewsLayout
         title={title}
         description={description}
@@ -34,14 +22,17 @@ const slugActual = Astro.url.pathname.split("/").filter(Boolean).pop();
         categories={categories}
 >
 
-    <main class="py-[2rem] xl:py-[4rem]">
-        <article>
+    <main class="news-main-container">
+        <article class="news-article">
             <div class="hero-image">
                 {heroImage && <img src={heroImage} alt={heroImage.split('/').pop()?.split('.')[0] || 'Imagen de la noticia'} />}
 
                 <h1 class="notice__title">{title}</h1>
                 <div class="cont__publ">
-                    <FormattedDate date={new Date(pubDate)}/>
+                    <div class="pub-date">
+                        <FormattedDate date={new Date(pubDate)}/>
+                    </div>
+                   
                     <div class="icons__publ">
                         <a href={`https://www.facebook.com/sharer/sharer.php?u=${currentURL}`} target="_blank">
                             <img alt="facebook"
@@ -68,31 +59,32 @@ const slugActual = Astro.url.pathname.split("/").filter(Boolean).pop();
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col lg:flex-row gap-6">
+            
+            <div class="content-wrapper">
 
-                <div class="prose">
-                    <div class="author-info">
-                        <a href={`/noticias/autor/${author.id}/`}>
+                <div class="news-content-column">
+                    <div class="author-info-container">
+                        <a href={`/noticias/autor/${author.id}/`} class="author-link">
                             <img
                                     src={author.profileImage}
                                     alt={`Foto de perfil de ${author.name} ${author.lastname}`}
                                     class="profile__user__news"
                             />
-                            <p>{`${author.name} ${author.lastname}`.trim()}</p>
+                            <p class="author-name">{`${author.name} ${author.lastname}`.trim()}</p>
                         </a>
                     </div>
 
-                    <div class="flex flex-row justify-between">
-                        <div class="text-primaryLocal font-semibold bg-secondaryLocal w-auto pt-2 px-2 rounded-t-xl ">
+                    <div class="meta-info-container">
+                        <div class="meta-category">
                             Categorías: {categories.join(", ")}
                         </div>
-                        <div class="text-primaryLocal font-semibold bg-secondaryLocal w-36 pt-2 px-2 rounded-t-xl ">
+                        <div class="meta-reading-time">
                             Lectura - {readingTime} min
                         </div>
-
                     </div>
-                    <div class="title">
-                        <div class="date">
+                   
+                    <div class="title-divider">
+                        <div class="date-updated">
                             {updatedDate && (
                                     <div class="last-updated-on">
                                         Last updated on
@@ -100,17 +92,24 @@ const slugActual = Astro.url.pathname.split("/").filter(Boolean).pop();
                                     </div>
                             )}
                         </div>
-                        <hr/>
+                        <hr class="divider-line"/>
                     </div>
-                    <slot/>
+                   
+                    <div class="prose markdown-content">
+                        <slot/>
+                    </div>
                 </div>
+               
                 <NewsTape slugActual={slugActual}/>
             </div>
-            <div class="ml-[9vw] text-fifthLocal font-semibold  w-auto pt-2 px-2 rounded-t-xl ">Etiquetas: {tags?.length ? tags.join(", ") : "Sin etiquetas"}
+            
+            <div class="tags-container">
+                Etiquetas: {tags?.length ? tags.join(", ") : "Sin etiquetas"}
             </div>
-
         </article>
-        <SpecialtiesTape/>
+        
+        <div class="w-full mt-12 bg-white">
+            <SpecialtiesTape/>
+        </div>
     </main>
 </NewsLayout>
-</html>

@@ -52,6 +52,12 @@ Los endpoints marcados con 🔒 requieren un token JWT en el header `Authorizati
 | `GET` | `/specialties` | Listar todas las especialidades. | 🔓 |
 | `GET` | `/specialties/:slug` | Obtener detalles de una especialidad por slug. | 🔓 |
 
+### 🏆 Casos de Éxito (`/success-cases`)
+| Método | Endpoint | Descripción | Auth |
+|---|---|---|---|
+| `GET` | `/success-cases` | Listar casos de éxito destacados (home). | 🔓 |
+| `GET` | `/success-cases/:slug` | Obtener detalles de un caso de éxito. | 🔓 |
+
 ---
 
 ## 📝 Detalles de Implementación (Nuevos Endpoints)
@@ -85,4 +91,29 @@ Debe devolver los contadores y textos estadísticos.
 {
   "casesManaged": "+ DE 4000 CASOS GESTIONADOS"
 }
+```
+
+### 3. Casos de Éxito (Home)
+**Endpoint**: `GET /api/v1/success-cases`
+
+Debe devolver una lista de los casos de éxito más relevantes para mostrar en la página principal.
+
+**Respuesta Exitosa (200 OK):**
+```json
+[
+  {
+    "slug": "resolucion-conflicto-societario",
+    "title": "Resolución de Conflicto Societario",
+    "category": "Corporativo",
+    "image": "https://url-imagen.com/caso1.jpg",
+    "summary": "Logramos una negociación exitosa entre accionistas..."
+  },
+  {
+    "slug": "recuperacion-propiedad",
+    "title": "Recuperación de Propiedad",
+    "category": "Civil",
+    "image": "https://url-imagen.com/caso2.jpg",
+    "summary": "Sentencia favorable en tiempo récord..."
+  }
+]
 ```

@@ -4,6 +4,7 @@ import NavBar from "../components/partials/Navbar.astro";
 import Header from "../components/partials/Header.astro";
 import BaseHead from '../components/common/BaseHead.astro';
 import ScriptAnimation from "../components/widgets/ScriptAnimation.vue";
+import ScriptWhatsApp from "@/components/widgets/ScriptWhatsApp.vue";
 // import ScriptTawkto from "../components/ScriptTawkto.vue";
 interface Props {
     title: string;
@@ -71,6 +72,7 @@ const { title, description, image = '/blog-placeholder-1.webp', robotsTag = 'ind
 <Footer/>
 <ScriptAnimation client:only="vue"/>
 <!-- <ScriptTawkto client:only="vue"/> -->
+<ScriptWhatsApp client:only="vue"/>
 
 </body>
 </html>

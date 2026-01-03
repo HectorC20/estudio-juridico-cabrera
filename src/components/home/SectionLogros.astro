@@ -2,37 +2,108 @@
 import '@/styles/components/home/sectionLogros.css';
 ---
 
-<section class="section__logros">
+<section class="section__logros" id="logros-section">
     <div class="logros__container">
         <ul class="logros__lista">
-            <li class="logros__item">
+            <li class="logros__item opacity-0 translate-y-8 transition-all duration-700 ease-out" data-delay="0">
                 <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1732331613/clientes_vpfaik.svg" alt="clientes">
                 <div class="logros__text">
-                    <span>+3000</span>
+                    <span class="counter" data-target="3000">+0</span>
                     <span>Clientes</span>
                 </div>
             </li>
-            <li class="logros__item">
+            <li class="logros__item opacity-0 translate-y-8 transition-all duration-700 ease-out" data-delay="200">
                 <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1732331627/casos_gkd2pr.svg" alt="casos">
                 <div class="logros__text">
-                    <span>+4000</span>
+                    <span class="counter" data-target="4000">+0</span>
                     <span>Casos</span>
                 </div>
             </li>
-            <li class="logros__item">
+            <li class="logros__item opacity-0 translate-y-8 transition-all duration-700 ease-out" data-delay="400">
                 <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1732331626/desde_pxz98u.svg" alt="desde">
                 <div class="logros__text">
-                    <span>+30</span>
+                    <span class="counter" data-target="30">+0</span>
                     <span>Años de Experiencia</span>
                 </div>
             </li>
-            <li class="logros__item">
+            <li class="logros__item opacity-0 translate-y-8 transition-all duration-700 ease-out" data-delay="600">
                 <img src="https://res.cloudinary.com/dixzojb4s/image/upload/v1732331626/certificados_qiwith.svg" alt="certificados">
                 <div class="logros__text">
-                    <span>+200</span>
+                    <span class="counter" data-target="200">+0</span>
                     <span>Certificados</span>
                 </div>
             </li>
         </ul>
     </div>
 </section>
+
+<script>
+    // Configuración de la animación de conteo
+    const animationDuration = 2000; // 2 segundos
+    const frameDuration = 1000 / 60; // 60fps
+    const totalFrames = Math.round(animationDuration / frameDuration);
+    const easeOutQuad = (t: number) => t * (2 - t);
+
+    const animateCounter = (el: HTMLElement) => {
+        const target = parseInt(el.getAttribute('data-target') || '0');
+        let frame = 0;
+        
+        const count = setInterval(() => {
+            frame++;
+            const progress = easeOutQuad(frame / totalFrames);
+            const currentCount = Math.round(target * progress);
+
+            if (target >= 1000) {
+                 el.textContent = '+' + currentCount.toLocaleString(); // Formato con separadores de miles
+            } else {
+                 el.textContent = '+' + currentCount;
+            }
+
+            if (frame === totalFrames) {
+                clearInterval(count);
+                // Asegurar valor final exacto
+                if (target >= 1000) {
+                     el.textContent = '+' + target.toLocaleString();
+                } else {
+                     el.textContent = '+' + target;
+                }
+            }
+        }, frameDuration);
+    };
+
+    // Intersection Observer para detectar cuando la sección es visible
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2 // Iniciar cuando el 20% del elemento sea visible
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Animar aparición de items
+                const items = entry.target.querySelectorAll('.logros__item');
+                items.forEach(item => {
+                    const delay = item.getAttribute('data-delay');
+                    setTimeout(() => {
+                        item.classList.remove('opacity-0', 'translate-y-8');
+                        
+                        // Iniciar conteo cuando el item aparece
+                        const counter = item.querySelector('.counter');
+                        if (counter instanceof HTMLElement) animateCounter(counter);
+                        
+                    }, parseInt(delay || '0'));
+                });
+
+                // Dejar de observar después de activar
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Iniciar observación
+    const section = document.getElementById('logros-section');
+    if (section) {
+        observer.observe(section);
+    }
+</script>

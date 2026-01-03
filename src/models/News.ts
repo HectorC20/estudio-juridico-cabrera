@@ -14,7 +14,8 @@ export class News extends NewsSummary {
         this.readingTime = data.readingTime;
         this.categories = data.categories || [];
         this.tags = data.tags || [];
-        this.authorId = data.authorId || data.id_author;
+        // Intentar obtener authorId de varias fuentes posibles
+        this.authorId = data.authorId || data.id_author || (typeof data.author === 'object' ? data.author.id : data.author);
         this.content = data.content || "";
     }
 }

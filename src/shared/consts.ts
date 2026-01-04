@@ -4,10 +4,10 @@
 export const SITE_TITLE = 'ABOGADOS EN TUMBES | ESTUDIO JURÍDICO CABRERA ';
 export const SITE_DESCRIPTION = 'Casos y leyes en ESTUDIO JURÍDICO CABRERA';
 //Desarrollo
-export const API_BASE_URL = "http://localhost:4322/api/v1";
+// export const API_BASE_URL = "http://localhost:4322/api/v1";
 
 //Produccion
-// export const API_BASE_URL = "https://app-management-web.vercel.app/api/v1";
+export const API_BASE_URL = "https://app-management-web.vercel.app/api/v1";
 
 //Produccion 
 
